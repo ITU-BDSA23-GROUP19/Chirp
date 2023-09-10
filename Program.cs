@@ -9,7 +9,7 @@ void Read() {
     
     IEnumerable records = csv.GetRecords<Cheep>();
     foreach (Cheep record in records) {
-        Console.WriteLine($"{record.Author} @ {TimestampToTime(record.Timestamp)} : {record.Message}");
+        Console.WriteLine($"{record.Author} @ {TimestampToTime(record.Timestamp)}: {record.Message}");
     }
 }
 
