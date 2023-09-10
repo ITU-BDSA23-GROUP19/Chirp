@@ -3,25 +3,23 @@ using CsvHelper.Configuration;
 using System.Collections;
 using System.Globalization;
 
-void Read(){
-    using (StreamReader reader = new StreamReader("chirp_cli_db.csv"))
-    using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture)){
-        IEnumerable records = csv.GetRecords<Cheep>();
-        
-        foreach(Cheep record in records){
-            Console.WriteLine($"{record.Author} @ {TimestampToTime(record.Timestamp)} : {record.Message}");
-        }
+void Read() {
+    using StreamReader reader = new StreamReader("chirp_cli_db.csv");
+    using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+    
+    IEnumerable records = csv.GetRecords<Cheep>();
+    foreach (Cheep record in records) {
+        Console.WriteLine($"{record.Author} @ {TimestampToTime(record.Timestamp)} : {record.Message}");
     }
 }
 
-void Cheep(){
+void Cheep() {
     List<Cheep> records = new List<Cheep> { new Cheep (Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()) };
     CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false };
-    
-    using (var writer = new StreamWriter("chirp_cli_db.csv", true))
-    using (var csv = new CsvWriter(writer, config)) { 
-        csv.WriteRecords(records); 
-    }
+
+    using StreamWriter writer = new StreamWriter("chirp_cli_db.csv", true);
+    using CsvWriter csv = new CsvWriter(writer, config);
+    csv.WriteRecords(records);
 }
 
 string TimestampToTime(long timestamp) {
