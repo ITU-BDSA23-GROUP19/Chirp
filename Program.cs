@@ -8,7 +8,6 @@ void Read() {
     
     IEnumerable<Cheep> records = csv.GetRecords<Cheep>();
     Userinterface.PrintCheeps(records);
-    
 }
 
 void Cheep() {
