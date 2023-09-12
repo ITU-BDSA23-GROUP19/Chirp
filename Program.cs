@@ -1,16 +1,13 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using System.Collections;
 using System.Globalization;
 
 void Read() {
     using StreamReader reader = new StreamReader("chirp_cli_db.csv");
     using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
     
-    IEnumerable records = csv.GetRecords<Cheep>();
-    foreach (Cheep record in records) {
-        Console.WriteLine($"{record.Author} @ {TimestampToTime(record.Timestamp)}: {record.Message}");
-    }
+    IEnumerable<Cheep> records = csv.GetRecords<Cheep>();
+    Userinterface.PrintCheeps(records);
 }
 
 void Cheep() {
@@ -20,10 +17,6 @@ void Cheep() {
     using StreamWriter writer = new StreamWriter("chirp_cli_db.csv", true);
     using CsvWriter csv = new CsvWriter(writer, config);
     csv.WriteRecords(records);
-}
-
-string TimestampToTime(long timestamp) {
-    return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime().ToString();
 }
 
 if (args.Length == 0) {
