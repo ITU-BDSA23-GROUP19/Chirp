@@ -1,4 +1,4 @@
-namespace SimpleDB;
+﻿namespace SimpleDB;
 
 using CsvHelper;
 using CsvHelper.Configuration;
