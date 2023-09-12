@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
@@ -11,6 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
+  </ItemGroup>
 
 </Project>
