@@ -5,7 +5,7 @@ public static class Userinterface{
         }
     }
 
-    private static string TimestampToTime(long timestamp) {
-        return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime().ToString();
+    private static DateTime TimestampToTime(long timestamp) {
+        return DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime.ToLocalTime();
     }
 }
