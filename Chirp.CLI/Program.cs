@@ -3,26 +3,27 @@ using DocoptNet;
 
 IDatabase<Cheep> database = new CSVDatabase<Cheep>("../Resources/database.csv");
 
-const string usage = @"Chirp commands
+const string usage = @"Chirp
 
 Usage:
-  chirp read [--limit]
+  chirp read [<limit>]
   chirp cheep (<message>)
-  chirp (-h | -help)
+  chirp (-h | --help)
 
 Options:
-  -h --help     Show this screen. 
-  --limit       Cheeps shown [default: 5]
+  -h --help     Show this screen.
 ";
 
-var arguments = new Docopt().Apply(usage, args, exit: true)!;
+IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
 
 if (arguments["cheep"].IsTrue) {
     database.Store(new Cheep(arguments["<message>"].ToString()));
-} else if(arguments["read"].IsTrue) {
-    if (arguments["--limit"].IsNullOrEmpty) {
+} else if (arguments["read"].IsTrue) {    
+    ValueObject limit = arguments["<limit>"];
+
+    if (limit.IsNullOrEmpty || !limit.IsInt) {
         Userinterface.PrintCheeps(database.Read());
     } else {
-        Userinterface.PrintCheeps(database.Read(arguments["--limit"].AsInt));
+        Userinterface.PrintCheeps(database.Read(limit.AsInt));
     }
 }
