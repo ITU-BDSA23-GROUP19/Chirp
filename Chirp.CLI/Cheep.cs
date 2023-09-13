@@ -1,4 +1,10 @@
 public class Cheep {
+    public Cheep(string author, string message, long timestamp) {
+        Author = author;
+        Message = message;
+        Timestamp = timestamp;
+    }
+
     public Cheep(string message) {
         Author = Environment.UserName;
         Message = message;
