@@ -1,7 +1,7 @@
 ﻿using SimpleDB;
 using DocoptNet;
 
-IDatabaseRepository<Cheep> database = new CSVDatabase<Cheep>("chirp_cli_db.csv");
+IDatabase<Cheep> database = new CSVDatabase<Cheep>("database.csv");
 
 const string usage = @"Chirp
 

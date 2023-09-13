@@ -3,22 +3,22 @@
 using CsvHelper;
 using System.Globalization;
 
-public class CSVDatabase<T> : IDatabaseRepository<T> {
-    private readonly string _file;
+public class CSVDatabase<T> : IDatabase<T> {
+    private readonly string _path;
 
-    public CSVDatabase(string file) {
-        _file = file;
+    public CSVDatabase(string path) {
+        _path = path;
     }
 
     public IEnumerable<T> Read() {
-        using StreamReader reader = new StreamReader(_file);
+        using StreamReader reader = new StreamReader(_path);
         using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         
         return csv.GetRecords<T>().ToList();
     }
  
     public void Store(T record) {
-        using StreamWriter writer = new StreamWriter(_file, true);
+        using StreamWriter writer = new StreamWriter(_path, true);
         using CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         
         csv.WriteRecord(record);
