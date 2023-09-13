@@ -14,7 +14,7 @@ Usage:
 var arguments = new Docopt().Apply(usage, args, exit: true)!;
 
 if (arguments["cheep"].IsTrue) {
-    database.Store(new Cheep(args[1]));
+    database.Store(new Cheep(arguments["<message>"].ToString()));
 } else if(arguments["read"].IsTrue) {
     Userinterface.PrintCheeps(database.Read());
 }
