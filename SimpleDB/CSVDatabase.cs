@@ -17,7 +17,7 @@ public class CSVDatabase<T> : IDatabase<T> {
         List<T> records = csv.GetRecords<T>().ToList();
         if (limit.HasValue) {
             limit = int.Min(limit.Value, records.Count);
-            return records.GetRange(0, limit.Value);
+            return records.GetRange(records.Count - limit.Value, limit.Value);
         } else {
             return records;
         }
