@@ -11,23 +11,23 @@ public class CSVDatabase<T> : IDatabaseRepository<T> {
         this.file = file;
     }
 
-    public IEnumerable<T> Read(int? limit = null) {
-        using var reader = new StreamReader(file);
-        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+    public IEnumerable<T> Read() {
+        using StreamReader reader = new StreamReader(file);
+        using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         
-        var records = csv.GetRecords<T>();
+        IEnumerable<T> records = csv.GetRecords<T>();
         foreach (T record in records) {
             yield return record;
         }
     }
  
     public void Store(T record) {
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture) {
+        CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture) {
             HasHeaderRecord = false
         };
         
-        using var writer = new StreamWriter(file, true);
-        using var csv = new CsvWriter(writer, config);
+        using StreamWriter writer = new StreamWriter(file, true);
+        using CsvWriter csv = new CsvWriter(writer, config);
         csv.WriteRecord(record);
         csv.NextRecord();
     }
