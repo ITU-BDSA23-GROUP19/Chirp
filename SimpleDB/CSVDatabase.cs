@@ -13,7 +13,7 @@ public class CSVDatabase<T> : IDatabase<T> {
     public IEnumerable<T> Read() {
         using StreamReader reader = new StreamReader(_path);
         using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-        
+
         return csv.GetRecords<T>().ToList();
     }
  

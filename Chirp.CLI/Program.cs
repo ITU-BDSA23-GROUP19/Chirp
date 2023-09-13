@@ -14,7 +14,7 @@ Usage:
 var arguments = new Docopt().Apply(usage, args, exit: true)!;
 
 if (arguments["cheep"].IsTrue) {
-    database.Store(new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()));
+    database.Store(new Cheep(args[1]));
 } else if(arguments["read"].IsTrue) {
     Userinterface.PrintCheeps(database.Read());
 }
