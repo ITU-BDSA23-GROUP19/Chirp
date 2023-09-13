@@ -21,7 +21,7 @@ if (arguments["cheep"].IsTrue) {
 } else if (arguments["read"].IsTrue) {    
     ValueObject limit = arguments["<limit>"];
 
-    if (limit.IsNullOrEmpty || !limit.IsInt) {
+    if (limit.IsNullOrEmpty | !limit.IsInt) {
         Userinterface.PrintCheeps(database.Read());
     } else {
         Userinterface.PrintCheeps(database.Read(limit.AsInt));
