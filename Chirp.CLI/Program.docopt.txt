@@ -1,6 +1,0 @@
-Chirp CLI
-
-Usage:
-  chirp read <limit>
-  chirp cheep <message>
-  chirp (-h | --help)

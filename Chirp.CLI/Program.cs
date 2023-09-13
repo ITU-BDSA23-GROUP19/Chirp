@@ -1,23 +1,19 @@
 ﻿using SimpleDB;
 using DocoptNet;
 
-const string usage = @"Chirp CLI
+IDatabaseRepository<Cheep> database = new CSVDatabase<Cheep>("chirp_cli_db.csv");
+
+const string usage = @"Chirp
 
 Usage:
   chirp read <limit>
   chirp cheep <message>
-  chirp (-h | --help)
 ";
 
-IDatabaseRepository<Cheep> cheepDB = new CSVDatabase<Cheep>("chirp_cli_db.csv");
+var arguments = new Docopt().Apply(usage, args, exit: true)!;
 
-IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
 if (arguments["cheep"].IsTrue) {
-    Cheep cheep = new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds());
-    cheepDB.Store(cheep);
+    database.Store(new Cheep(Environment.UserName, args[1], DateTimeOffset.Now.ToUnixTimeSeconds()));
 } else if(arguments["read"].IsTrue) {
-    IEnumerable<Cheep> cheeps = cheepDB.Read();
-    Userinterface.PrintCheeps(cheeps);
+    Userinterface.PrintCheeps(database.Read());
 }
-
-public record Cheep(string Author, string Message, long Timestamp);
