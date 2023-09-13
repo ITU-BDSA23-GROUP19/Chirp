@@ -10,6 +10,6 @@ public class Cheep {
     public long Timestamp { get; }
 
     public override string ToString() {
-        return $"{Author} @ {Utility.TimestampToTime(Timestamp)}: {Message}";
+        return $"{Author} @ {Utility.TimestampToDateTime(Timestamp)}: {Message}";
     }
 }

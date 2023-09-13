@@ -1,5 +1,5 @@
 public class Utility {
-    public static DateTime TimestampToTime(long timestamp) {
+    public static DateTime TimestampToDateTime(long timestamp) {
         return DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime.ToLocalTime();
     }
 }
