@@ -10,10 +10,6 @@ public class Cheep {
     public long Timestamp { get; }
 
     public override string ToString() {
-        return $"{Author} @ {TimestampToTime(Timestamp)}: {Message}";
-    }
-
-    private DateTime TimestampToTime(long timestamp) {
-        return DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime.ToLocalTime();
+        return $"{Author} @ {Utility.TimestampToTime(Timestamp)}: {Message}";
     }
 }
