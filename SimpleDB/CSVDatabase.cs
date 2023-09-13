@@ -10,11 +10,17 @@ public class CSVDatabase<T> : IDatabase<T> {
         _path = path;
     }
 
-    public IEnumerable<T> Read() {
+    public IEnumerable<T> Read(int? limit = null) {
         using StreamReader reader = new StreamReader(_path);
         using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
-        return csv.GetRecords<T>().ToList();
+        List<T> records = csv.GetRecords<T>().ToList();
+        if (limit.HasValue) {
+            limit = int.Min(limit.Value, records.Count);
+            return records.GetRange(0, limit.Value);
+        } else {
+            return records;
+        }
     }
  
     public void Store(T record) {
