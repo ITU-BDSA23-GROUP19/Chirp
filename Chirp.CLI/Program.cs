@@ -3,7 +3,8 @@ using DocoptNet;
 
 IDatabase<Cheep> database = new CSVDatabase<Cheep>("Resources/database.csv");
 
-const string usage = @"Chirp
+const string usage = 
+@"Chirp
 
 Usage:
   chirp read [<limit>]
