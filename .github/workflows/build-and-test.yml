@@ -1,5 +1,7 @@
 name: .NET
 
+run-name: building and testing
+
 on:
   push:
     branches: [ $default-branch ]
