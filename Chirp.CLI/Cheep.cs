@@ -15,7 +15,7 @@ public class Cheep {
     public string Message { get; }
     public long Timestamp { get; }
 
-    public override string ToString() {
+    public string Display() {
         return $"{Author} @ {Utility.TimestampToDateTime(Timestamp)}: {Message}";
     }
 }

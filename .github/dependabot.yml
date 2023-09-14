@@ -1,12 +1,7 @@
 version: 2
 updates:
 - package-ecosystem: nuget
-  directory: "/Chirp.CLI/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 25
-  - package-ecosystem: nuget
-  directory: "/SimpleDB/"
+  directory: "/"
   schedule:
     interval: daily
   open-pull-requests-limit: 25
