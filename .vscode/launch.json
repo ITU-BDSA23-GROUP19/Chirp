@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll",
+            "program": "${workspaceFolder}/src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Chirp.CLI",
+            "cwd": "${workspaceFolder}/src/Chirp.CLI",
             "console": "internalConsole",
             "stopAtEntry": false
         },
