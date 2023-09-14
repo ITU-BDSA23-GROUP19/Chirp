@@ -1,8 +1,17 @@
 name: .NET Build and Test
 
-run-name: building and testing
+run-name: ${{ github.actor }} is building and testing
 
-on: [push]
+
+on:
+  push:
+    branches: 
+      - main
+      - workflow
+  pull_request:
+    branches:
+      - main
+      - workflow
 
 jobs:
   build:
