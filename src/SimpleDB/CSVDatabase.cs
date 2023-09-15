@@ -4,10 +4,19 @@ using CsvHelper;
 using System.Globalization;
 
 public class CSVDatabase<T> : IDatabase<T> {
+    private static CSVDatabase<T>? instance = null;
     private readonly string _path;
 
-    public CSVDatabase(string path) {
-        _path = path;
+    private CSVDatabase() {
+        _path = "../../data/database.csv";
+    }
+
+    public static CSVDatabase<T> GetInstance() {
+        if (instance == null) {
+            instance = new CSVDatabase<T>();
+        }
+
+        return instance;
     }
 
     public IEnumerable<T> Read(int? limit = null) {
