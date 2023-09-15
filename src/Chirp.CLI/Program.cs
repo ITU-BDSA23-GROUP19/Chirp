@@ -6,12 +6,12 @@ IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
 const string usage = @"Chirp
 
 Usage:
-  chirp read [<limit>]
-  chirp cheep (<message>)
-  chirp (-h | --help)
+    chirp read [<limit>]
+    chirp cheep (<message>)
+    chirp (-h | --help)
 
 Options:
-  -h --help     Show this screen.
+    -h --help     Show this screen.
 ";
 
 IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
