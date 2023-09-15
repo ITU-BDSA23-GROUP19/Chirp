@@ -1,8 +1,5 @@
 name: .NET Build and Test
-
-run-name: ${{ github.actor }} is building and testing
-
-
+run-name: ${{ github.actor }} is building and testing.
 on:
   push:
     branches: 
@@ -12,12 +9,9 @@ on:
     branches:
       - main
       - workflow
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
