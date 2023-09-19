@@ -18,18 +18,6 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Build linux
-        shell: bash
-        run: |
-          tag=$(git describe -- tags --abbrev=0)
-          linux_release_name=Chirp-$tag-linux-x64
-
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "linux-x64" -c Release -o "${linux_release_name}"
-
-          tar czvf "${linux_release_name}.tar.gz" "$linux_release_name"
-
-          rm -r "$linux_release_name"
-
       - name: Build windows
         shell: bash
         run: |
@@ -41,6 +29,18 @@ jobs:
           7z a -tzip "${windows_release_name}.zip" "./${windows_release_name}/*"
 
           rm -r "$windows_release_name"
+
+      - name: Build linux
+        shell: bash
+        run: |
+          tag=$(git describe -- tags --abbrev=0)
+          linux_release_name=Chirp-$tag-linux-x64
+
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "linux-x64" -c Release -o "${linux_release_name}"
+
+          tar czvf "${linux_release_name}.tar.gz" "$linux_release_name"
+
+          rm -r "$linux_release_name"
 
       - name: Build macOS
         shell: bash
