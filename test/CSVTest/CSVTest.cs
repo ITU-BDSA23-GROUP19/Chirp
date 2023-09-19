@@ -1,5 +1,5 @@
-using System.ComponentModel.Design;
 
+using System.ComponentModel.Design;
 using SimpleDB;
 using Chirp.CLI;
 
@@ -47,9 +47,9 @@ public class CSVTest
     //Integration Tests
     [Fact]
     public void CSVDataLibrary_StorageTest()
-    //M
     {
         //Arrange
+        Type cheep = new Cheep("Hi:)");
         //Act
         //Assert
     }

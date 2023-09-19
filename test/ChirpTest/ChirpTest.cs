@@ -1,4 +1,5 @@
 namespace test;
+using Chirp.CLI;
 
 public class ChirpTest
 {
