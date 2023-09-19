@@ -2,8 +2,6 @@ namespace test;
 
 public class ChirpTest
 {
-
-    /*
     [Fact]
     public void timestampToTimeTest()
     {
@@ -18,7 +16,6 @@ public class ChirpTest
 
 
     }
-    */
 
     [Fact]
     public void CheepGettersTest()
@@ -38,16 +35,14 @@ public class ChirpTest
         Assert.Equal(1690891760, timestampResult);
     }
 
-    /*
-        [Fact]
-        public void CheepDisplayTest()
-        {
-            //arrange
-            var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
-            //act
-            var result = cheep.Display();
-            //assert
-            Assert.Equal("ThisAuthor @ 08/01/2023 14:09:20: A message here", result);
-        }
-    */
+    [Fact]
+    public void CheepDisplayTest()
+    {
+        //arrange
+        var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
+        //act
+        var result = cheep.Display();
+        //assert
+        Assert.Equal("ThisAuthor @ 08/01/2023 14:09:20: A message here", result);
+    }
 }
