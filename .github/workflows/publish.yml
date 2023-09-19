@@ -22,37 +22,37 @@ jobs:
         shell: bash
         run: |
           tag=$(git describe -- tags --abbrev=0)
-          release_name="Chirp-$tag-linux-x64"
+          linux_release_name=Chirp-$tag-linux-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "linux-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "linux-x64" -c Release -o "${linux_release_name}"
 
-          tar czvf "${release_name}.tar.gz" "$release_name"
+          tar czvf "${linux_release_name}.tar.gz" "$linux_release_name"
 
-          rm -r "$release_name"
+          rm -r "$linux_release_name"
 
       - name: Build windows
         shell: bash
         run: |
           tag=$(git describe -- tags --abbrev=0)
-          release_name="Chirp-$tag-win-x64"
+          windows_release_name=Chirp-$tag-win-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "win-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "win-x64" -c Release -o "${windows_release_name}"
 
-          7z a -tzip "${release_name}.zip" "./${release_name}/*"
+          7z a -tzip "${windows_release_name}.zip" "./${windows_release_name}/*"
 
-          rm -r "$release_name"
+          rm -r "$windows_release_name"
 
       - name: Build macOS
         shell: bash
         run: |
           tag=$(git describe -- tags --abbrev=0)
-          release_name="Chirp-$tag-osx-x64"
+          osx_release_name=Chirp-$tag-osx-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "osx-x64" -c Release -o "$release_name"
+          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework netcoreapp3.1 --runtime "osx-x64" -c Release -o "${osx_release_name}"
 
-          tar czvf "${release_name}.tar.gz" "$release_name"
+          tar czvf "${osx_release_name}.tar.gz" "$osx_release_name"
 
-          rm -r "$release_name"
+          rm -r "$osx_release_name"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
