@@ -1,5 +1,5 @@
-name: .NET Build and Test
-run-name: ${{ github.actor }} is building and testing.
+name: .NET Publish
+run-name: ${{ github.actor }} is publishing.
 on:
   push:
     branches: 
