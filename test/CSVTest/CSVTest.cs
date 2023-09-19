@@ -1,6 +1,7 @@
 using System.ComponentModel.Design;
 
 using SimpleDB;
+using Chirp.CLI;
 
 namespace CSVTest;
 
@@ -17,24 +18,29 @@ public class CSVTest
         Assert.NotNull(database);
     }
 
-    public void Read_Returns_Recrods()
+    public void Read_Returns_Records()
     {
         //Arrange
-        var cheep = "This is a randomized tweet!:D";
-
+        Type cheep = new Cheep("This is a randomized tweet!:D");
+        var database = CSVDatabase<Type>.GetInstance();
         //Act
-        var readResult = cheep.Read();
+        database.Store(cheep);
+        var readResult = database.Read(cheep);
         //Assert
         Assert.Contains(cheep, readResult);
+
     }
 
     public void Store_Returns_Equal_Record()
     {
         //Arrange
-        var cheep = "This is another randomized cheep, u nuget.";
+        Type cheep = new Cheep("This is another randomized cheep, u nuget.");
+        var database = CSVDatabase<Type>.GetInstance();
         //Act
-        var storeResult = Store(cheep);
+        database.Store(cheep);
+        var readStored = database.Read(cheep);
         //Assert
+        Assert.Contains(cheep, readStored);
     }
 
 
