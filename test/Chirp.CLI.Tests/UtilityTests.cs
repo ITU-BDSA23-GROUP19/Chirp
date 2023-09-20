@@ -6,7 +6,7 @@ namespace Chirp.CLI.Tests
         public void timestampToTimeTest()
         {
             //arrange
-            long timestamp = 1690891760
+            long timestamp = 1690891760;
 
             //act
             string result = Utility.TimestampToDateTime(timestamp);
