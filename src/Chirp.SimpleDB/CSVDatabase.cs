@@ -1,7 +1,7 @@
 ﻿using CsvHelper;
 using System.Globalization;
 
-namespace SimpleDB
+namespace Chirp.SimpleDB
 {
     public class CSVDatabase<T> : IDatabase<T>
     {
