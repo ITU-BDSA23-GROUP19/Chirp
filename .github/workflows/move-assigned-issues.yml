@@ -11,4 +11,4 @@ jobs:
         with:
           project: Docs Work
           column: In Progress
-          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repo-token: ${{ secrets.PROJECT_TOKEN }}
