@@ -20,7 +20,6 @@ public class ChirpTest
     [Fact]
     public void CheepGettersTest()
     {
-        //should there be different tests using the two different constructors for cheep??
         //arrange
         var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
 
