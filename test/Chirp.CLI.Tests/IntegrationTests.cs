@@ -1,0 +1,4 @@
+namespace Chirp.CLI.Tests
+{
+
+}

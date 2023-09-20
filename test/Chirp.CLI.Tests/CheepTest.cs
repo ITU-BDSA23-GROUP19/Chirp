@@ -1,44 +1,47 @@
-namespace test;
-
-public class ChirpTest
+namespace Chirp.CLI.Tests
 {
-    [Fact]
-    public void timestampToTimeTest()
+    public class ChirpTest
     {
-        //arrange
+        [Fact]
+        public void timestampToTimeTest()
+        {
+            //arrange
 
-        //act
-        var result = Utility.TimestampToDateTime(1690891760);
+            //act
+            var result = Utility.TimestampToDateTime(1690891760);
 
-        //assert
-        Assert.Equal("08/01/2023 14:09:20", result.ToString());
-    }
+            //assert
+            Assert.Equal("08/01/2023 14:09:20", result.ToString());
+        }
 
-    [Fact]
-    public void CheepGettersTest()
-    {
-        //arrange
-        var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
+        [Fact]
+        public void CheepGettersTest()
+        {
+            //arrange
+            var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
 
-        //act
-        var authorResult = cheep.Author;
-        var messageResult = cheep.Message;
-        var timestampResult = cheep.Timestamp;
+            //act
+            var authorResult = cheep.Author;
+            var messageResult = cheep.Message;
+            var timestampResult = cheep.Timestamp;
 
-        //assert
-        Assert.Equal("ThisAuthor", authorResult);
-        Assert.Equal("A message here", messageResult);
-        Assert.Equal(1690891760, timestampResult);
-    }
+            //assert
+            Assert.Equal("ThisAuthor", authorResult);
+            Assert.Equal("A message here", messageResult);
+            Assert.Equal(1690891760, timestampResult);
+        }
 
-    [Fact]
-    public void CheepDisplayTest()
-    {
-        //arrange
-        var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
-        //act
-        var result = cheep.Display();
-        //assert
-        Assert.Equal("ThisAuthor @ 08/01/2023 14:09:20: A message here", result);
+        [Fact]
+        public void CheepDisplayTest()
+        {
+            //arrange
+            var cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
+
+            //act
+            var result = cheep.Display();
+
+            //assert
+            Assert.Equal("ThisAuthor @ 08/01/2023 14:09:20: A message here", result);
+        }
     }
 }
