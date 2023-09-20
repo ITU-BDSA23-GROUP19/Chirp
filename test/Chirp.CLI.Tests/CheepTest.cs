@@ -7,14 +7,11 @@ public class ChirpTest
     {
         //arrange
 
-
         //act
         var result = Utility.TimestampToDateTime(1690891760);
 
         //assert
         Assert.Equal("08/01/2023 14:09:20", result.ToString());
-
-
     }
 
     [Fact]
