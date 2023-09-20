@@ -1,7 +1,9 @@
+using System.Globalization;
+
 public class Utility
 {
-    public static DateTime TimestampToDateTime(long timestamp)
+    public static string TimestampToDateTime(long timestamp)
     {
-        return DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime.ToLocalTime();
+        return DateTimeOffset.FromUnixTimeSeconds(timestamp).DateTime.ToLocalTime().ToString(CultureInfo.InvariantCulture);
     }
 }
