@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+
 using System.Globalization;
 
 namespace Chirp.SimpleDB
@@ -10,7 +11,17 @@ namespace Chirp.SimpleDB
 
         private CSVDatabase()
         {
-            _path = "../../data/database.csv";
+            var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            while (currentDirectory != null)
+            {
+                var potentialPath = Path.Combine(currentDirectory, "data", "database.csv");
+                if (File.Exists(potentialPath))
+                {
+                    _path = potentialPath;
+                    break;
+                }
+                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
+            }
         }
 
         public static CSVDatabase<T> GetInstance()
