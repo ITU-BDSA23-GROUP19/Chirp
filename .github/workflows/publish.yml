@@ -38,7 +38,7 @@ jobs:
 
           dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "linux-x64" -c Release -o "${linux_release_name}"
 
-          tar czvf "${linux_release_name}.tar.gz" "$linux_release_name"
+          7z a -tzip "${linux_release_name}.zip" "$linux_release_name"
 
           rm -r "$linux_release_name"
 
