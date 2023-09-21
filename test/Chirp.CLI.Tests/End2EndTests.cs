@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 using Chirp.SimpleDB;
 
 namespace Chirp.CLI.Tests
@@ -10,30 +12,68 @@ namespace Chirp.CLI.Tests
             //arrange
             IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
 
-            TextWriter originalConsoleOut = Console.Out; //store the original console output
-
-            using StringWriter stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
             //act
-            //these could be called as Program.Main with arguments to stimulate a user
-            //but it doesnt work for some reason - my guess is it doesnt parse the arguments correctly
-            //and i cant seem to fix it right now
-
-            //writing a test-cheep
-            database.Store(new Cheep("This is a test"));
-            //reading cheeps
-            Userinterface.PrintCheeps(database.Read());
-
-            Console.SetOut(originalConsoleOut);
-            string capturedOutput = stringWriter.ToString();
+            string output = "";
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = "/usr/bin/dotnet";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = "../../../../../";
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                // Synchronously read the standard output of the spawned process.
+                StreamReader reader = process.StandardOutput;
+                output = reader.ReadToEnd();
+                process.WaitForExit();
+            }
+            string fstCheep = output.Split("\n")[0];
 
             //assert
-            Assert.Contains("Hello, BDSA students!", capturedOutput);
-            Assert.Contains("Welcome to the course!", capturedOutput);
-            Assert.Contains("ropf", capturedOutput);
-            Assert.Contains("rnie", capturedOutput);
-            Assert.Contains("This is a test", capturedOutput);
+            Assert.StartsWith("ropf", fstCheep);
+            Assert.EndsWith("Hello, BDSA students!", fstCheep);
+        }
+
+        [Fact]
+        public void WriteCheeps() //end to end test
+        {
+            //arrange
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
+
+            //act
+            string output = "";
+
+            //writing first:
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = "/usr/bin/dotnet";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll cheep 'This jk is a test'";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = "../../../../../";
+                process.Start();
+                Thread.Sleep(1000);
+                process.WaitForExit();
+            }
+
+            //now we read it to see if we succesfully wrote:
+            using (var process = new Process())
+            {
+                process.StartInfo.FileName = "/usr/bin/dotnet";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = "../../../../../";
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                // Synchronously read the standard output of the spawned process.
+                StreamReader reader = process.StandardOutput;
+                output = reader.ReadToEnd();
+                process.WaitForExit();
+            }
+            var cheeps = output.Split("\n");
+            var lastCheep = cheeps[cheeps.Length - 2];
+
+            //assert
+            Assert.Contains("This is a test", lastCheep);
         }
     }
 }
