@@ -1,3 +1,5 @@
+namespace Chirp.CLI;
+
 public class Cheep
 {
     public Cheep(string message)
