@@ -1,5 +1,4 @@
 using Chirp.SimpleDB;
-using Chirp.CLI;
 
 namespace Chirp.CLI.Tests
 {
