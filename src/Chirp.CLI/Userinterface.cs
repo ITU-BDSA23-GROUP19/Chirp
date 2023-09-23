@@ -1,4 +1,5 @@
 using Chirp.CLI;
+
 public static class Userinterface
 {
     public static void PrintCheeps(IEnumerable<Cheep> cheeps)

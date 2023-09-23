@@ -1,7 +1,6 @@
 ﻿using Chirp.SimpleDB;
-
-using DocoptNet;
 using Chirp.CLI;
+using DocoptNet;
 
 IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
 
