@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 
 using System.Globalization;
+using System.ComponentModel.Design;
 
 namespace Chirp.SimpleDB
 {
