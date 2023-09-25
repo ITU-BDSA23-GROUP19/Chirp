@@ -47,11 +47,10 @@ namespace Chirp.CLI.Tests
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll cheep 'This jk is a test'";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll cheep \"This is a test\"";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.Start();
-                Thread.Sleep(1000);
                 process.WaitForExit();
             }
 
