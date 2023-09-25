@@ -10,7 +10,7 @@ namespace Chirp.CLI.Tests
         public void ReadCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
 
             //act
             string output = "";
@@ -38,7 +38,7 @@ namespace Chirp.CLI.Tests
         public void WriteCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
 
             //act
             string output = "";

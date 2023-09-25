@@ -2,7 +2,7 @@
 using Chirp.CLI;
 using DocoptNet;
 
-IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance();
+IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
 
 const string usage = @"Chirp
 

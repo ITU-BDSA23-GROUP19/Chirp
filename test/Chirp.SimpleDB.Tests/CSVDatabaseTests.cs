@@ -8,7 +8,7 @@ namespace Chirp.SimpleDB.Tests
         public void CSVDatabase_InstanceExists()
         {
             //Arrange
-            var database = CSVDatabase<Type>.GetInstance();
+            var database = CSVDatabase<Type>.GetInstance("../../data/database.csv");
             //Act
 
             //Assert
@@ -20,7 +20,7 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep("This is a randomized tweet!:D");
-            var database = CSVDatabase<Cheep>.GetInstance();
+            var database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
             //Act
             database.Store(cheep);
             var readResult = database.Read();
@@ -34,7 +34,7 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep("Author", "This is another randomized cheep, u nuget.", 029394848);
-            var database = CSVDatabase<Cheep>.GetInstance();
+            var database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
             //Act
             database.Store(cheep);
             //Assert

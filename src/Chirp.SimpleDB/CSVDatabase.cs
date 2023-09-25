@@ -10,26 +10,16 @@ namespace Chirp.SimpleDB
         private static CSVDatabase<T>? instance = null;
         private readonly string _path;
 
-        private CSVDatabase()
+        private CSVDatabase(string path)
         {
-            var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            while (currentDirectory != null)
-            {
-                var potentialPath = Path.Combine(currentDirectory, "data", "database.csv");
-                if (File.Exists(potentialPath))
-                {
-                    _path = potentialPath;
-                    break;
-                }
-                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
-            }
+            _path = path;
         }
 
-        public static CSVDatabase<T> GetInstance()
+        public static CSVDatabase<T> GetInstance(string path)
         {
             if (instance == null)
             {
-                instance = new CSVDatabase<T>();
+                instance = new CSVDatabase<T>(path);
             }
 
             return instance;
