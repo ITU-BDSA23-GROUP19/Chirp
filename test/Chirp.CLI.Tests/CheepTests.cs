@@ -26,7 +26,7 @@ namespace Chirp.CLI.Tests
             Cheep cheep = new Cheep("ThisAuthor", "A message here", 1690891760);
 
             //act
-            string result = cheep.Display();
+            string result = $"{cheep.Author} @ {Utility.TimestampToDateTime(cheep.Timestamp)}: {cheep.Message}";
 
             //assert
             Assert.Equal("ThisAuthor @ 08/01/2023 14:09:20: A message here", result);

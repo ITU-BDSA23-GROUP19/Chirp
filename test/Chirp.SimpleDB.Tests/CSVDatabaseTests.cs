@@ -1,5 +1,3 @@
-using Chirp.CLI;
-
 namespace Chirp.SimpleDB.Tests
 {
     public class CSVDatabaseTests
