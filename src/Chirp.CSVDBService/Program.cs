@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-IDatabase<Cheep> db = CSVDatabase<Cheep>.GetInstance();
+IDatabase<Cheep> db = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
 
 
 app.MapPost("/cheep", (Cheep cheep) => { db.Store(cheep); });
