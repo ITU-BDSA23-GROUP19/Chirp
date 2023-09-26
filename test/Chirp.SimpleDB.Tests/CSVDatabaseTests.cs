@@ -18,7 +18,7 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep(Environment.UserName, "This is a randomized tweet!:D", DateTimeOffset.Now.ToUnixTimeSeconds());
-            var database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            var database = CSVDatabase<Cheep>.GetInstance("CSVtestDatabase.csv");
             //Act
             database.Store(cheep);
             var readResult = database.Read();
@@ -32,7 +32,7 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep("Author", "This is another randomized cheep, u nuget.", 029394848);
-            var database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            var database = CSVDatabase<Cheep>.GetInstance("CSVtestDatabase.csv");
             //Act
             database.Store(cheep);
             //Assert
