@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 using Chirp.SimpleDB;
 
@@ -10,15 +11,16 @@ namespace Chirp.CLI.Tests
         public void ReadCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
 
             //act
             string output = "";
             using (var process = new Process())
             {
-                process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.FileName = "dotnet";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read 3";
                 process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
@@ -30,6 +32,7 @@ namespace Chirp.CLI.Tests
             string fstCheep = output.Split("\n")[0];
 
             //assert
+            Console.WriteLine(fstCheep);
             Assert.StartsWith("ropf", fstCheep);
             Assert.EndsWith("Hello, BDSA students!", fstCheep);
         }
@@ -38,7 +41,7 @@ namespace Chirp.CLI.Tests
         public void WriteCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
 
             //act
             string output = "";
@@ -47,7 +50,7 @@ namespace Chirp.CLI.Tests
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll cheep \"This is a test\"";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll cheep \"This is a test\"";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.Start();
@@ -58,7 +61,7 @@ namespace Chirp.CLI.Tests
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
