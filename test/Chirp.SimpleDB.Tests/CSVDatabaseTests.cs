@@ -17,7 +17,7 @@ namespace Chirp.SimpleDB.Tests
         public void Read_Returns_Records()
         {
             //Arrange
-            Cheep cheep = new Cheep(Environment.UserName, "This is a randomized tweet!:D", DateTimeOffset.Now.ToUnixTimeSeconds());
+            Cheep cheep = new Cheep(Environment.UserName, "lets see if it finds the databse", DateTimeOffset.Now.ToUnixTimeSeconds());
             var database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
             //Act
             database.Store(cheep);

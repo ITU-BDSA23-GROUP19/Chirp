@@ -17,9 +17,10 @@ namespace Chirp.CLI.Tests
             string output = "";
             using (var process = new Process())
             {
-                process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.FileName = "dotnet";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read 3";
                 process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
@@ -49,7 +50,7 @@ namespace Chirp.CLI.Tests
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll cheep \"This is a test\"";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll cheep \"This is a test\"";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.Start();
@@ -60,7 +61,7 @@ namespace Chirp.CLI.Tests
             using (var process = new Process())
             {
                 process.StartInfo.FileName = "/usr/bin/dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.CLI.dll read";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
