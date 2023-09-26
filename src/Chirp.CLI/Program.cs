@@ -1,4 +1,8 @@
-﻿using Chirp.SimpleDB;
+﻿using System.Net.Http.Json;
+
+using Chirp.SimpleDB;
+
+using CsvHelper.Expressions;
 
 using DocoptNet;
 
@@ -20,20 +24,18 @@ var baseURL = "http://localhost:5250";
 using HttpClient client = new();
 client.BaseAddress = new Uri(baseURL);
 
+IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
 // Concurrent execution
 // first HTTP request
-var fstRequestTask = client.GetAsync("/");
+var postTask = client.PostAsJsonAsync<Cheep>(baseURL, new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds()));
 // second HTTP request
-//var sndRequestTask = client.GetAsync("/");
+var getTask = client.GetAsync(baseURL);
 
-var fstResponse = await fstRequestTask;
-//var sndResponse = await sndRequestTask;
-
-IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
+var getResponse = await getTask;
 
 if (arguments["cheep"].IsTrue)
 {
-  database.Store(new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds()));
+  var postResponse = await postTask;
 }
 else if (arguments["read"].IsTrue)
 {
