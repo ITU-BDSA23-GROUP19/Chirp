@@ -15,6 +15,20 @@ Options:
     -h --help     Show this screen.
 ";
 
+//Create an HTTP called object
+var baseURL = "http://localhost:5250";
+using HttpClient client = new();
+client.BaseAddress = new Uri(baseURL);
+
+// Concurrent execution
+// first HTTP request
+var fstRequestTask = client.GetAsync("/");
+// second HTTP request
+//var sndRequestTask = client.GetAsync("/");
+
+var fstResponse = await fstRequestTask;
+//var sndResponse = await sndRequestTask;
+
 IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exit: true)!;
 
 if (arguments["cheep"].IsTrue)
