@@ -1,5 +1,5 @@
 ﻿using Chirp.SimpleDB;
-using Chirp.CLI;
+
 using DocoptNet;
 
 IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
@@ -19,7 +19,7 @@ IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exi
 
 if (arguments["cheep"].IsTrue)
 {
-  database.Store(new Cheep(arguments["<message>"].ToString()));
+  database.Store(new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds()));
 }
 else if (arguments["read"].IsTrue)
 {
@@ -34,3 +34,5 @@ else if (arguments["read"].IsTrue)
     Userinterface.PrintCheeps(database.Read(limit.AsInt));
   }
 }
+
+public record Cheep(string Author, string Message, long Timestamp);
