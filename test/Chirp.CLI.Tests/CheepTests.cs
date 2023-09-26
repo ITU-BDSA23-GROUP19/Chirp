@@ -1,4 +1,4 @@
-using Chirp.CLI; //den siger det er unødvendigt men den lyver
+using Chirp.CLI;
 
 namespace Chirp.CLI.Tests
 {
