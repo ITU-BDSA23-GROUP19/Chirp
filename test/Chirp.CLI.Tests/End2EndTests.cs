@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 using Chirp.SimpleDB;
 
@@ -10,7 +11,7 @@ namespace Chirp.CLI.Tests
         public void ReadCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
 
             //act
             string output = "";
@@ -30,6 +31,7 @@ namespace Chirp.CLI.Tests
             string fstCheep = output.Split("\n")[0];
 
             //assert
+            Console.WriteLine(fstCheep);
             Assert.StartsWith("ropf", fstCheep);
             Assert.EndsWith("Hello, BDSA students!", fstCheep);
         }
@@ -38,7 +40,7 @@ namespace Chirp.CLI.Tests
         public void WriteCheeps() //end to end test
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
 
             //act
             string output = "";
