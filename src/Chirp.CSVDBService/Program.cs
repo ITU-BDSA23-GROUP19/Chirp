@@ -9,7 +9,7 @@ var app = builder.Build();
 IDatabase<Cheep> db = CSVDatabase<Cheep>.GetInstance();
 
 
-app.MapPost("/cheep", (Cheep cheep) => { JsonSerializer.Serialize(db.Store(cheep)); });
+app.MapPost("/cheep", (Cheep cheep) => { db.Store(cheep); });
 app.MapGet("/cheeps", () => { JsonSerializer.Serialize(db.Read()); });
 
 
