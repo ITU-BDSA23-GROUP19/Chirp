@@ -28,10 +28,8 @@ IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exi
 // Concurrent execution
 // first HTTP request
 var postTask = client.PostAsJsonAsync<Cheep>(baseURL, new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds()));
-// second HTTP request
-var getTask = client.GetAsync(baseURL);
 
-var getResponse = await getTask;
+//var getResponse = await getTask;
 
 if (arguments["cheep"].IsTrue)
 {
@@ -41,13 +39,20 @@ else if (arguments["read"].IsTrue)
 {
   ValueObject limit = arguments["<limit>"];
 
+  string limitString = $"?limit={limit}";
+
   if (limit.IsNullOrEmpty | !limit.IsInt)
   {
-    Userinterface.PrintCheeps(database.Read());
+    // second HTTP request
+    var getTask = client.GetAsync(baseURL + limit);
+    var getResponse = await getTask;
+    //Userinterface.PrintCheeps(database.Read());
   }
   else
   {
-    Userinterface.PrintCheeps(database.Read(limit.AsInt));
+    var getTask = client.GetAsync(baseURL);
+    var getResponse = await getTask;
+    //Userinterface.PrintCheeps(database.Read(limit.AsInt));
   }
 }
 
