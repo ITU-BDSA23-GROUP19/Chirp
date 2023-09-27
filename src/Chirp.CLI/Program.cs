@@ -3,7 +3,7 @@
 using DocoptNet;
 
 using HttpClient client = new HttpClient();
-client.BaseAddress = new Uri("http://localhost:5250");
+client.BaseAddress = new Uri("http://localhost:5250/");
 
 const string usage = @"Chirp
 
