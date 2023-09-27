@@ -16,10 +16,6 @@ jobs:
       with:
         timezoneLinux: "Europe/Warsaw"
     - uses: actions/checkout@v3
-    - name: Set timezone
-      uses: szenius/set-timezone@v1.2
-      with: 
-        timezoneLinux: "Europe/Warsaw"
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
