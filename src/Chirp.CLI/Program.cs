@@ -39,17 +39,20 @@ else if (arguments["read"].IsTrue)
 {
   ValueObject limit = arguments["<limit>"];
 
+  //making a string to end the url with. ? is symbol for beginning of parameters
+  //limit equals whatever number is chosen by user
   string limitString = $"?limit={limit}";
 
   if (limit.IsNullOrEmpty | !limit.IsInt)
   {
-    // second HTTP request
+    //HTTP get request to get cheeps WITH limit
     var getTask = client.GetAsync(baseURL + limit);
     var getResponse = await getTask;
     //Userinterface.PrintCheeps(database.Read());
   }
   else
   {
+    //HTTP get request to get cheeps WITHOUT limit
     var getTask = client.GetAsync(baseURL);
     var getResponse = await getTask;
     //Userinterface.PrintCheeps(database.Read(limit.AsInt));
