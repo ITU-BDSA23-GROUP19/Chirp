@@ -20,6 +20,7 @@ Options:
 ";
 
 //Create an HTTP called object
+//BaseURL when deployed to azure should be 'https://bdsagroup19chirpremotedb.azurewebsites.net/'
 var baseURL = "http://localhost:5250";
 using HttpClient client = new();
 client.BaseAddress = new Uri(baseURL);
