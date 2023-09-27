@@ -1,8 +1,9 @@
-﻿using Chirp.SimpleDB;
+﻿using System.Net.Http.Json;
 
 using DocoptNet;
 
-IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+using HttpClient client = new HttpClient();
+client.BaseAddress = new Uri("http://localhost:5250");
 
 const string usage = @"Chirp
 
@@ -19,7 +20,9 @@ IDictionary<string, ValueObject> arguments = new Docopt().Apply(usage, args, exi
 
 if (arguments["cheep"].IsTrue)
 {
-  database.Store(new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds()));
+  Cheep cheep = new Cheep(Environment.UserName, arguments["<message>"].ToString(), DateTimeOffset.Now.ToUnixTimeSeconds());
+  JsonContent content = JsonContent.Create(cheep);
+  await client.PostAsync("cheep", content);
 }
 else if (arguments["read"].IsTrue)
 {
@@ -27,11 +30,21 @@ else if (arguments["read"].IsTrue)
 
   if (limit.IsNullOrEmpty | !limit.IsInt)
   {
-    Userinterface.PrintCheeps(database.Read());
+    IEnumerable<Cheep>? cheeps = await client.GetFromJsonAsync<IEnumerable<Cheep>>("cheeps");
+
+    if (cheeps != null)
+    {
+      Userinterface.PrintCheeps(cheeps);
+    }
   }
   else
   {
-    Userinterface.PrintCheeps(database.Read(limit.AsInt));
+    IEnumerable<Cheep>? cheeps = await client.GetFromJsonAsync<IEnumerable<Cheep>>($"cheeps?limit={limit}");
+
+    if (cheeps != null)
+    {
+      Userinterface.PrintCheeps(cheeps);
+    }
   }
 }
 

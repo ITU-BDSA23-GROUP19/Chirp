@@ -1,16 +1,12 @@
 using Chirp.SimpleDB;
-using Chirp.CLI;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-IDatabase<Cheep> db = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
+IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../data/database.csv");
 
-
-app.MapPost("/cheep", (Cheep cheep) => { db.Store(cheep); });
-app.MapGet("/cheeps", () => { JsonSerializer.Serialize(db.Read()); });
-
+app.MapGet("/cheeps", (int? limit) => { return JsonSerializer.Serialize(database.Read(limit)); });
+app.MapPost("/cheep", (Cheep cheep) => { database.Store(cheep); });
 
 app.Run();
