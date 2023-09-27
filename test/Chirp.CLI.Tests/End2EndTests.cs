@@ -1,55 +1,48 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-
-using Chirp.SimpleDB;
 
 namespace Chirp.CLI.Tests
 {
     public class End2EndTests
     {
         [Fact]
-        public void ReadCheeps() //end to end test
+        public void ReadCheeps()
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
+            string output = "";
 
             //act
-            string output = "";
-            using (var process = new Process())
+            using (Process process = new Process())
             {
                 process.StartInfo.FileName = "dotnet";
-                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read 3";
+                process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
-                // Synchronously read the standard output of the spawned process.
+
                 StreamReader reader = process.StandardOutput;
                 output = reader.ReadToEnd();
                 process.WaitForExit();
             }
+
             string fstCheep = output.Split("\n")[0];
 
             //assert
-            Console.WriteLine(fstCheep);
             Assert.StartsWith("ropf", fstCheep);
             Assert.EndsWith("Hello, BDSA students!", fstCheep);
         }
 
         [Fact]
-        public void WriteCheeps() //end to end test
+        public void WriteCheeps()
         {
             //arrange
-            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
-
-            //act
             string output = "";
 
-            //writing first:
-            using (var process = new Process())
+            //act
+            using (Process process = new Process())
             {
-                process.StartInfo.FileName = "/usr/bin/dotnet";
+                process.StartInfo.FileName = "dotnet";
                 process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll cheep \"This is a test\"";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
@@ -57,22 +50,22 @@ namespace Chirp.CLI.Tests
                 process.WaitForExit();
             }
 
-            //now we read it to see if we succesfully wrote:
-            using (var process = new Process())
+            using (Process process = new Process())
             {
-                process.StartInfo.FileName = "/usr/bin/dotnet";
+                process.StartInfo.FileName = "dotnet";
                 process.StartInfo.Arguments = "./src/Chirp.CLI/bin/Debug/net7.0/Chirp.dll read";
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = "../../../../../";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
-                // Synchronously read the standard output of the spawned process.
+
                 StreamReader reader = process.StandardOutput;
                 output = reader.ReadToEnd();
                 process.WaitForExit();
             }
-            var cheeps = output.Split("\n");
-            var lastCheep = cheeps[cheeps.Length - 2];
+
+            string[] cheeps = output.Split("\n");
+            string lastCheep = cheeps[cheeps.Length - 2];
 
             //assert
             Assert.Contains("This is a test", lastCheep);

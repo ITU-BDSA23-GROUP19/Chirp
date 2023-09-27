@@ -3,7 +3,7 @@ namespace Chirp.CLI.Tests
     public class UtilityTests
     {
         [Fact]
-        public void timestampToTimeTest()
+        public void TimestampToTimeTest()
         {
             //arrange
             long timestamp = 1690891760;

@@ -6,8 +6,7 @@ namespace Chirp.SimpleDB.Tests
         public void CSVDatabase_InstanceExists()
         {
             //Arrange
-            var database = CSVDatabase<Type>.GetInstance("../../../../../data/testDatabase.csv");
-            //Act
+            IDatabase<Type> database = CSVDatabase<Type>.GetInstance("../../../../../data/testDatabase.csv");
 
             //Assert
             Assert.NotNull(database);
@@ -18,10 +17,12 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep(Environment.UserName, "lets see if it finds the databse", DateTimeOffset.Now.ToUnixTimeSeconds());
-            var database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
+
             //Act
             database.Store(cheep);
-            var readResult = database.Read();
+            IEnumerable<Cheep> readResult = database.Read();
+
             //Assert
             Assert.Contains(cheep, readResult);
 
@@ -32,9 +33,11 @@ namespace Chirp.SimpleDB.Tests
         {
             //Arrange
             Cheep cheep = new Cheep("Author", "This is another randomized cheep, u nuget.", 029394848);
-            var database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
+            IDatabase<Cheep> database = CSVDatabase<Cheep>.GetInstance("../../../../../data/testDatabase.csv");
+
             //Act
             database.Store(cheep);
+
             //Assert
             Assert.Contains(cheep, database.Read());
         }
