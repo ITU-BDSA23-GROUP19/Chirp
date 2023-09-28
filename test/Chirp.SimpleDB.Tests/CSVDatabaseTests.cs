@@ -41,5 +41,30 @@ namespace Chirp.SimpleDB.Tests
             //Assert
             Assert.Contains(cheep, database.Read());
         }
+
+        //SEND AN HTTP GET REQUEST TO /cheeps ENDPOINT
+        //HTTP RESPONSE (STATUS CODE) IS 200
+        //RESPONSE BODY CONTAINS LIST OF CHEEP OBJECTS SERIALIZED TO JSON
+
+        [Fact]
+        public void Http_GetRequest_Returns_200_And_JSONCheepList()
+        {
+            //Arrange
+
+            //Act
+            //Assert
+        }
+
+
+        ///SEND AN HTTP POST REQUEST TO /cheep ENDPOINT
+        //HTTP RESPONSE /STATUS CODE) SHOULD BE 200
+        //REQUEST BODY SHOULD CONTAIN A JSON SERIALIZED CHEEP OBJECT
+        [Fact]
+        public void Http_PostRequest_Returns_200_And_CheepAsJSON()
+        {
+            //Arrange
+            //Act
+            //Assert
+        }
     }
 }
