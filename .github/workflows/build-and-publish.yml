@@ -19,7 +19,7 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Build linux
+      - name: Build Linux
         shell: bash
         run: |
           tag=${{github.ref_name}}
@@ -31,7 +31,7 @@ jobs:
 
           rm -r "$linux_release_name"
 
-      - name: Build macOS
+      - name: Build MacOS
         shell: bash
         run: |
           tag=${{github.ref_name}}
@@ -43,7 +43,7 @@ jobs:
 
           rm -r "$osx_release_name"
 
-      - name: Build macOS Arm
+      - name: Build MacOS Arm
         shell: bash
         run: |
           tag=${{github.ref_name}}
@@ -55,7 +55,7 @@ jobs:
           
           rm -r "$macOS_arm_release_name"
 
-      - name: Build windows
+      - name: Build Windows
         shell: bash
         run: |
           tag=${{github.ref_name}}
