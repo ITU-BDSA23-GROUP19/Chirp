@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.8.1
+      - uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: ITU-BDSA23-GROUP19-Chirp
+          project: Chirp
           column: In Progress
           repo-token: ${{ secrets.PROJECT_TOKEN }}
