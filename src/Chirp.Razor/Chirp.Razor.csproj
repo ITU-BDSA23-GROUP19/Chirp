@@ -2,8 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <PublishRelease>true</PublishRelease>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <DebugType>embedded</DebugType>
+    <AssemblyName>Chirp</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Chirp.Razor.Tests" />
+  </ItemGroup>
 
 </Project>
