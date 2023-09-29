@@ -24,7 +24,7 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           windows_release_name=Chirp-$tag-win-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "win-x64" --self-contained false -c Release -o "${windows_release_name}"
+          dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "win-x64" --self-contained false -c Release -o "${windows_release_name}"
 
           7z a -tzip "${windows_release_name}.zip" "./${windows_release_name}/*"
 
@@ -36,7 +36,7 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           linux_release_name=Chirp-$tag-linux-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "linux-x64" --self-contained false -c Release -o "${linux_release_name}"
+          dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "linux-x64" --self-contained false -c Release -o "${linux_release_name}"
 
           7z a -tzip "${linux_release_name}.zip" "$linux_release_name"
 
@@ -48,7 +48,7 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           osx_release_name=Chirp-$tag-osx-x64
 
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-x64" --self-contained false -c Release -o "${osx_release_name}"
+          dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-x64" --self-contained false -c Release -o "${osx_release_name}"
 
           7z a -tzip "${osx_release_name}.zip" "$osx_release_name"
 
@@ -60,7 +60,7 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           macOS_arm_release_name=Chirp-$tag-osx-arm64
           
-          dotnet publish src/Chirp.CLI/Chirp.CLI.csproj --framework net7.0 --runtime "osx-arm64" --self-contained false -c Release -o "${macOS_arm_release_name}"
+          dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-arm64" --self-contained false -c Release -o "${macOS_arm_release_name}"
 
           7z a -tzip "${macOS_arm_release_name}.zip" "$macOS_arm_release_name"
           
