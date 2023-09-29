@@ -21,7 +21,7 @@ jobs:
       - name: Build windows
         shell: bash
         run: |
-          tag=$(git describe --tags --abbrev=0)
+          tag=$(git describe --tag)
           windows_release_name=Chirp-$tag-win-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "win-x64" --self-contained false -c Release -o "${windows_release_name}"
@@ -33,7 +33,7 @@ jobs:
       - name: Build linux
         shell: bash
         run: |
-          tag=$(git describe --tags --abbrev=0)
+          tag=$(git describe --tag)
           linux_release_name=Chirp-$tag-linux-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "linux-x64" --self-contained false -c Release -o "${linux_release_name}"
@@ -45,7 +45,7 @@ jobs:
       - name: Build macOS
         shell: bash
         run: |
-          tag=$(git describe --tags --abbrev=0)
+          tag=$(git describe --tag)
           osx_release_name=Chirp-$tag-osx-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-x64" --self-contained false -c Release -o "${osx_release_name}"
@@ -57,7 +57,7 @@ jobs:
       - name: Build MacOS Arm
         shell: bash
         run: |
-          tag=$(git describe --tags --abbrev=0)
+          tag=$(git describe --tag)
           macOS_arm_release_name=Chirp-$tag-osx-arm64
           
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-arm64" --self-contained false -c Release -o "${macOS_arm_release_name}"
