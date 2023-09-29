@@ -1,4 +1,5 @@
 name: Close inactive issues
+run-name: Closing inactive issues
 on:
   schedule:
     - cron: "30 1 * * *"
@@ -9,6 +10,7 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
+      
     steps:
       - uses: actions/stale@v8
         with:

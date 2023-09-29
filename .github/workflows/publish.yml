@@ -1,5 +1,6 @@
-name: .NET Publish
-run-name: ${{ github.actor }} is publishing.
+name: Build and Publish
+run-name: ${{ github.actor }} is buliding and publishing
+
 on:
   release:
     types: [published]
