@@ -10,9 +10,6 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
 
-    env:
-      TAG: $(git describe --tag)
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,7 +22,7 @@ jobs:
       - name: Build linux
         shell: bash
         run: |
-          tag=${{env.TAG}}
+          tag=${{github.ref_name}}
           linux_release_name=Chirp-$tag-linux-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "linux-x64" --self-contained false -c Release -o "${linux_release_name}"
@@ -37,7 +34,7 @@ jobs:
       - name: Build macOS
         shell: bash
         run: |
-          tag=${{env.TAG}}
+          tag=${{github.ref_name}}
           osx_release_name=Chirp-$tag-osx-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-x64" --self-contained false -c Release -o "${osx_release_name}"
@@ -49,7 +46,7 @@ jobs:
       - name: Build MacOS Arm
         shell: bash
         run: |
-          tag=${{env.TAG}}
+          tag=${{github.ref_name}}
           macOS_arm_release_name=Chirp-$tag-osx-arm64
           
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "osx-arm64" --self-contained false -c Release -o "${macOS_arm_release_name}"
@@ -61,7 +58,7 @@ jobs:
       - name: Build windows
         shell: bash
         run: |
-          tag=${{env.TAG}}
+          tag=${{github.ref_name}}
           windows_release_name=Chirp-$tag-win-x64
 
           dotnet publish src/Chirp.Razor/Chirp.Razor.csproj --framework net7.0 --runtime "win-x64" --self-contained false -c Release -o "${windows_release_name}"
@@ -74,9 +71,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            Chirp-${{env.TAG}}-linux-x64.zip
-            Chirp-${{env.TAG}}-osx-x64.zip
-            Chirp-${{env.TAG}}-osx-arm64.zip
-            Chirp-${{env.TAG}}-win-x64.zip
+            Chirp-${{github.ref_name}}-linux-x64.zip
+            Chirp-${{github.ref_name}}-osx-x64.zip
+            Chirp-${{github.ref_name}}-osx-arm64.zip
+            Chirp-${{github.ref_name}}-win-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
