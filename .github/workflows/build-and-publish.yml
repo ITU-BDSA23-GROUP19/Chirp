@@ -43,7 +43,7 @@ jobs:
 
           rm -r "$osx_release_name"
 
-      - name: Build MacOS Arm
+      - name: Build macOS Arm
         shell: bash
         run: |
           tag=${{github.ref_name}}
