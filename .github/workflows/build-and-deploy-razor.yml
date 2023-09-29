@@ -12,13 +12,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.x'
-          include-prerelease: true
+          dotnet-version: '7.0.x'
 
       - name: Build with dotnet
         run: dotnet build src/Chirp.Razor/ --configuration Release
@@ -27,7 +26,7 @@ jobs:
         run: dotnet publish src/Chirp.Razor/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
@@ -41,7 +40,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: .net-app
 
