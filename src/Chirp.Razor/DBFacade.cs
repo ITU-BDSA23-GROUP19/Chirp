@@ -79,8 +79,6 @@ public class DBFacade
         SqliteCommand command = connection.CreateCommand();
         command.CommandText = query;
         SqliteDataReader reader = command.ExecuteReader();
-        connection.Close();
-
         return reader;
     }
 }
