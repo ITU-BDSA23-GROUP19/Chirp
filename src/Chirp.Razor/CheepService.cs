@@ -22,9 +22,7 @@ public class CheepService : ICheepService
     public List<CheepViewModel> GetCheeps()
     {
         DBFacade facade = new DBFacade("/tmp/chirp.db");
-        facade.GetCheeps();
-
-        return _cheeps;
+        return facade.GetCheeps();
     }
 
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
