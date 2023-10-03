@@ -21,6 +21,9 @@ public class CheepService : ICheepService
 
     public List<CheepViewModel> GetCheeps()
     {
+        DBFacade facade = new DBFacade("/tmp/chirp.db");
+        facade.GetCheeps();
+
         return _cheeps;
     }
 
