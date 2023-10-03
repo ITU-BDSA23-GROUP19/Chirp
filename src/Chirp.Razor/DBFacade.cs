@@ -6,34 +6,15 @@ public class DBFacade
 {
     private readonly string _path;
 
-    public DBFacade(string path)
+    public DBFacade()
     {
-        _path = path;
-    }
-
-    /*
-        public void Facade()
-        {
-            SqliteConnection connection = Connect();
-
-
-            while (reader.Read())
-            {
-                // https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader?view=dotnet-plat-ext-7.0#examples
-                var dataRecord = (IDataRecord)reader;
-                for (int i = 0; i < dataRecord.FieldCount; i++)
-                    Console.WriteLine($"{dataRecord.GetName(i)}: {dataRecord[i]}");
-
-                // See https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqldatareader.getvalues?view=dotnet-plat-ext-7.0
-                // for documentation on how to retrieve complete columns from query results
-                Object[] values = new Object[reader.FieldCount];
-                int fieldCount = reader.GetValues(values);
-                for (int i = 0; i < fieldCount; i++)
-                    Console.WriteLine($"{reader.GetName(i)}: {values[i]}");
-            }
+        string? value = Environment.GetEnvironmentVariable("CHIRPDBPATH");
+        if (value == null) {
+            _path = "/tmp/chirp.db";
+        } else {
+            _path = value;
         }
-    */
-
+    }
 
     public List<CheepViewModel> GetCheeps()
     {
@@ -41,20 +22,17 @@ public class DBFacade
                                              FROM message m
                                              JOIN user u on m.author_id = u.user_id;");
 
-        List<CheepViewModel> cheeps = new List<CheepViewModel>();
-
-        while (reader.Read())
-        {
-            string[] values = new string[reader.FieldCount];
-            cheeps.Add(new CheepViewModel(values[0], values[1], values[2]));
-        }
-
-        return cheeps;
+        return RetrieveCheeps(reader);
     }
 
     public List<CheepViewModel> GetAuthorCheeps(string author)
     {
-        throw new Exception();
+        SqliteDataReader reader = RunQuery(@$"SELECT username, text, pub_date
+                                             FROM message m
+                                             JOIN user u on m.author_id = u.user_id
+                                             WHERE username = '{author}';");
+
+        return RetrieveCheeps(reader);
     }
 
     private SqliteConnection ConnectToDB()
@@ -71,5 +49,18 @@ public class DBFacade
         command.CommandText = query;
         SqliteDataReader reader = command.ExecuteReader();
         return reader;
+    }
+
+    private List<CheepViewModel> RetrieveCheeps(SqliteDataReader reader) {
+        List<CheepViewModel> cheeps = new List<CheepViewModel>();
+        
+        while (reader.Read())
+        {
+            cheeps.Add(new CheepViewModel(reader.GetString(0), 
+                                          reader.GetString(1), 
+                                          CheepService.UnixTimeStampToDateTimeString(reader.GetInt32(2))));
+        }
+
+        return cheeps;
     }
 }
