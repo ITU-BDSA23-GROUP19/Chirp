@@ -18,21 +18,17 @@ public class DBFacade
 
     public List<CheepViewModel> GetCheeps()
     {
-        SqliteDataReader reader = RunQuery(@"SELECT username, text, pub_date
-                                             FROM message m
-                                             JOIN user u on m.author_id = u.user_id;");
-
-        return RetrieveCheeps(reader);
+        return RunQuery(@"SELECT username, text, pub_date
+                          FROM message m
+                          JOIN user u on m.author_id = u.user_id;");
     }
 
     public List<CheepViewModel> GetAuthorCheeps(string author)
     {
-        SqliteDataReader reader = RunQuery(@$"SELECT username, text, pub_date
-                                             FROM message m
-                                             JOIN user u on m.author_id = u.user_id
-                                             WHERE username = '{author}';");
-
-        return RetrieveCheeps(reader);
+        return RunQuery(@$"SELECT username, text, pub_date
+                           FROM message m
+                           JOIN user u on m.author_id = u.user_id
+                           WHERE username = '{author}';");
     }
 
     private SqliteConnection ConnectToDB()
@@ -42,13 +38,13 @@ public class DBFacade
         return connection;
     }
 
-    private SqliteDataReader RunQuery(string query)
+    private List<CheepViewModel> RunQuery(string query)
     {
         SqliteConnection connection = ConnectToDB();
         SqliteCommand command = connection.CreateCommand();
         command.CommandText = query;
         SqliteDataReader reader = command.ExecuteReader();
-        return reader;
+        return RetrieveCheeps(reader);
     }
 
     private List<CheepViewModel> RetrieveCheeps(SqliteDataReader reader) {
