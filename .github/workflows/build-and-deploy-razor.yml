@@ -23,7 +23,7 @@ jobs:
         run: dotnet build src/Chirp.Razor/ -c Release
 
       - name: dotnet publish
-        run: dotnet publish src/Chirp.Razor/ --runtime "linux-x64" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/Chirp.Razor/ --runtime "linux-x64" --self-contained false -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
