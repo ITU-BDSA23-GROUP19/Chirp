@@ -8,4 +8,16 @@ public class Utility
         dateTime = dateTime.AddSeconds(unixTimeStamp);
         return dateTime.ToString("MM/dd/yy H:mm:ss");
     }
+
+    public static Stream GetResourceStream(string resourcePath)
+    {
+        FileStream? stream = Assembly.GetExecutingAssembly().GetFile(resourcePath);
+
+        if (stream == null)
+        {
+            throw new ArgumentException("Unable to find resource");
+        }
+
+        return stream;
+    }
 }

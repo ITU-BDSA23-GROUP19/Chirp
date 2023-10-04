@@ -4,19 +4,25 @@ using Microsoft.Data.Sqlite;
 
 public class DBFacade
 {
-    private readonly string _path;
+    private readonly string _dataSource;
 
     public DBFacade()
     {
         string? value = Environment.GetEnvironmentVariable("CHIRPDBPATH");
 
-        if (value == null)
+        if (string.IsNullOrWhiteSpace(value))
         {
-            _path = "/tmp/chirp.db";
+            _dataSource = "/tmp/chirp.db";
         }
         else
         {
-            _path = value;
+            _dataSource = value;
+        }
+
+        if (!File.Exists(_dataSource))
+        {
+            ExecuteDatabaseResource("Chirp.Razor.data.schema.sql");
+            ExecuteDatabaseResource("Chirp.Razor.data.dump.sql");
         }
     }
 
@@ -56,9 +62,21 @@ public class DBFacade
         return RetrieveCheeps(reader);
     }
 
+    private void ExecuteDatabaseResource(string resourcePath)
+    {
+        SqliteConnection connection = ConnectToDatabase();
+
+        Stream stream = Utility.GetResourceStream(resourcePath);
+        StreamReader reader = new StreamReader(stream);
+
+        SqliteCommand command = connection.CreateCommand();
+        command.CommandText = reader.ReadToEnd();
+        command.ExecuteNonQuery();
+    }
+
     private SqliteConnection ConnectToDatabase()
     {
-        SqliteConnection connection = new SqliteConnection($"Data Source={_path}");
+        SqliteConnection connection = new SqliteConnection($"Data Source={_dataSource}");
         connection.Open();
 
         return connection;
