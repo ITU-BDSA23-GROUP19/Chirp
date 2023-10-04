@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="data/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="Chirp.Razor.Tests" />
   </ItemGroup>
 

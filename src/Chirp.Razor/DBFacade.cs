@@ -22,36 +22,46 @@ public class DBFacade
 
     public List<CheepViewModel> GetCheeps()
     {
-        return RunQuery(@"SELECT username, text, pub_date
-                          FROM message m
-                          JOIN user u on m.author_id = u.user_id;");
+        SqliteConnection connection = ConnectToDatabase();
+
+        SqliteCommand command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            SELECT username, text, pub_date
+            FROM message m
+            JOIN user u on m.author_id = u.user_id;
+        ";
+
+        SqliteDataReader reader = command.ExecuteReader();
+
+        return RetrieveCheeps(reader);
     }
 
     public List<CheepViewModel> GetAuthorCheeps(string author)
     {
-        return RunQuery(@$"SELECT username, text, pub_date
-                           FROM message m
-                           JOIN user u on m.author_id = u.user_id
-                           WHERE username = '{author}';");
+        SqliteConnection connection = ConnectToDatabase();
+
+        SqliteCommand command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            SELECT username, text, pub_date
+            FROM message m
+            JOIN user u on m.author_id = u.user_id
+            WHERE username = $author;
+        ";
+        command.Parameters.AddWithValue("$author", author);
+
+        SqliteDataReader reader = command.ExecuteReader();
+
+        return RetrieveCheeps(reader);
     }
 
-    private SqliteConnection ConnectToDB()
+    private SqliteConnection ConnectToDatabase()
     {
         SqliteConnection connection = new SqliteConnection($"Data Source={_path}");
         connection.Open();
 
         return connection;
-    }
-
-    private List<CheepViewModel> RunQuery(string query)
-    {
-        SqliteConnection connection = ConnectToDB();
-
-        SqliteCommand command = connection.CreateCommand();
-        command.CommandText = query;
-        SqliteDataReader reader = command.ExecuteReader();
-
-        return RetrieveCheeps(reader);
     }
 
     private List<CheepViewModel> RetrieveCheeps(SqliteDataReader reader)
