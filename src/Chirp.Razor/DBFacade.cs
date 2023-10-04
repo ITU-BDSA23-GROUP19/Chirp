@@ -17,6 +17,7 @@ public class DBFacade
 
         _connectionString = builder.ToString();
 
+        // Should probably only be done, if there is not created a database file.
         ExecuteNonQuery("schema.sql");
         ExecuteNonQuery("dump.sql");
     }
@@ -35,7 +36,6 @@ public class DBFacade
         }
     }
 
-    // https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c
     private void ExecuteNonQuery(string filePath)
     {
         SqliteConnection connection = ConnectToDatabase();
@@ -44,11 +44,19 @@ public class DBFacade
         command.ExecuteNonQuery();
     }
 
+    // Co-authored-by: ChatGPT
     private string GetResourceFile(string filePath)
     {
-        Stream stream = new EmbeddedFileProvider(GetType().GetTypeInfo().Assembly, "Chirp.Razor.data").GetFileInfo(filePath).CreateReadStream();
-        StreamReader streamReader = new StreamReader(stream);
-        return streamReader.ReadToEnd();
+        Stream? stream = GetType().GetTypeInfo().Assembly.GetManifestResourceStream("Chirp.Razor.data." + filePath);
+
+        if (stream != null)
+        {
+            StreamReader reader = new StreamReader(stream);
+
+            return reader.ReadToEnd();
+        }
+
+        throw new ArgumentException("Could not find the resource: " + filePath);
     }
 
     public List<CheepViewModel> GetCheeps()
