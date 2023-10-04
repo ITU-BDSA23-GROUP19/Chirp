@@ -1,29 +1,54 @@
 using System.Data;
+using System.Reflection;
 
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.FileProviders;
 
 public class DBFacade
 {
-    private readonly string _dataSource;
+    private readonly string _connectionString;
 
     public DBFacade()
+    {
+        SqliteConnectionStringBuilder builder = new SqliteConnectionStringBuilder
+        {
+            DataSource = GetDataSource()
+        };
+
+        _connectionString = builder.ToString();
+
+        ExecuteNonQuery("schema.sql");
+        ExecuteNonQuery("dump.sql");
+    }
+
+    private string GetDataSource()
     {
         string? value = Environment.GetEnvironmentVariable("CHIRPDBPATH");
 
         if (string.IsNullOrWhiteSpace(value))
         {
-            _dataSource = "/tmp/chirp.db";
+            return Path.GetTempPath() + "chirp.db";
         }
         else
         {
-            _dataSource = value;
+            return value;
         }
+    }
 
-        if (!File.Exists(_dataSource))
-        {
-            ExecuteDatabaseResource("Chirp.Razor.data.schema.sql");
-            ExecuteDatabaseResource("Chirp.Razor.data.dump.sql");
-        }
+    // https://stackoverflow.com/questions/7387085/how-to-read-an-entire-file-to-a-string-using-c
+    private void ExecuteNonQuery(string filePath)
+    {
+        SqliteConnection connection = ConnectToDatabase();
+        SqliteCommand command = connection.CreateCommand();
+        command.CommandText = GetResourceFile(filePath);
+        command.ExecuteNonQuery();
+    }
+
+    private string GetResourceFile(string filePath)
+    {
+        Stream stream = new EmbeddedFileProvider(GetType().GetTypeInfo().Assembly, "Chirp.Razor.data").GetFileInfo(filePath).CreateReadStream();
+        StreamReader streamReader = new StreamReader(stream);
+        return streamReader.ReadToEnd();
     }
 
     public List<CheepViewModel> GetCheeps()
@@ -62,21 +87,9 @@ public class DBFacade
         return RetrieveCheeps(reader);
     }
 
-    private void ExecuteDatabaseResource(string resourcePath)
-    {
-        SqliteConnection connection = ConnectToDatabase();
-
-        Stream stream = Utility.GetResourceStream(resourcePath);
-        StreamReader reader = new StreamReader(stream);
-
-        SqliteCommand command = connection.CreateCommand();
-        command.CommandText = reader.ReadToEnd();
-        command.ExecuteNonQuery();
-    }
-
     private SqliteConnection ConnectToDatabase()
     {
-        SqliteConnection connection = new SqliteConnection($"Data Source={_dataSource}");
+        SqliteConnection connection = new SqliteConnection(_connectionString);
         connection.Open();
 
         return connection;

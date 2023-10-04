@@ -4,24 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <PublishRelease>true</PublishRelease>
-    <PublishSingleFile>false</PublishSingleFile>
-    <SelfContained>false</SelfContained>
-    <DebugType>embedded</DebugType>
-    <AssemblyName>Chirp.Razor</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.11" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="data/**/*" />
-  </ItemGroup>
-
-  <ItemGroup>
     <InternalsVisibleTo Include="Chirp.Razor.Tests" />
+    <EmbeddedResource Include="data/**/*" />
   </ItemGroup>
 
 </Project>
