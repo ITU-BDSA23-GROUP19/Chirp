@@ -9,7 +9,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <DebugType>embedded</DebugType>
-    <AssemblyName>Chirp</AssemblyName>
+    <AssemblyName>Chirp.Razor</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
