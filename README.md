@@ -1,8 +1,8 @@
 # ITU-BDSA23-GROUP19
 ## Group members
 - Annabell Philip Nørdam (apno)
-  - ITU-mail: <apno@itu.dk>
-  - Github account: https://github.com/zqueamish
+    - ITU-mail: <apno@itu.dk>
+    - Github account: https://github.com/zqueamish
   
 - Eva Afzelius (evaf)
   - ITU-mail: <evaf@itu.dk>
