@@ -3,15 +3,19 @@
 - Annabell Philip Nørdam (apno)
   - ITU-mail: <apno@itu.dk>
   - Github account: https://github.com/zqueamish
+  
 - Eva Afzelius (evaf)
   - ITU-mail: <evaf@itu.dk>
   - Github account: https://github.com/evafz
+  
 - Patrick Handberg Jessen (patj)
   - ITU-mail: <patj@itu.dk>
   - Github account: https://github.com/PatrickHJessen
+  
 - Rebekka Mia Pahus Pedersen (rebp)
   - ITU-mail: <rebp@itu.dk>
   - Github account: https://github.com/RebekkaHeart
+  
 - Simon Benjamin Sander Rasmussen (besr)
   - ITU-mail: <besr@itu.dk>
   - Github account: https://github.com/Wrenaeris
