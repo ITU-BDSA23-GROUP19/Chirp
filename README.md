@@ -1,6 +1,6 @@
-# CHIRP  
+# Chirp
 
-## Commits with co-authors  
+## Commits with co-authors
 Co-authored-by: Annabell <abno@itu.dk>  
 Co-authored-by: Eva <evaf@itu.dk>  
 Co-authored-by: Patrick <patj@itu.dk>  
