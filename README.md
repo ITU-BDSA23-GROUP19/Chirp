@@ -25,10 +25,11 @@ Use the following lines to assign co-authors to a commit.
 ### Locally
 - Change directory to `Chirp/src/Chirp.Razor`.  
 - Use `dotnet run`, this will start the application locally.  
-- Open your browser and go to `http://localhost:5273`.
+- Open your browser and go to the following URL.  
+http://localhost:5273
 
 ### Remotely
-- Go to the following website.  
+- Go to the following URL.  
 https://bdsagroup19chirprazor.azurewebsites.net/
 
 # Chirp.CLI
