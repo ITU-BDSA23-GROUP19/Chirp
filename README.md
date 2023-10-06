@@ -23,11 +23,11 @@ Use the following lines to assign co-authors to a commit.
 ### Locally
 - Change directory to `Chirp/src/Chirp.Razor`.  
 - Use `dotnet run`, this will start the application locally.  
-- Open your browser and go to the following URL.  
+- Open a browser and go to the following URL.  
 http://localhost:5273/
 
 ### Remotely
-- Open your browser and go to the following URL.  
+- Open a browser and go to the following URL.  
 https://bdsagroup19chirprazor.azurewebsites.net/
 
 <br>
@@ -42,9 +42,9 @@ https://bdsagroup19chirprazor.azurewebsites.net/
 
 
 ## Access the CSV database remotely
-- Open your browser and go to the following URL.  
+- Open a browser and go to the following URL.  
 https://bdsagroup19chirpremotedb.azurewebsites.net/  
 
-- Add one of the following lines to the URL.  
+- Add one of the following lines to the end of the URL.  
 `cheeps` - Retrieve all cheep  
 `cheeps?limit=<limit>` - Retrieve an amount of cheep.
