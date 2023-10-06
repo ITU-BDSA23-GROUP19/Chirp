@@ -36,6 +36,7 @@ https://bdsagroup19chirprazor.azurewebsites.net/
 ## Running the application
 - Change directory to `Chirp/src/Chirp.CLI`.  
 - Use the following commands to interact with the application.  
+  
 `dotnet run cheep <message>` - Post a cheep.  
 `dotnet run read` - Retrieve all cheeps.  
 `dotnet run read <limit>` - Retrieve an amount of cheep.
@@ -45,6 +46,7 @@ https://bdsagroup19chirprazor.azurewebsites.net/
 - Open your browser and go to the following URL.  
 https://bdsagroup19chirpremotedb.azurewebsites.net/  
 
-- Add one of the following lines to the URL.  
+- Add one of the following lines to the URL. 
+  
 `cheeps` - Retrieve all cheep  
 `cheeps?limit=<limit>` - Retrieve an amount of cheep.
