@@ -30,7 +30,7 @@ Use the following lines to assign co-authors to a commit.
 http://localhost:5273/
 
 ### Remotely
-- Open your browser and go to the following URL. 
+- Open your browser and go to the following URL.  
 https://bdsagroup19chirprazor.azurewebsites.net/
 
 <br>
@@ -38,5 +38,17 @@ https://bdsagroup19chirprazor.azurewebsites.net/
 # Chirp.CLI
 
 ## Running the application
+- Change directory to `Chirp/src/Chirp.CLI`.  
+- Use the following commands to interact with the application.  
+
++ `dotnet run cheep <message>` - Post a cheep.  
++ `dotnet run read` - Retrieve all cheeps.  
++ `dotnet run read <limit>` - Retrieve an amount of cheep.
+
 
 ## Access the CSV database remotely
+- Open your browser and go to the following URL.  
+https://bdsagroup19chirpremotedb.azurewebsites.net/  
+
++ 
++ 
