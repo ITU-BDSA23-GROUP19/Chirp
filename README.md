@@ -50,5 +50,6 @@ https://bdsagroup19chirprazor.azurewebsites.net/
 - Open your browser and go to the following URL.  
 https://bdsagroup19chirpremotedb.azurewebsites.net/  
 
-+ 
-+ 
+- Add one of the following lines to the URL.
++ `cheeps` - Retrieve all cheep
++ `cheeps?limit=<limit>` - Retrieve an amount of cheep.
