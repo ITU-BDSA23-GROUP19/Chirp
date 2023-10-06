@@ -29,22 +29,3 @@ http://localhost:5273/
 ### Remotely
 - Open a browser and go to the following URL.  
 https://bdsagroup19chirprazor.azurewebsites.net/
-
-<br>
-
-# Chirp.CLI
-## Running the application
-- Change directory to `Chirp/src/Chirp.CLI`.  
-- Use the following commands to interact with the application.  
-`dotnet run cheep <message>` - Post a cheep.  
-`dotnet run read` - Retrieve all cheeps.  
-`dotnet run read <limit>` - Retrieve an amount of cheep.
-
-
-## Access the CSV database remotely
-- Open a browser and go to the following URL.  
-https://bdsagroup19chirpremotedb.azurewebsites.net/  
-
-- Add one of the following lines to the end of the URL.  
-`cheeps` - Retrieve all cheep  
-`cheeps?limit=<limit>` - Retrieve an amount of cheep.
