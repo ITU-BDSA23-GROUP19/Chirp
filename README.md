@@ -16,8 +16,9 @@ Use the following lines to assign co-authors to a commit.
 - Co-authored-by: Simon <besr@itu.dk>
   
 + Co-authored-by: ChatGPT
-  
-  
+
+<br>
+
 # Chirp.Razor
 
 ## Running the application
@@ -29,10 +30,11 @@ Use the following lines to assign co-authors to a commit.
 http://localhost:5273/
 
 ### Remotely
-- Go to the following URL.  
+- Open your browser and go to the following URL. 
 https://bdsagroup19chirprazor.azurewebsites.net/
-  
-  
+
+<br>
+
 # Chirp.CLI
 
 ## Running the application
