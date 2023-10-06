@@ -29,7 +29,7 @@ Use the following lines to assign co-authors to a commit.
 
 ### Remotely
 - Go to the following website.  
-(https://bdsagroup19chirprazor.azurewebsites.net/)
+https://bdsagroup19chirprazor.azurewebsites.net/
 
 # Chirp.CLI
 
