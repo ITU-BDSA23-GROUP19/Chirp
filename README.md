@@ -28,7 +28,7 @@ Use `dotnet run`, this will start the application locally.
 Open your browser and go to `http://localhost:5273`.
 
 ### Remotely
-Open your browser and go to `https://bdsagroup19chirprazor.azurewebsites.net/`.
+Open your browser and go to [this website](https://bdsagroup19chirprazor.azurewebsites.net/).
 
 # Chirp.CLI
 
