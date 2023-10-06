@@ -1,5 +1,36 @@
-Co-authored-by: Annabell <abno@itu.dk> <br>
-Co-authored-by: Eva <evaf@itu.dk> <br>
-Co-authored-by: Patrick <patj@itu.dk> <br>
-Co-authored-by: Rebekka <rebp@itu.dk> <br>
-Co-authored-by: Simon <besr@itu.dk>
+# ITU-BDSA23-GROUP19
+## Group members
+- Annabell Philip Nørdam - <apno@itu.dk>   
+- Eva Afzelius - <evaf@itu.dk>  
+- Patrick Handberg Jessen - <patj@itu.dk>  
+- Rebekka Mia Pahus Pedersen - <rebp@itu.dk>  
+- Simon Benjamin Sander Rasmussen - <besr@itu.dk>
+
+## Commit with co-authors
+Use the following lines to assign co-authors to a commit.  
+- Co-authored-by: Annabell <apno@itu.dk>  
+- Co-authored-by: Eva <evaf@itu.dk>  
+- Co-authored-by: Patrick <patj@itu.dk>  
+- Co-authored-by: Rebekka <rebp@itu.dk>  
+- Co-authored-by: Simon <besr@itu.dk>
+  
++ Co-authored-by: ChatGPT
+
+<br>
+
+# Chirp.CLI
+## Running the application
+- Change directory to `Chirp/src/Chirp.CLI`.  
+- Use the following commands to interact with the application.  
+`dotnet run cheep <message>` - Post a cheep.  
+`dotnet run read` - Retrieve all cheeps.  
+`dotnet run read <limit>` - Retrieve an amount of cheep.
+
+
+## Access the CSV database remotely
+- Open a browser and go to the following URL.  
+https://bdsagroup19chirpremotedb.azurewebsites.net/  
+
+- Add one of the following lines to the end of the URL.  
+`cheeps` - Retrieve all cheep  
+`cheeps?limit=<limit>` - Retrieve an amount of cheep.
