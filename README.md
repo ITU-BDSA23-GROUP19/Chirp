@@ -4,9 +4,9 @@
   - ITU-mail: <apno@itu.dk>  
   - Github account: https://github.com/zqueamish
 
-- Eva Afzelius (evaf)
-  - ITU-mail: <evaf@itu.dk>
-  - Github account: https://github.com/evafz
++ Eva Afzelius (evaf)
+  + ITU-mail: <evaf@itu.dk>
+  + Github account: https://github.com/evafz
   
 - Patrick Handberg Jessen (patj)
   - ITU-mail: <patj@itu.dk>
