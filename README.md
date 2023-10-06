@@ -8,6 +8,7 @@
 - Simon Benjamin Sander Rasmussen - <besr@itu.dk>
 
 ## Commit with co-authors
+Use the following lines to assign co-authors to a commit.  
 - Co-authored-by: Annabell <apno@itu.dk>  
 - Co-authored-by: Eva <evaf@itu.dk>  
 - Co-authored-by: Patrick <patj@itu.dk>  
@@ -19,6 +20,18 @@
 
 # Chirp.Razor
 
+## Running the application
 
+### Locally
+Change directory to `Chirp/src/Chirp.Razor`.  
+Use `dotnet run`, this will start the application locally.  
+Open your browser and go to `http://localhost:5273`.
+
+### Remotely
+Open your browser and go to `https://bdsagroup19chirprazor.azurewebsites.net/`.
 
 # Chirp.CLI
+
+## Running the application
+
+## Access the CSV database remotely
