@@ -28,8 +28,8 @@ Use the following lines to assign co-authors to a commit.
 - Open your browser and go to `http://localhost:5273`.
 
 ### Remotely
-- Go to [this website](https://bdsagroup19chirprazor.azurewebsites.net/).
-- (https://bdsagroup19chirprazor.azurewebsites.net/)
+- Go to the following website.  
+(https://bdsagroup19chirprazor.azurewebsites.net/)
 
 # Chirp.CLI
 
