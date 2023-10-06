@@ -1,10 +1,20 @@
 # ITU-BDSA23-GROUP19
 ## Group members
-- Annabell Philip Nørdam - <apno@itu.dk>   
-- Eva Afzelius - <evaf@itu.dk>  
-- Patrick Handberg Jessen - <patj@itu.dk>  
-- Rebekka Mia Pahus Pedersen - <rebp@itu.dk>  
-- Simon Benjamin Sander Rasmussen - <besr@itu.dk>
+- Annabell Philip Nørdam (apno)
+  - ITU-mail: <apno@itu.dk>
+  - Github account: https://github.com/zqueamish
+- Eva Afzelius (evaf)
+  - ITU-mail: <evaf@itu.dk>
+  - Github account: https://github.com/evafz
+- Patrick Handberg Jessen (patj)
+  - ITU-mail: <patj@itu.dk>
+  - Github account: https://github.com/PatrickHJessen
+- Rebekka Mia Pahus Pedersen (rebp)
+  - ITU-mail: <rebp@itu.dk>
+  - Github account: https://github.com/RebekkaHeart
+- Simon Benjamin Sander Rasmussen (besr)
+  - ITU-mail: <besr@itu.dk>
+  - Github account: https://github.com/Wrenaeris
 
 ## Commit with co-authors
 Use the following lines to assign co-authors to a commit.  
