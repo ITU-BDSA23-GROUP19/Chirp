@@ -1,3 +1,4 @@
+using Chirp.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Infrastructure;

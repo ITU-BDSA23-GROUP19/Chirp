@@ -1,4 +1,4 @@
-namespace Chirp.Infrastructure;
+namespace Chirp.Infrastructure.Models;
 
 public class Author
 {
@@ -6,5 +6,5 @@ public class Author
     public required string Name { get; set; }
     public required string Email { get; set; }
 
-    public IEnumerable<Cheep> Cheeps { get; } = new List<Cheep>();
+    public List<Cheep> Cheeps { get; set; } = new List<Cheep>();
 }
