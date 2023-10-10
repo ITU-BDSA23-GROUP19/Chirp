@@ -1,5 +1,3 @@
-using Chirp.Razor;
-
 using Microsoft.EntityFrameworkCore;
 using Chirp.Infrastructure;
 
@@ -14,34 +12,34 @@ public class CheepRepository : ICheepRepository
         _context = new ChirpDBContext();
         DbInitializer.SeedDatabase(_context);
     }
-    public List<CheepViewModel> GetCheeps()
+    public List<CheepDTO> GetCheeps()
     {
         var cheeps = from c in _context.Cheeps
                      orderby c.TimeStamp descending
-                     select new { Author = c.Author.Name, Message = c.Text, Timestamp = c.TimeStamp };
+                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
 
-        List<CheepViewModel> cheepList = new List<CheepViewModel>();
+        List<CheepDTO> cheepList = new List<CheepDTO>();
 
         foreach (var cheep in cheeps)
         {
-            cheepList.Add(new CheepViewModel(cheep.Author, cheep.Message, cheep.Timestamp.ToString()));
+            cheepList.Add(cheep);
         }
 
         return cheepList;
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepDTO> GetCheepsFromAuthor(string author)
     {
         var cheeps = from c in _context.Cheeps
                      where c.Author.Name.Contains(author)
                      orderby c.TimeStamp descending
-                     select new { Author = c.Author.Name, Message = c.Text, Timestamp = c.TimeStamp };
+                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
 
-        List<CheepViewModel> cheepList = new List<CheepViewModel>();
+        List<CheepDTO> cheepList = new List<CheepDTO>();
 
         foreach (var cheep in cheeps)
         {
-            cheepList.Add(new CheepViewModel(cheep.Author, cheep.Message, cheep.Timestamp.ToString()));
+            cheepList.Add(cheep);
         }
 
         return cheepList;
