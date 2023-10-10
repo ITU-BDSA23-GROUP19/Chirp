@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
-    <InternalsVisibleTo Include="Chirp.Razor.Tests" />
   </ItemGroup>
 
   <PropertyGroup>
