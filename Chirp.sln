@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{035C5C1B-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Razor.Tests", "test\Chirp.Razor.Tests\Chirp.Razor.Tests.csproj", "{2862A4DF-8E54-4DA8-823F-9DE577D214E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Repository", "src\Chirp.Repository\Chirp.Repository.csproj", "{E6327B57-8074-45AF-ADAD-7F66FC26BA76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +30,14 @@ Global
 		{2862A4DF-8E54-4DA8-823F-9DE577D214E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2862A4DF-8E54-4DA8-823F-9DE577D214E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2862A4DF-8E54-4DA8-823F-9DE577D214E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6327B57-8074-45AF-ADAD-7F66FC26BA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6327B57-8074-45AF-ADAD-7F66FC26BA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6327B57-8074-45AF-ADAD-7F66FC26BA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6327B57-8074-45AF-ADAD-7F66FC26BA76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4867F396-0E6F-406C-B8B7-8AE739651B9F} = {67FE0DC3-B116-43FA-8237-3CB4C6D9B780}
 		{2862A4DF-8E54-4DA8-823F-9DE577D214E6} = {035C5C1B-737C-4A1E-ACE8-012BC1254206}
+		{E6327B57-8074-45AF-ADAD-7F66FC26BA76} = {67FE0DC3-B116-43FA-8237-3CB4C6D9B780}
 	EndGlobalSection
 EndGlobal
