@@ -19,6 +19,7 @@ public class CheepRepository : ICheepRepository
         _context = new ChirpDBContext();
         DbInitializer.SeedDatabase(_context);
     }
+
     public List<CheepDTO> GetCheeps()
     {
         var cheeps = from c in _context.Cheeps
