@@ -5,22 +5,21 @@ namespace Chirp.Repository;
 
 public class CheepRepository : ICheepRepository
 {
-    private ChirpDBContext _context;
+    private readonly ChirpDBContext _context;
 
     public CheepRepository()
     {
         _context = new ChirpDBContext();
+        DbInitializer.SeedDatabase(_context);
     }
     public void GetCheeps()
     {
-        var test = from c in _context.Authors
-                   where c.Name.Contains("a")
-                   orderby c.Name descending
-                   select new { Author = c.Name };
+        var authors = from c in _context.Cheeps
+                      select new { c.Text };
 
-        foreach (var name in test)
+        foreach (var author in authors)
         {
-            Console.WriteLine(name.Author);
+            Console.WriteLine(author.Text);
         }
     }
 

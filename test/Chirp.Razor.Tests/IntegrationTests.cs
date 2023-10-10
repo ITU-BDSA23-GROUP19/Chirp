@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using Chirp.Repository;
 
 namespace Chirp.Razor.Tests
 {
@@ -35,6 +36,15 @@ namespace Chirp.Razor.Tests
 
             Assert.Contains("Chirp!", content);
             Assert.Contains($"{author}'s Timeline", content);
+        }
+
+        [Fact]
+        public void Test()
+        {
+            CheepRepository cr = new CheepRepository();
+            cr.GetCheeps();
+
+            Assert.True(true);
         }
     }
 }
