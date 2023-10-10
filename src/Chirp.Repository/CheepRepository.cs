@@ -3,6 +3,13 @@ using Chirp.Infrastructure;
 
 namespace Chirp.Repository;
 
+public interface ICheepRepository
+{
+    public List<CheepDTO> GetCheeps();
+    public List<CheepDTO> GetCheepsFromAuthor(string author);
+
+}
+
 public class CheepRepository : ICheepRepository
 {
     private readonly ChirpDBContext _context;
