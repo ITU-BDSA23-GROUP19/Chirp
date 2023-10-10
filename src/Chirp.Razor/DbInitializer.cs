@@ -4,7 +4,6 @@ using Chirp.Infrastructure.Models;
 using Chirp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-
 public static class DbInitializer
 {
     public static void SeedDatabase(ChirpDBContext chirpContext)
