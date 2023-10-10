@@ -14,19 +14,36 @@ public class CheepRepository : ICheepRepository
         _context = new ChirpDBContext();
         DbInitializer.SeedDatabase(_context);
     }
-    public void GetCheeps()
+    public List<CheepViewModel> GetCheeps()
     {
-        var authors = from c in _context.Cheeps
-                      select new { c.Text };
+        var cheeps = from c in _context.Cheeps
+                     orderby c.TimeStamp descending
+                     select new { Author = c.Author.Name, Message = c.Text, Timestamp = c.TimeStamp };
 
-        foreach (var author in authors)
+        List<CheepViewModel> cheepList = new List<CheepViewModel>();
+
+        foreach (var cheep in cheeps)
         {
-            Console.WriteLine(author.Text);
+            cheepList.Add(new CheepViewModel(cheep.Author, cheep.Message, cheep.Timestamp.ToString()));
         }
+
+        return cheepList;
     }
 
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
     {
-        throw new NotImplementedException();
+        var cheeps = from c in _context.Cheeps
+                     where c.Author.Name.Contains(author)
+                     orderby c.TimeStamp descending
+                     select new { Author = c.Author.Name, Message = c.Text, Timestamp = c.TimeStamp };
+
+        List<CheepViewModel> cheepList = new List<CheepViewModel>();
+
+        foreach (var cheep in cheeps)
+        {
+            cheepList.Add(new CheepViewModel(cheep.Author, cheep.Message, cheep.Timestamp.ToString()));
+        }
+
+        return cheepList;
     }
 }
