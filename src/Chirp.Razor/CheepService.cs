@@ -8,15 +8,15 @@ public interface ICheepService
 
 public class CheepService : ICheepService
 {
-    private readonly DBFacade _facade = new DBFacade();
+    private readonly ICheepRepository _repository = new CheepRepository();
 
     public List<CheepViewModel> GetCheeps()
     {
-        return _facade.GetCheeps();
+        return _repository.GetCheeps();
     }
 
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
     {
-        return _facade.GetAuthorCheeps(author);
+        return _repository.GetAuthorCheeps(author);
     }
 }
