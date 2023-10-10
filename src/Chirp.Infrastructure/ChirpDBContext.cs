@@ -11,6 +11,6 @@ public class ChirpDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlite($"Data Source={Path.Combine(Path.GetTempPath(), "chirp.db")}");
+        options.UseSqlite($"Data Source={Path.Combine("data", "chirp.db")}");
     }
 }
