@@ -22,13 +22,20 @@ public class ChirpDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-        string[] paths = new string[] { fullPath, "src", "Chirp.Infrastructure", "data", "chirp.db" };
 
-        Console.WriteLine("ulul");
+        string filePath = Path.GetFullPath(".");
+        string fileName = Path.GetFileName(filePath);
+
+        while(!fileName.Equals("Chirp")){
+            filePath = Path.GetDirectoryName(filePath);
+            fileName = Path.GetFileName(filePath);
+        }
+       
+        string[] paths = new string[] { filePath, "src", "Chirp.Infrastructure", "data", "chirp.db" };
 
         Console.WriteLine(Path.Combine(paths));
 
-        options.UseSqlite($"Data Source={Path.Combine(Path.GetTempPath(), "chirp.db")}");
+        options.UseSqlite($"Data Source={Path.Combine(paths)}");
+        //options.UseSqlite($"Data Source={Path.Combine(Path.GetTempPath(), "chirp.db")}");
     }
 }
