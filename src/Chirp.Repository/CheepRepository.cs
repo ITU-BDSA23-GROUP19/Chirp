@@ -5,8 +5,8 @@ namespace Chirp.Repository;
 
 public interface ICheepRepository
 {
-    public List<CheepDTO> GetCheeps();
-    public List<CheepDTO> GetCheepsFromAuthor(string author);
+    public List<CheepDTO> GetCheeps(int pageNumber = 1, int pageSize = 32);
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber = 1, int pageSize = 32);
 
 }
 
@@ -20,15 +20,17 @@ public class CheepRepository : ICheepRepository
         DbInitializer.SeedDatabase(_context);
     }
 
-    public List<CheepDTO> GetCheeps()
+    public List<CheepDTO> GetCheeps(int pageNumber, int pageSize)
     {
         var cheeps = from c in _context.Cheeps
                      orderby c.TimeStamp descending
                      select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
 
+        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
         List<CheepDTO> cheepList = new List<CheepDTO>();
 
-        foreach (var cheep in cheeps)
+        foreach (var cheep in pagedCheeps)
         {
             cheepList.Add(cheep);
         }
@@ -36,16 +38,18 @@ public class CheepRepository : ICheepRepository
         return cheepList;
     }
 
-    public List<CheepDTO> GetCheepsFromAuthor(string author)
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
     {
         var cheeps = from c in _context.Cheeps
                      where c.Author.Name.Contains(author)
                      orderby c.TimeStamp descending
                      select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
 
+        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
         List<CheepDTO> cheepList = new List<CheepDTO>();
 
-        foreach (var cheep in cheeps)
+        foreach (var cheep in pagedCheeps)
         {
             cheepList.Add(cheep);
         }
