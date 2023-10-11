@@ -33,9 +33,6 @@ public class ChirpDBContext : DbContext
        
         string[] paths = new string[] { filePath, "src", "Chirp.Infrastructure", "data", "chirp.db" };
 
-        Console.WriteLine(Path.Combine(paths));
-
         options.UseSqlite($"Data Source={Path.Combine(paths)}");
-        //options.UseSqlite($"Data Source={Path.Combine(Path.GetTempPath(), "chirp.db")}");
     }
 }
