@@ -2,22 +2,22 @@ using Chirp.Repository;
 
 public interface ICheepService
 {
-    public List<CheepViewModel> GetCheeps();
-    public List<CheepViewModel> GetCheepsFromAuthor(string author);
+    public List<CheepViewModel> GetCheeps(int pageNumber);
+    public List<CheepViewModel> GetCheepsFromAuthor(string author, int pageNumber);
 }
 
 public class CheepService : ICheepService
 {
     private readonly ICheepRepository _cheepRepository = new CheepRepository();
 
-    public List<CheepViewModel> GetCheeps()
+    public List<CheepViewModel> GetCheeps(int pageNumber)
     {
-        return CheepDTOToCheepViewModel(_cheepRepository.GetCheeps());
+        return CheepDTOToCheepViewModel(_cheepRepository.GetCheeps(pageNumber));
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepViewModel> GetCheepsFromAuthor(string author, int pageNumber)
     {
-        return CheepDTOToCheepViewModel(_cheepRepository.GetCheepsFromAuthor(author));
+        return CheepDTOToCheepViewModel(_cheepRepository.GetCheepsFromAuthor(author, pageNumber));
     }
 
     private List<CheepViewModel> CheepDTOToCheepViewModel(List<CheepDTO> cheepsDTO)
