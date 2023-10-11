@@ -11,7 +11,7 @@
     <InternalsVisibleTo Include="Chirp.Razor.Tests" />
     <EmbeddedResource Include="data/**/*" />
     <Content Include="data/**/*" CopyToPublishDirectory="PreserveNewest" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
