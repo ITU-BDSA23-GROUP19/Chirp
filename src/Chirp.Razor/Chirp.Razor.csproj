@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
+    <ProjectReference Include="..\Chirp.Repository\Chirp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

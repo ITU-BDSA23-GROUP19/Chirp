@@ -1,3 +1,7 @@
+using Chirp.Infrastructure;
+
+using var db = new ChirpDBContext();
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

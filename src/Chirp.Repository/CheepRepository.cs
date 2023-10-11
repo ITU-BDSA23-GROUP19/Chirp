@@ -3,29 +3,57 @@ using Chirp.Infrastructure;
 
 namespace Chirp.Repository;
 
+public interface ICheepRepository
+{
+    public List<CheepDTO> GetCheeps(int pageNumber = 1, int pageSize = 32);
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber = 1, int pageSize = 32);
+
+}
+
 public class CheepRepository : ICheepRepository
 {
-    private ChirpDBContext _context;
+    private readonly ChirpDBContext _context;
 
     public CheepRepository()
     {
         _context = new ChirpDBContext();
+        DbInitializer.SeedDatabase(_context);
     }
-    public void GetCheeps()
-    {
-        var test = from c in _context.Authors
-                   where c.Name.Contains("a")
-                   orderby c.Name descending
-                   select new { Author = c.Name };
 
-        foreach (var name in test)
+    public List<CheepDTO> GetCheeps(int pageNumber, int pageSize)
+    {
+        var cheeps = from c in _context.Cheeps
+                     orderby c.TimeStamp descending
+                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
+
+        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
+        List<CheepDTO> cheepList = new List<CheepDTO>();
+
+        foreach (var cheep in pagedCheeps)
         {
-            Console.WriteLine(name.Author);
+            cheepList.Add(cheep);
         }
+
+        return cheepList;
     }
 
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
     {
-        throw new NotImplementedException();
+        var cheeps = from c in _context.Cheeps
+                     where c.Author.Name.Contains(author)
+                     orderby c.TimeStamp descending
+                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
+
+        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
+        List<CheepDTO> cheepList = new List<CheepDTO>();
+
+        foreach (var cheep in pagedCheeps)
+        {
+            cheepList.Add(cheep);
+        }
+
+        return cheepList;
     }
 }
