@@ -1,9 +1,3 @@
-using System.Net.Http.Headers;
-
-using Chirp.Infrastructure.Models;
-
-using Microsoft.EntityFrameworkCore;
-
 namespace Chirp.Infrastructure;
 
 public class ChirpDBContext : DbContext

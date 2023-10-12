@@ -1,4 +1,4 @@
-using Chirp.Repository;
+namespace Chirp.Web;
 
 public interface ICheepService
 {

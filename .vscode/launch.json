@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Chirp.Razor/bin/Debug/net7.0/Chirp.Razor.dll",
+            "program": "${workspaceFolder}/src/Chirp.Web/bin/Debug/net7.0/Chirp.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Chirp.Razor",
+            "cwd": "${workspaceFolder}/src/Chirp.Web",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

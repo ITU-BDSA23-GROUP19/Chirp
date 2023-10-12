@@ -1,14 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Chirp.Infrastructure;
-
-namespace Chirp.Repository;
-
-public interface ICheepRepository
-{
-    public List<CheepDTO> GetCheeps(int pageNumber = 1, int pageSize = 32);
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber = 1, int pageSize = 32);
-
-}
+namespace Chirp.Infrastructure;
 
 public class CheepRepository : ICheepRepository
 {
@@ -17,7 +7,6 @@ public class CheepRepository : ICheepRepository
     public CheepRepository()
     {
         _context = new ChirpDBContext();
-        DbInitializer.SeedDatabase(_context);
     }
 
     public List<CheepDTO> GetCheeps(int pageNumber, int pageSize)
