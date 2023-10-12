@@ -1,3 +1,5 @@
+namespace Chirp.Web;
+
 public class Utility
 {
     public static string UnixTimeStampToDateTimeString(double unixTimeStamp)

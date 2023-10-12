@@ -1,6 +1,4 @@
-using Chirp.Infrastructure;
-
-using var db = new ChirpDBContext();
+using Chirp.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

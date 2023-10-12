@@ -1,6 +1,4 @@
-using Chirp.Infrastructure.Models;
-using Chirp.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+namespace Chirp.Web;
 
 public static class DbInitializer
 {

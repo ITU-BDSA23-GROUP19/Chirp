@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Chirp.Infrastructure;
-
-namespace Chirp.Repository;
-
+namespace Chirp.Infrastructure;
 
 public class CheepRepository : ICheepRepository
 {
@@ -11,7 +7,6 @@ public class CheepRepository : ICheepRepository
     public CheepRepository()
     {
         _context = new ChirpDBContext();
-        DbInitializer.SeedDatabase(_context);
     }
 
     public List<CheepDTO> GetCheeps(int pageNumber, int pageSize)
