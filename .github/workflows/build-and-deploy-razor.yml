@@ -1,5 +1,5 @@
 name: Build and Deploy to bdsagroup19chirprazor
-run-name: ${{ github.actor }} is buliding and deploying to bdsagroup19chirprazor
+run-name: ${{ github.actor }} is building and deploying to bdsagroup19chirprazor
 
 on:
   push:
