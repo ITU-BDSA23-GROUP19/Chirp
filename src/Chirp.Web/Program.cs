@@ -3,7 +3,7 @@ using Chirp.Web;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ChirpDbContext>(
+builder.Services.AddDbContext<ChirpContext>(
     options => options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
@@ -18,7 +18,7 @@ if (!app.Environment.IsDevelopment())
 using (IServiceScope scope = app.Services.CreateScope())
 {
     IServiceProvider services = scope.ServiceProvider;
-    ChirpDbContext context = services.GetRequiredService<ChirpDbContext>();
+    ChirpContext context = services.GetRequiredService<ChirpContext>();
     DbInitializer.SeedDatabase(context);
 }
 

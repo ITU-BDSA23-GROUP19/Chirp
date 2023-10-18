@@ -2,7 +2,7 @@ namespace Chirp.Web;
 
 public static class DbInitializer
 {
-    public static void SeedDatabase(ChirpDbContext chirpContext)
+    public static void SeedDatabase(ChirpContext chirpContext)
     {
         if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
         {

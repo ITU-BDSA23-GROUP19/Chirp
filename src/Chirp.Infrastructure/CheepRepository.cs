@@ -2,9 +2,9 @@ namespace Chirp.Infrastructure;
 
 public class CheepRepository : ICheepRepository
 {
-    private readonly ChirpDbContext _context;
+    private readonly ChirpContext _context;
 
-    public CheepRepository(ChirpDbContext context)
+    public CheepRepository(ChirpContext context)
     {
         _context = context;
     }
