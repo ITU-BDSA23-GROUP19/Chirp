@@ -1,7 +1,9 @@
+using Chirp.Web;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<DbContext>(
+builder.Services.AddDbContext<ChirpDbContext>(
     options => options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
@@ -11,6 +13,13 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
+}
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IServiceProvider services = scope.ServiceProvider;
+    ChirpDbContext context = services.GetRequiredService<ChirpDbContext>();
+    DbInitializer.SeedDatabase(context);
 }
 
 app.UseHttpsRedirection();

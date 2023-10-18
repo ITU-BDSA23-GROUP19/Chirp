@@ -2,11 +2,11 @@ namespace Chirp.Infrastructure;
 
 public class CheepRepository : ICheepRepository
 {
-    private readonly ChirpDBContext _context;
+    private readonly ChirpDbContext _context;
 
-    public CheepRepository()
+    public CheepRepository(ChirpDbContext context)
     {
-        _context = new ChirpDBContext();
+        _context = context;
     }
 
     public IEnumerable<CheepDTO> GetCheeps(int pageNumber, int pageSize)

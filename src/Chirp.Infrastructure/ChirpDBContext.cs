@@ -1,24 +1,11 @@
 namespace Chirp.Infrastructure;
 
-public class ChirpDBContext : DbContext
+public class ChirpDbContext : DbContext
 {
-    public DbSet<Cheep>? Cheeps { get; set; }
-    public DbSet<Author>? Authors { get; set; }
+    public DbSet<Cheep> Cheeps { get; set; }
+    public DbSet<Author> Authors { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    public ChirpDbContext(DbContextOptions<ChirpDbContext> options) : base(options)
     {
-
-        string filePath = Path.GetFullPath(".");
-        string fileName = Path.GetFileName(filePath);
-
-        while (!fileName.Equals("Chirp"))
-        {
-            filePath = Path.GetDirectoryName(filePath);
-            fileName = Path.GetFileName(filePath);
-        }
-
-        string[] paths = new string[] { filePath, "src", "Chirp.Infrastructure", "data", "chirp.db" };
-
-        options.UseSqlite($"Data Source={Path.Combine(paths)}");
     }
 }
