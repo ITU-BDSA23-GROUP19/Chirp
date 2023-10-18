@@ -5,13 +5,12 @@ namespace Chirp.Web.Pages;
 
 public class PublicModel : PageModel
 {
-    private readonly ICheepService _service;
-    public List<CheepViewModel> Cheeps { get; set; }
+    private readonly ICheepRepository _repository;
+    public List<CheepDTO> Cheeps { get; set; }
 
-    public PublicModel(ICheepService service)
+    public PublicModel(ICheepRepository repository)
     {
-        _service = service;
-        Cheeps = new List<CheepViewModel>();
+        _repository = repository;
     }
 
     public ActionResult OnGet()
@@ -29,7 +28,7 @@ public class PublicModel : PageModel
             }
         }
 
-        Cheeps = _service.GetCheeps(pageNumber);
+        Cheeps = _repository.GetCheeps(pageNumber);
         return Page();
     }
 }
