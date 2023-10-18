@@ -9,40 +9,22 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
-    public IEnumerable<CheepDTO> GetCheeps(int pageNumber, int pageSize)
+    public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
     {
-        var cheeps = from c in _context.Cheeps
-                     orderby c.TimeStamp descending
-                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
-
-        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
-
-        List<CheepDTO> cheepList = new List<CheepDTO>();
-
-        foreach (var cheep in pagedCheeps)
-        {
-            cheepList.Add(cheep);
-        }
-
-        return cheepList;
+        return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
+                                    .Skip(pageSize * (pageNumber - 1))
+                                    .Take(pageSize)
+                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString()))
+                                    .ToListAsync();
     }
 
-    public IEnumerable<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
+    public async Task<IEnumerable<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
-        var cheeps = from c in _context.Cheeps
-                     where c.Author.Name.Contains(author)
-                     orderby c.TimeStamp descending
-                     select new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString());
-
-        var pagedCheeps = cheeps.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
-
-        List<CheepDTO> cheepList = new List<CheepDTO>();
-
-        foreach (var cheep in pagedCheeps)
-        {
-            cheepList.Add(cheep);
-        }
-
-        return cheepList;
+        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))
+                                    .OrderByDescending(c => c.TimeStamp)
+                                    .Skip(pageSize * (pageNumber - 1))
+                                    .Take(pageSize)
+                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString()))
+                                    .ToListAsync();
     }
 }

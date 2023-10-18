@@ -13,7 +13,7 @@ public class PublicModel : PageModel
         _repository = repository;
     }
 
-    public ActionResult OnGet()
+    public async Task<ActionResult> OnGetAsync()
     {
         string? page = Request.Query["page"];
 
@@ -28,7 +28,7 @@ public class PublicModel : PageModel
             }
         }
 
-        Cheeps = _repository.GetCheeps(pageNumber);
+        Cheeps = await _repository.GetCheepsAsync(pageNumber);
         return Page();
     }
 }

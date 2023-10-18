@@ -13,7 +13,7 @@ public class UserTimelineModel : PageModel
         _repository = repository;
     }
 
-    public ActionResult OnGet(string author)
+    public async Task<ActionResult> OnGetAsync(string author)
     {
         string? page = Request.Query["page"];
 
@@ -28,7 +28,7 @@ public class UserTimelineModel : PageModel
             }
         }
 
-        Cheeps = _repository.GetCheepsFromAuthor(author, pageNumber);
+        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, pageNumber);
         return Page();
     }
 }
