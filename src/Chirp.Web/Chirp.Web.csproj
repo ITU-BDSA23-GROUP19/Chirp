@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <InternalsVisibleTo Include="Chirp.Web.Tests" />
-    <EmbeddedResource Include="data/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="data/**/*" CopyToPublishDirectory="PreserveNewest" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
+    <EmbeddedResource Include="data/**/*" />
   </ItemGroup>
 
   <ItemGroup>
