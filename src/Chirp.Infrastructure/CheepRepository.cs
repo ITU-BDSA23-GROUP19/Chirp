@@ -27,7 +27,7 @@ public class CheepRepository : ICheepRepository
         return cheepList;
     }
 
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
+    public IEnumerable<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
     {
         var cheeps = from c in _context.Cheeps
                      where c.Author.Name.Contains(author)
