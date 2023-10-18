@@ -15,11 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="data/**/*" CopyToPublishDirectory="PreserveNewest" />
-    <EmbeddedResource Include="data/**/*" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
     <ProjectReference Include="..\Chirp.Core\Chirp.Core.csproj" />
   </ItemGroup>
