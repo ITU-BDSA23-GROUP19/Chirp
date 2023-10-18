@@ -32,10 +32,10 @@ Use the following lines to assign co-authors to a commit.
 
 <br>
 
-# Chirp.Razor
+# Chirp.Web
 ## Running the application
 ### Locally
-- Change directory to `Chirp/src/Chirp.Razor`.  
+- Change directory to `Chirp/src/Chirp.Web`.  
 - Use `dotnet run`, this will start the application locally.  
 - Open a browser and go to the following URL.  
 http://localhost:5000/ or http://localhost:5273/
