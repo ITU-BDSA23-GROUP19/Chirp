@@ -9,7 +9,7 @@ public class CheepRepository : ICheepRepository
         _context = new ChirpDBContext();
     }
 
-    public List<CheepDTO> GetCheeps(int pageNumber, int pageSize)
+    public IEnumerable<CheepDTO> GetCheeps(int pageNumber, int pageSize)
     {
         var cheeps = from c in _context.Cheeps
                      orderby c.TimeStamp descending
