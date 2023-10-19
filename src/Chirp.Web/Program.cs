@@ -7,9 +7,9 @@ public class Program
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorPages();
+        builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddDbContext<ChirpContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
-        builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
         WebApplication app = builder.Build();
 
