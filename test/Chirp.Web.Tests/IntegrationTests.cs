@@ -4,13 +4,11 @@ namespace Chirp.Web.Tests
 {
     public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     {
-        private readonly WebApplicationFactory<Program> _fixture;
         private readonly HttpClient _client;
 
         public IntegrationTests(WebApplicationFactory<Program> fixture)
         {
-            _fixture = fixture;
-            _client = _fixture.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
+            _client = fixture.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
         }
 
         [Fact]
