@@ -13,22 +13,15 @@ public class PublicModel : PageModel
         _repository = repository;
     }
 
-    public async Task<ActionResult> OnGetAsync()
+    public async Task<ActionResult> OnGetAsync([FromQuery] int page)
     {
-        string? page = Request.Query["page"];
-
-        int pageNumber = 1;
-        if (page != null)
+        if (page < 1)
         {
-            pageNumber = int.Parse(page);
-
-            if (pageNumber < 1)
-            {
-                pageNumber = 1;
-            }
+            page = 1;
         }
 
-        Cheeps = await _repository.GetCheepsAsync(pageNumber);
+        Cheeps = await _repository.GetCheepsAsync(page);
+
         return Page();
     }
 }

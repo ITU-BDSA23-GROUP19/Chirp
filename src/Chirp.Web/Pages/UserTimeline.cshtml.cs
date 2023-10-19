@@ -13,22 +13,15 @@ public class UserTimelineModel : PageModel
         _repository = repository;
     }
 
-    public async Task<ActionResult> OnGetAsync(string author)
+    public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
     {
-        string? page = Request.Query["page"];
-
-        int pageNumber = 1;
-        if (page != null)
+        if (page < 1)
         {
-            pageNumber = int.Parse(page);
-
-            if (pageNumber < 1)
-            {
-                pageNumber = 1;
-            }
+            page = 1;
         }
 
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, pageNumber);
+        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
+
         return Page();
     }
 }
