@@ -6,9 +6,9 @@ namespace Chirp.Web.Tests
     {
         private readonly HttpClient _client;
 
-        public IntegrationTests(WebApplicationFactory<Program> fixture)
+        public IntegrationTests(WebApplicationFactory<Program> factory)
         {
-            _client = fixture.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
+            _client = factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
         }
 
         [Fact]

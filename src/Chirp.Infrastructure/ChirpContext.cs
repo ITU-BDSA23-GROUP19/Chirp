@@ -7,5 +7,6 @@ public class ChirpContext : DbContext
 
     public ChirpContext(DbContextOptions<ChirpContext> options) : base(options)
     {
+        Database.EnsureCreated();
     }
 }
