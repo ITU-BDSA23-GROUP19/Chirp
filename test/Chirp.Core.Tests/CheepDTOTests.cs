@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace Chirp.Core.Tests;
 
 public class CheepDTOTests
