@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Testing;
-
 namespace Chirp.Web.Tests
 {
     public class IntegrationTests : IClassFixture<WebApplicationFactory<Program>>
