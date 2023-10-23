@@ -9,6 +9,11 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
+    public void CreateCheep(CheepDTO cheep)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
     {
         return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
