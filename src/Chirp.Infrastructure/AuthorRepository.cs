@@ -1,5 +1,3 @@
-using SQLitePCL;
-
 namespace Chirp.Infrastructure;
 
 public class AuthorRepository : IAuthorRepository
