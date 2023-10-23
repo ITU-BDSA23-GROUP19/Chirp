@@ -1,3 +1,5 @@
+using SQLitePCL;
+
 namespace Chirp.Infrastructure;
 
 public class AuthorRepository : IAuthorRepository
@@ -16,15 +18,19 @@ public class AuthorRepository : IAuthorRepository
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
     {
-        return await _context.Authors.Where(a => a.Name.Equals(name))
-                                     .Select(a => new AuthorDTO(a.Name, a.Email))
-                                     .FirstOrDefaultAsync();
+        AuthorDTO? author = await _context.Authors.Where(a => a.Name.Equals(name))
+                                                  .Select(a => new AuthorDTO(a.Name, a.Email))
+                                                  .FirstOrDefaultAsync();
+
+        return author ?? throw new ArgumentException($"No author with name: '{name}'");
     }
 
     public async Task<AuthorDTO> GetAuthorFromEmailAsync(string email)
     {
-        return await _context.Authors.Where(a => a.Email.Equals(email))
-                                     .Select(a => new AuthorDTO(a.Name, a.Email))
-                                     .FirstOrDefaultAsync();
+        AuthorDTO? author = await _context.Authors.Where(a => a.Email.Equals(email))
+                                                  .Select(a => new AuthorDTO(a.Name, a.Email))
+                                                  .FirstOrDefaultAsync();
+
+        return author ?? throw new ArgumentException($"No author with email '{email}'.");
     }
 }
