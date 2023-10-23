@@ -9,7 +9,7 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
-    public void CreateCheep(CheepDTO cheep)
+    public void CreateCheep(CheepDTO cheep, AuthorDTO author)
     {
         throw new NotImplementedException();
     }
