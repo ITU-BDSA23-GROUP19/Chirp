@@ -1,4 +1,3 @@
-
 namespace Chirp.Infrastructure;
 
 public class AuthorRepository : IAuthorRepository
@@ -15,13 +14,17 @@ public class AuthorRepository : IAuthorRepository
         throw new NotImplementedException();
     }
 
-    public async Task<AuthorDTO> GetAuthorFromEmailAsync(string email)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
     {
-        throw new NotImplementedException();
+        return await _context.Authors.Where(a => a.Name.Equals(name))
+                                     .Select(a => new AuthorDTO(a.Name, a.Email))
+                                     .FirstOrDefaultAsync();
+    }
+
+    public async Task<AuthorDTO> GetAuthorFromEmailAsync(string email)
+    {
+        return await _context.Authors.Where(a => a.Email.Equals(email))
+                                     .Select(a => new AuthorDTO(a.Name, a.Email))
+                                     .FirstOrDefaultAsync();
     }
 }
