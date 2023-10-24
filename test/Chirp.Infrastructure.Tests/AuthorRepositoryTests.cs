@@ -2,7 +2,7 @@ namespace Chirp.Infrastructure.Tests;
 
 public class AuthorRepositoryTests
 {
-    private IAuthorRepository _repository;
+    private readonly IAuthorRepository _repository;
 
     public AuthorRepositoryTests()
     {
@@ -25,29 +25,8 @@ public class AuthorRepositoryTests
         Assert.NotNull(_repository);
     }
 
-
-    [Theory]
-    [InlineData("Simon", "simr@itu.dk")]
-    [InlineData("Annabell", "apno@itu.dk")]
-    public async void CanCreateAuthor(String name, String email)
-    {
-        //Arrange
-        AuthorDTO author = new AuthorDTO(name, email);
-        _repository.CreateAuthor(author);
-
-        //Act
-        string Name = author.Name;
-        string Email = author.Email;
-
-        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
-
-
-        //Assert
-        Assert.Equal(authorFromDatabase, author);
-    }
-
     [Fact]
-    public async void CanGetNull()
+    public async void CanGetAuthorNull()
     {
         try
         {
@@ -59,6 +38,51 @@ public class AuthorRepositoryTests
         }
     }
 
+    [Fact]
+    public async void CanGetEmailNull()
+    {
+        try
+        {
+            Assert.Null(await _repository.GetAuthorFromEmailAsync("jjjj@itu.dk"));
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("No author with email: 'jjjj@itu.dk'", e.Message);
+        }
+    }
 
 
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateAuthor(String name, String email)
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO(name, email);
+
+        //Act
+        _repository.CreateAuthor(author);
+        string Name = author.Name;
+
+        //Assert
+        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
+        Assert.Equal(authorFromDatabase, author);
+    }
+
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateEmail(String name, String email)
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO(name, email);
+
+        //Act
+        _repository.CreateAuthor(author);
+        string Email = author.Email;
+
+        //Assert
+        AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
+        Assert.Equal(emailFromDatabase, author);
+    }
 }
