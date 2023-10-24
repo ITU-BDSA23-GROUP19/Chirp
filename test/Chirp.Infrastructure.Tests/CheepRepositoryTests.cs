@@ -20,4 +20,17 @@ public class CheepRepositoryTests
         //Assert
         Assert.NotNull(_repository);
     }
+
+    [Theory]
+    [InlineData()]
+    public void CanCreateCheep(string author, string text, string timeStamp)
+    {
+        //Arrange
+        CheepDTO cheep = new CheepDTO(author, text, timeStamp);
+
+        //Act
+        _repository.CreateCheep(cheep);
+
+        //Assert
+    }
 }
