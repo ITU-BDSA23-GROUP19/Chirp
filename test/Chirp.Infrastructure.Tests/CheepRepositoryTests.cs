@@ -2,7 +2,7 @@ namespace Chirp.Infrastructure.Tests;
 
 public class CheepRepositoryTests
 {
-    private ICheepRepository _repository;
+    private readonly ICheepRepository _repository;
 
     public CheepRepositoryTests()
     {
@@ -15,7 +15,9 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public void Test()
+    public void CanCreateCheepRepositoryTest()
     {
+        //Assert
+        Assert.NotNull(_repository);
     }
 }
