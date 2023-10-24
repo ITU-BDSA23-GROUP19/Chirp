@@ -12,7 +12,7 @@ public class CheepRepository : ICheepRepository
     public async void CreateCheep(CheepDTO cheepDTO)
     {
         Author author = await _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
-                                               .FirstOrDefaultAsync() ?? throw new ArgumentException();
+                                              .FirstOrDefaultAsync() ?? throw new ArgumentException();
 
         Cheep cheep = new Cheep()
         {
