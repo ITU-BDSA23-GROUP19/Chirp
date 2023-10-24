@@ -21,7 +21,7 @@ public class CheepRepositoryTests
     [Fact]
     public void CanCreateCheepRepositoryTest()
     {
-        //Assert
+        // Assert
         Assert.NotNull(_repository);
     }
 
@@ -31,17 +31,32 @@ public class CheepRepositoryTests
     [InlineData("IsbjørnOgSkruetrækker", "lidt effektikt: lidt godt, meget effektivt: meget godt", "2023-10-01 13:13:23")]
     public async void CanCreateCheep(string author, string text, string timeStamp)
     {
-        //Arrange
+        // Arrange
         CheepDTO cheepDTO = new CheepDTO(author, text, timeStamp);
 
-        //Act
+        // Act
         _repository.CreateCheep(cheepDTO);
 
-        //Assert
+        // Assert
         IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
         foreach (CheepDTO cheep in cheeps)
         {
             Assert.Equal(text, cheep.Text);
         }
+    }
+
+    public async void CanGetCheepsAsync()
+    {
+
+    }
+
+    public async void CanGetCheepsFromAuthorAsync()
+    {
+
+    }
+
+    public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
+    {
+
     }
 }
