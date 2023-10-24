@@ -11,7 +11,20 @@ public class CheepRepository : ICheepRepository
 
     public void CreateCheep(CheepDTO cheep, AuthorDTO author)
     {
-        throw new NotImplementedException();
+        Author? cheepAuthor = _context.Authors.Find(author.Name);
+        if (cheepAuthor == null)
+        {
+            // you should not be able to Cheep if you do not have an account
+            throw new ArgumentException();
+        }
+        else
+        {
+            Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text, TimeStamp = DateTime.Parse(cheep.TimeStamp) };
+            cheepAuthor.Cheeps = cheepAuthor.Cheeps.Concat(new[] { cheepToAdd });
+            _context.Cheeps.Add(cheepToAdd);
+        }
+
+        _context.SaveChanges();
     }
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)

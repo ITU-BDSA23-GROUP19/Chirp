@@ -11,7 +11,8 @@ public class AuthorRepository : IAuthorRepository
 
     public void CreateAuthor(AuthorDTO author)
     {
-        throw new NotImplementedException();
+        _context.Authors.Add(new Author() { Name = author.Name, Email = author.Email });
+        _context.SaveChanges();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
