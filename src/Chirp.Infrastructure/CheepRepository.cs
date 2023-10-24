@@ -9,21 +9,19 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
-    public void CreateCheep(CheepDTO cheep)
+    public async void CreateCheep(CheepDTO cheepDTO)
     {
-        Author? cheepAuthor = _context.Authors.Find(cheep.Author);
-        if (cheepAuthor == null)
-        {
-            // you should not be able to Cheep if you do not have an account
-            throw new ArgumentException();
-        }
-        else
-        {
-            Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text, TimeStamp = DateTime.Parse(cheep.TimeStamp) };
-            cheepAuthor.Cheeps = cheepAuthor.Cheeps.Concat(new[] { cheepToAdd });
-            _context.Cheeps.Add(cheepToAdd);
-        }
+        Author author = await _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
+                                               .FirstOrDefaultAsync() ?? throw new ArgumentException();
 
+        Cheep cheep = new Cheep()
+        {
+            Author = author,
+            Text = cheepDTO.Text,
+            TimeStamp = DateTime.Parse(cheepDTO.TimeStamp)
+        };
+
+        _context.Cheeps.Add(cheep);
         _context.SaveChanges();
     }
 
