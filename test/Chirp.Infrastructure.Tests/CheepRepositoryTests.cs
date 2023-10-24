@@ -64,6 +64,7 @@ public class CheepRepositoryTests
         foreach (CheepDTO cheep in cheeps)
         {
             Assert.Equal(text, cheep.Text);
+            Assert.Equal(timeStamp, cheep.TimeStamp);
         }
     }
 
