@@ -15,7 +15,22 @@ public class AuthorRepositoryTests
     }
 
     [Fact]
-    public void Test()
+    public void CanCreateAuthorRepositoryTest()
     {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assert.NotNull(_repository);
     }
+
+    /*
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public void CanCreate()
+    {
+
+    }*/
 }
