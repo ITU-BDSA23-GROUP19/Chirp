@@ -14,11 +14,11 @@ public class CheepRepository : ICheepRepository
         Author? cheepAuthor = _context.Authors.Find(author.Name);
         if (cheepAuthor == null)
         {
-            _context.CreateAuthor(author);
+            throw new NotImplementedException();
         }
         else
         {
-            Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text };
+            Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text, TimeStamp = DateTime.Parse(cheep.TimeStamp) };
         }
     }
 
