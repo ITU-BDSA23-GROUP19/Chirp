@@ -9,9 +9,9 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
-    public void CreateCheep(CheepDTO cheep, AuthorDTO author)
+    public void CreateCheep(CheepDTO cheep)
     {
-        Author? cheepAuthor = _context.Authors.Find(author.Name);
+        Author? cheepAuthor = _context.Authors.Find(cheep.Author);
         if (cheepAuthor == null)
         {
             // you should not be able to Cheep if you do not have an account
