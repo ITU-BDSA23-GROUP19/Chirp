@@ -19,6 +19,8 @@ public class CheepRepository : ICheepRepository
         else
         {
             Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text, TimeStamp = DateTime.Parse(cheep.TimeStamp) };
+            cheepAuthor.Cheeps = cheepAuthor.Cheeps.Concat(new[] { cheepToAdd });
+            _context.Cheeps.Add(cheepToAdd);
         }
     }
 
