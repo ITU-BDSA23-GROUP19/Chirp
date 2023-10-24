@@ -2,7 +2,7 @@ namespace Chirp.Infrastructure.Tests;
 
 public class AuthorRepositoryTests
 {
-    private IAuthorRepository _repository;
+    private readonly IAuthorRepository _repository;
 
     public AuthorRepositoryTests()
     {
@@ -46,6 +46,26 @@ public class AuthorRepositoryTests
         Assert.Equal(authorFromDatabase, author);
     }
 
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateEmail(String name, String email)
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO(name, email);
+        _repository.CreateAuthor(author);
+
+        //Act
+        string Name = author.Name;
+        string Email = author.Email;
+
+        AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
+
+
+        //Assert
+        Assert.Equal(emailFromDatabase, author);
+    }
+
     [Fact]
     public async void CanGetNull()
     {
@@ -58,7 +78,4 @@ public class AuthorRepositoryTests
             Assert.Equal("No author with name: 'John'", e.Message);
         }
     }
-
-
-
 }
