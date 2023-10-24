@@ -33,16 +33,13 @@ public class AuthorRepositoryTests
     {
         //Arrange
         AuthorDTO author = new AuthorDTO(name, email);
-        _repository.CreateAuthor(author);
 
         //Act
+        _repository.CreateAuthor(author);
         string Name = author.Name;
-        string Email = author.Email;
-
-        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
-
 
         //Assert
+        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
         Assert.Equal(authorFromDatabase, author);
     }
 
@@ -53,16 +50,13 @@ public class AuthorRepositoryTests
     {
         //Arrange
         AuthorDTO author = new AuthorDTO(name, email);
-        _repository.CreateAuthor(author);
 
         //Act
-        string Name = author.Name;
+        _repository.CreateAuthor(author);
         string Email = author.Email;
 
-        AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
-
-
         //Assert
+        AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
         Assert.Equal(emailFromDatabase, author);
     }
 
