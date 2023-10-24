@@ -11,8 +11,8 @@ public class AuthorRepository : IAuthorRepository
 
     public void CreateAuthor(AuthorDTO author)
     {
-        Author authorToAdd = new Author() { Name = author.Name, Email = author.Email };
-        _context.Authors.Add(authorToAdd);
+        _context.Authors.Add(new Author() { Name = author.Name, Email = author.Email });
+        _context.SaveChanges();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)

@@ -14,7 +14,8 @@ public class CheepRepository : ICheepRepository
         Author? cheepAuthor = _context.Authors.Find(author.Name);
         if (cheepAuthor == null)
         {
-            throw new NotImplementedException();
+            // you should not be able to Cheep if you do not have an account
+            throw new ArgumentException();
         }
         else
         {
@@ -22,6 +23,8 @@ public class CheepRepository : ICheepRepository
             cheepAuthor.Cheeps = cheepAuthor.Cheeps.Concat(new[] { cheepToAdd });
             _context.Cheeps.Add(cheepToAdd);
         }
+
+        _context.SaveChanges();
     }
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
