@@ -69,22 +69,30 @@ public class CheepRepositoryTests
 
     public async void CanGetCheepsAsync()
     {
+        // Arrange
 
+        // Act
+
+        // Assert
     }
 
     [Theory]
     [InlineData("", 0, 0)]
     public void GetCheepsFromAuthorAsyncTest(string author, int pageNumber, int pageSize)
     {
-        //Arrange
+        // Arrange
 
-        //Act
+        // Act
 
-        //Assert
+        // Assert
     }
 
     public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
     {
+        // Arrange
 
+        // Act
+
+        // Assert
     }
 }
