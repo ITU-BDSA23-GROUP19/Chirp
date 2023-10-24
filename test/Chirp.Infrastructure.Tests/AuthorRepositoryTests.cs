@@ -15,7 +15,45 @@ public class AuthorRepositoryTests
     }
 
     [Fact]
-    public void Test()
+    public void CanCreateAuthorRepositoryTest()
     {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assert.NotNull(_repository);
     }
+
+
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateAuthor(String name, String email)
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO(name, email);
+        _repository.CreateAuthor(author);
+
+        //Act
+        String Name = author.Name;
+        String Email = author.Email;
+
+        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
+
+
+        //Assert
+        Assert.Equal(authorFromDatabase, author);
+    }
+
+    /*
+    [Fact]
+    public async void CanGetNull()
+    {
+        Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+    }
+    */
+    
+
+
 }
