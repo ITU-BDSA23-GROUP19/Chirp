@@ -11,7 +11,11 @@ public class CheepRepository : ICheepRepository
 
     public void CreateCheep(CheepDTO cheep, AuthorDTO author)
     {
-        throw new NotImplementedException();
+        Author? cheepAuthor = _context.Authors.Find(author.Name);
+        if (cheepAuthor == null) {
+            CreateAuthor(author);
+        }
+        Cheep cheepToAdd = new Cheep() { Author = author.Name, Text = cheep.Text };
     }
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
