@@ -32,16 +32,16 @@ public class CheepRepositoryTests
     public async void CanCreateCheep(string author, string text, string timeStamp)
     {
         //Arrange
-        CheepDTO cheep = new CheepDTO(author, text, timeStamp);
+        CheepDTO cheepDTO = new CheepDTO(author, text, timeStamp);
 
         //Act
-        _repository.CreateCheep(cheep);
+        _repository.CreateCheep(cheepDTO);
 
         //Assert
-        IEnumerable<CheepDTO> cheeeeeeeeeeeeps = await _repository.GetCheepsFromAuthorAsync(author);
-        foreach (CheepDTO cheep1 in cheeeeeeeeeeeeps)
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
+        foreach (CheepDTO cheep in cheeps)
         {
-            Assert.Equal(text, cheep1.Text);
+            Assert.Equal(text, cheep.Text);
         }
     }
 }
