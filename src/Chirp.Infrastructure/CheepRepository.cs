@@ -12,10 +12,14 @@ public class CheepRepository : ICheepRepository
     public void CreateCheep(CheepDTO cheep, AuthorDTO author)
     {
         Author? cheepAuthor = _context.Authors.Find(author.Name);
-        if (cheepAuthor == null) {
-            CreateAuthor(author);
+        if (cheepAuthor == null)
+        {
+            _context.CreateAuthor(author);
         }
-        Cheep cheepToAdd = new Cheep() { Author = author.Name, Text = cheep.Text };
+        else
+        {
+            Cheep cheepToAdd = new Cheep() { Author = cheepAuthor, Text = cheep.Text };
+        }
     }
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
