@@ -6,10 +6,10 @@ public class AuthorRepositoryTests
 
     public AuthorRepositoryTests()
     {
-        using SqliteConnection connection = new SqliteConnection("Data Source=:memory:");
+        SqliteConnection connection = new SqliteConnection("Data Source=:memory:");
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
-        using ChirpContext context = new ChirpContext(builder.Options);
+        ChirpContext context = new ChirpContext(builder.Options);
         context.Database.EnsureCreated();
         _repository = new AuthorRepository(context);
     }
@@ -36,8 +36,8 @@ public class AuthorRepositoryTests
         _repository.CreateAuthor(author);
 
         //Act
-        String Name = author.Name;
-        String Email = author.Email;
+        string Name = author.Name;
+        string Email = author.Email;
 
         AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
 
@@ -46,14 +46,19 @@ public class AuthorRepositoryTests
         Assert.Equal(authorFromDatabase, author);
     }
 
-    /*
     [Fact]
     public async void CanGetNull()
     {
-        Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+        try
+        {
+            Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("No author with name: 'John'", e.Message);
+        }
     }
-    */
-    
+
 
 
 }
