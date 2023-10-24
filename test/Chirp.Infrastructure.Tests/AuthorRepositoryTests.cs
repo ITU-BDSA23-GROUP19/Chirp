@@ -44,7 +44,12 @@ public class AuthorRepositoryTests
 
         //Assert
         Assert.Equal(authorFromDatabase, author);
-
-
     }
+
+    [Fact]
+    public async void CanGetNull()
+    {
+        Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+    }
+
 }
