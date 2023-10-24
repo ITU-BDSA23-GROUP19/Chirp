@@ -25,6 +25,32 @@ public class AuthorRepositoryTests
         Assert.NotNull(_repository);
     }
 
+    [Fact]
+    public async void CanGetAuthorNull()
+    {
+        try
+        {
+            Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("No author with name: 'John'", e.Message);
+        }
+    }
+
+    [Fact]
+    public async void CanGetEmailNull()
+    {
+        try
+        {
+            Assert.Null(await _repository.GetAuthorFromEmailAsync("jjjj@itu.dk"));
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("No author with email: 'jjjj@itu.dk'", e.Message);
+        }
+    }
+
 
     [Theory]
     [InlineData("Simon", "simr@itu.dk")]
@@ -58,18 +84,5 @@ public class AuthorRepositoryTests
         //Assert
         AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
         Assert.Equal(emailFromDatabase, author);
-    }
-
-    [Fact]
-    public async void CanGetNull()
-    {
-        try
-        {
-            Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
-        }
-        catch (ArgumentException e)
-        {
-            Assert.Equal("No author with name: 'John'", e.Message);
-        }
     }
 }
