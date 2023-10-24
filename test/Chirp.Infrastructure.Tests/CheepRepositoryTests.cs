@@ -11,11 +11,33 @@ public class CheepRepositoryTests
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
         context.Database.EnsureCreated();
-        context.Authors.Add(new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" });
-        context.Authors.Add(new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" });
-        context.Authors.Add(new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" });
-        context.SaveChanges();
+        DBinitializer(context);
         _repository = new CheepRepository(context);
+    }
+
+    private void DBinitializer(ChirpContext context)
+    {
+        //Authors for CanCreateCheep
+        Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" };
+        Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
+        Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
+
+        // Author for GetCheepsFromAuthorAsyncTest
+        Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
+
+        //Cheeps for everyone
+        Cheep c1 = new Cheep() { Author = a1, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c2 = new Cheep() { Author = a2, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c3 = new Cheep() { Author = a4, Text = "vent jeg tror det virker", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c4 = new Cheep() { Author = a4, Text = "you disrespect yourself and your nation", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c5 = new Cheep() { Author = a4, Text = "mine to sidste hjerneceller", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+
+        List<Author> authors = new List<Author>() { a1, a2, a3, a4 };
+        List<Cheep> cheeps = new List<Cheep>() { c1, c2, c3, c4, c5 };
+
+        context.Authors.AddRange(authors);
+        context.Cheeps.AddRange(cheeps);
+        context.SaveChanges();
     }
 
     [Fact]
@@ -43,5 +65,18 @@ public class CheepRepositoryTests
         {
             Assert.Equal(text, cheep.Text);
         }
+    }
+
+
+    [Theory]
+    [InlineData()]
+    public void GetCheepsFromAuthorAsyncTest(string author, int pageNumber, int pageSize)
+    {
+        //Arrange
+
+        //Act
+
+        //Assert
+
     }
 }
