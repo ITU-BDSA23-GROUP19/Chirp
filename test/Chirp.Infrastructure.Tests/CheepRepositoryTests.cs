@@ -11,6 +11,7 @@ public class CheepRepositoryTests
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         using ChirpContext context = new ChirpContext(builder.Options);
         context.Database.EnsureCreated();
+        context.Authors.Add(new Author(){ Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com"});
         _repository = new CheepRepository(context);
     }
 
@@ -22,8 +23,8 @@ public class CheepRepositoryTests
     }
 
     [Theory]
-    [InlineData()]
-    public void CanCreateCheep(string author, string text, string timeStamp)
+    [InlineData("hejsameddejsa", "hejsa med dejsa", "2023-08-01 13:13:23")]
+    public async void CanCreateCheep(string author, string text, string timeStamp)
     {
         //Arrange
         CheepDTO cheep = new CheepDTO(author, text, timeStamp);
@@ -32,5 +33,9 @@ public class CheepRepositoryTests
         _repository.CreateCheep(cheep);
 
         //Assert
+        IEnumerable<CheepDTO> cheeeeeeeeeeeeps = await _repository.GetCheepsFromAuthorAsync(author);
+        foreach (CheepDTO cheep1 in cheeeeeeeeeeeeps) {
+            Assert.Equal(text, cheep1.Text);
+        }
     }
 }
