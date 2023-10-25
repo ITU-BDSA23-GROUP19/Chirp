@@ -22,8 +22,11 @@ public class CheepRepositoryTests
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
         Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
 
-        // Author for GetCheepsFromAuthorAsyncTest
+        // Author for CanGetCheepsFromAuthorAsync
         Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
+
+        //Author for CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps
+        Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk" };
 
         //Cheeps for everyone
         Cheep c1 = new Cheep() { Author = a1, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
@@ -98,6 +101,17 @@ public class CheepRepositoryTests
         //for all the shown cheeps, check if the cheep.author is the author
         Assert.All(result, cheep => Assert.Equal(author, cheep.Author));
 
+    }
+
+    [Theory]
+    [InlineData("ThisAuthorHasNoCheeps", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps(string author, int pageNumber, int pageSize)
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
