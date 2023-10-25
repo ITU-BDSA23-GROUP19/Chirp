@@ -68,13 +68,18 @@ public class CheepRepositoryTests
         }
     }
 
+    [Fact]
     public async void CanGetCheepsAsync()
     {
         // Arrange
 
         // Act
+        var result = await _repository.GetCheepsAsync(1, 2);
 
         // Assert
+        Assert.Equal(2, result.Count());
+        Assert.Equal("hejsameddejsa", result.First().Author);
+        Assert.Equal("hejsa med dejsa", result.First().Text);
     }
 
     [Theory]
