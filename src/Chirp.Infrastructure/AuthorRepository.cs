@@ -41,6 +41,6 @@ public class AuthorRepository : IAuthorRepository
     {
         return await _context.Authors.Where(a => a.Email.Equals(email))
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
-                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email '{email}'.");
+                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email: '{email}'");
     }
 }
