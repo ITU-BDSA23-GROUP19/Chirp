@@ -9,27 +9,38 @@ public class AuthorRepository : IAuthorRepository
         _context = context;
     }
 
-    public void CreateAuthor(AuthorDTO author)
+    public async void CreateAuthor(AuthorDTO authorDTO)
     {
-        _context.Authors.Add(new Author() { Name = author.Name, Email = author.Email });
+        if (await _context.Authors.AnyAsync(a => a.Name.Equals(authorDTO.Name)))
+        {
+            throw new ArgumentException($"An author already exists with name: '{authorDTO.Name}'");
+        }
+
+        if (await _context.Authors.AnyAsync(a => a.Email.Equals(authorDTO.Email)))
+        {
+            throw new ArgumentException($"An author already exists with email: '{authorDTO.Email}'");
+        }
+
+        _context.Authors.Add(new Author()
+        {
+            Name = authorDTO.Name,
+            Email = authorDTO.Email
+        });
+
         _context.SaveChanges();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
     {
-        AuthorDTO? author = await _context.Authors.Where(a => a.Name.Equals(name))
-                                                  .Select(a => new AuthorDTO(a.Name, a.Email))
-                                                  .FirstOrDefaultAsync();
-
-        return author ?? throw new ArgumentException($"No author with name: '{name}'");
+        return await _context.Authors.Where(a => a.Name.Equals(name))
+                                     .Select(a => new AuthorDTO(a.Name, a.Email))
+                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{name}'");
     }
 
     public async Task<AuthorDTO> GetAuthorFromEmailAsync(string email)
     {
-        AuthorDTO? author = await _context.Authors.Where(a => a.Email.Equals(email))
-                                                  .Select(a => new AuthorDTO(a.Name, a.Email))
-                                                  .FirstOrDefaultAsync();
-
-        return author ?? throw new ArgumentException($"No author with email '{email}'.");
+        return await _context.Authors.Where(a => a.Email.Equals(email))
+                                     .Select(a => new AuthorDTO(a.Name, a.Email))
+                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email '{email}'.");
     }
 }
