@@ -110,8 +110,10 @@ public class CheepRepositoryTests
         // Arrange
 
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        Assert.Empty(result);
     }
 
     public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
