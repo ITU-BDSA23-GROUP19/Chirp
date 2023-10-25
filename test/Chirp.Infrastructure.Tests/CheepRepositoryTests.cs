@@ -93,6 +93,11 @@ public class CheepRepositoryTests
         var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        //test if we get the correct amount of cheeps
+        Assert.Equal(2, result.Count());
+        //for all the shown cheeps, check if the cheep.author is the author
+        Assert.All(result, cheep => Assert.Equal(author, cheep.Author));
+
     }
 
     public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
