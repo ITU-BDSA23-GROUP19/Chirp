@@ -9,14 +9,14 @@ public class AuthorRepository : IAuthorRepository
         _context = context;
     }
 
-    public async void CreateAuthor(AuthorDTO authorDTO)
+    public void CreateAuthor(AuthorDTO authorDTO)
     {
-        if (await _context.Authors.AnyAsync(a => a.Name.Equals(authorDTO.Name)))
+        if (_context.Authors.Any(a => a.Name.Equals(authorDTO.Name)))
         {
             throw new ArgumentException($"An author already exists with name: '{authorDTO.Name}'");
         }
 
-        if (await _context.Authors.AnyAsync(a => a.Email.Equals(authorDTO.Email)))
+        if (_context.Authors.Any(a => a.Email.Equals(authorDTO.Email)))
         {
             throw new ArgumentException($"An author already exists with email: '{authorDTO.Email}'");
         }
