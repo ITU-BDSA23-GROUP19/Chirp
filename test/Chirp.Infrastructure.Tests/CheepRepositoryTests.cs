@@ -83,12 +83,14 @@ public class CheepRepositoryTests
     }
 
     [Theory]
-    [InlineData("", 0, 0)]
-    public void GetCheepsFromAuthorAsyncTest(string author, int pageNumber, int pageSize)
+    [InlineData("GetCheepsFromAuthor", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
         // Arrange
+        //the arranging is happening in the inlinedata part, where we put the specific author for the test
 
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
     }
