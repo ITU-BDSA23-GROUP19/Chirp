@@ -22,8 +22,11 @@ public class CheepRepositoryTests
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
         Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
 
-        // Author for GetCheepsFromAuthorAsyncTest
+        // Author for CanGetCheepsFromAuthorAsync
         Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
+
+        //Author for CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps
+        Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk" };
 
         //Cheeps for everyone
         Cheep c1 = new Cheep() { Author = a1, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
@@ -68,32 +71,62 @@ public class CheepRepositoryTests
         }
     }
 
+    [Fact]
     public async void CanGetCheepsAsync()
     {
         // Arrange
 
         // Act
+        var result = await _repository.GetCheepsAsync(1, 2);
 
         // Assert
+        Assert.Equal(2, result.Count());
+        Assert.Equal("hejsameddejsa", result.First().Author);
+        Assert.Equal("hejsa med dejsa", result.First().Text);
     }
 
     [Theory]
-    [InlineData("", 0, 0)]
-    public void GetCheepsFromAuthorAsyncTest(string author, int pageNumber, int pageSize)
+    [InlineData("GetCheepsFromAuthor", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
         // Arrange
+        //the arranging is happening in the inlinedata part, where we put the specific author for the test
 
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        //test if we get the correct amount of cheeps
+        Assert.Equal(2, result.Count());
+        //for all the shown cheeps, check if the cheep.author is the author
+        Assert.All(result, cheep => Assert.Equal(author, cheep.Author));
+
     }
 
-    public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
+    [Theory]
+    [InlineData("ThisAuthorHasNoCheeps", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps(string author, int pageNumber, int pageSize)
     {
         // Arrange
 
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        Assert.Empty(result);
+    }
+
+    [Theory]
+    [InlineData("GetCheepsFromAuthor", 100, 10)]
+    public async void CanGetCheepsFromAuthorAsyncTooBigPageNumber(string author, int pageNumber, int pageSize)
+    {
+        // Arrange
+
+        // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
+
+        // Assert
+        Assert.Empty(result);
+
     }
 }
