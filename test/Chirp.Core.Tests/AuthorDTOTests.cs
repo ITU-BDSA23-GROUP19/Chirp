@@ -9,11 +9,11 @@ public class AuthorDTOTests
     public void CanCreateAuthorDTO(string name, string email)
     {
         // Arrange
-        AuthorDTO author = new AuthorDTO(name, email);
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
 
         // Act
-        string Name = author.Name;
-        string Email = author.Email;
+        string Name = authorDTO.Name;
+        string Email = authorDTO.Email;
 
         // Assert
         Assert.Equal(name, Name);
