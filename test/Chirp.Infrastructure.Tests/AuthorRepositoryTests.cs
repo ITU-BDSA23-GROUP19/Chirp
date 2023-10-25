@@ -14,9 +14,17 @@ public class AuthorRepositoryTests
         _repository = new AuthorRepository(context);
     }
 
-    private void SeedDatabase(ChirpContext context)
+    private static void SeedDatabase(ChirpContext context)
     {
+        Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" };
+        Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
+        Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
+        Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
 
+        List<Author> authors = new List<Author>() { a1, a2, a3, a4 };
+
+        context.Authors.AddRange(authors);
+        context.SaveChanges();
     }
 
     [Fact]
@@ -64,57 +72,79 @@ public class AuthorRepositoryTests
         Assert.Equal(authorDTO, author);
     }
 
-    public async void CanCreateAuthorWhichExists()
+    [Theory]
+    [InlineData("hejsameddejsa", "simr@itu.dk")]
+    [InlineData("f1skef1let", "apno@itu.dk")]
+    public void CanCreateAuthorWhichExists(string name, string email)
     {
-        // Arrange
+        //Arrange
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
 
-        // Act
-
-        // Assert
-    }
-
-
-    public async void CanGetAuthorFromName()
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
-
-    [Fact]
-    public async void CanGetAuthorFromNameWhichDoesNotExists()
-    {
+        //Act and Assert
         try
         {
-            Assert.Null(await _repository.GetAuthorFromNameAsync("John"));
+            _repository.CreateAuthor(authorDTO);
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("No author with name: 'John'", e.Message);
+            Assert.Equal($"An author already exists with name: '{name}'", e.Message);
         }
     }
 
-    public async void CanGetAuthorFromEmail()
+    [Theory]
+    [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
+    [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
+    public async void CanGetAuthorFromName(string name, string email)
     {
-        // Arrange
-
         // Act
+        AuthorDTO author = await _repository.GetAuthorFromNameAsync(name);
 
         // Assert
+        Assert.Equal(name, author.Name);
+        Assert.Equal(email, author.Email);
     }
 
-    [Fact]
-    public async void CanGetAuthorFromEmailWhichDoesNotExists()
+    [Theory]
+    [InlineData("rødspætte")]
+    [InlineData("fisker")]
+    public async void CanGetAuthorFromNameWhichDoesNotExists(string name)
     {
         try
         {
-            Assert.Null(await _repository.GetAuthorFromEmailAsync("jjjj@itu.dk"));
+            Assert.Null(await _repository.GetAuthorFromNameAsync(name));
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("No author with email: 'jjjj@itu.dk'", e.Message);
+            Assert.Equal($"No author with name: '{name}'", e.Message);
+        }
+    }
+
+    [Theory]
+    [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
+    [InlineData("GetCheepsFromAuthor", "anotheremail@email.dk")]
+    public async void CanGetAuthorFromEmail(string name, string email)
+    {
+        // Act
+        AuthorDTO author = await _repository.GetAuthorFromEmailAsync(email);
+
+        // Assert
+        Assert.Equal(name, author.Name);
+        Assert.Equal(email, author.Email);
+    }
+
+    [Theory]
+    [InlineData("hellow@hotmail.com")]
+    [InlineData("dasbot@email.dk")]
+    public async void CanGetAuthorFromEmailWhichDoesNotExists(string email)
+    {
+        // Act and Assert
+        try
+        {
+            Assert.Null(await _repository.GetAuthorFromEmailAsync(email));
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal($"No author with email: '{email}'", e.Message);
         }
     }
 }
