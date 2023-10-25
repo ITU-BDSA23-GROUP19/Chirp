@@ -116,7 +116,9 @@ public class CheepRepositoryTests
         Assert.Empty(result);
     }
 
-    public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
+    [Theory]
+    [InlineData("GetCheepsFromAuthor", 100, 10)]
+    public async void CanGetCheepsFromAuthorAsyncTooBigPageNumber(string author, int pageNumber, int pageSize)
     {
         // Arrange
 
