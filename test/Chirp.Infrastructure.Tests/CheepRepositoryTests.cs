@@ -10,24 +10,19 @@ public class CheepRepositoryTests
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
-        context.Database.EnsureCreated();
-        DBinitializer(context);
+        SeedDatabase(context);
         _repository = new CheepRepository(context);
     }
 
-    private void DBinitializer(ChirpContext context)
+    private void SeedDatabase(ChirpContext context)
     {
-        //Authors for CanCreateCheep
         Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" };
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
         Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
-
-        // Author for GetCheepsFromAuthorAsyncTest
         Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
 
-        //Cheeps for everyone
-        Cheep c1 = new Cheep() { Author = a1, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
-        Cheep c2 = new Cheep() { Author = a2, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c1 = new Cheep() { Author = a4, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c2 = new Cheep() { Author = a4, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c3 = new Cheep() { Author = a4, Text = "vent jeg tror det virker", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c4 = new Cheep() { Author = a4, Text = "you disrespect yourself and your nation", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c5 = new Cheep() { Author = a4, Text = "mine to sidste hjerneceller", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
@@ -61,14 +56,25 @@ public class CheepRepositoryTests
 
         // Assert
         IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
-        foreach (CheepDTO cheep in cheeps)
-        {
-            Assert.Equal(text, cheep.Text);
-            Assert.Equal(timeStamp, cheep.TimeStamp);
-        }
+        CheepDTO cheep = cheeps.Single();
+
+        Assert.Single(cheeps);
+        Assert.Equal(author, cheep.Author);
+        Assert.Equal(text, cheep.Text);
+        Assert.Equal(timeStamp, cheep.TimeStamp);
+        Assert.Equal(cheepDTO, cheep);
     }
 
-    public async void CanGetCheepsAsync()
+    public async void CanCreateCheepFromAuthorWhichExists()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
+    public async void CanGetCheeps()
     {
         // Arrange
 
@@ -78,8 +84,8 @@ public class CheepRepositoryTests
     }
 
     [Theory]
-    [InlineData("", 0, 0)]
-    public void GetCheepsFromAuthorAsyncTest(string author, int pageNumber, int pageSize)
+    [InlineData("Test", 0, 0)]
+    public async void GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
     {
         // Arrange
 
@@ -88,7 +94,7 @@ public class CheepRepositoryTests
         // Assert
     }
 
-    public async void CanGetCheepsFromAuthorAsyncWrongAuthor()
+    public async void CanGetCheepsFromAuthorWhichDoesNotExists()
     {
         // Arrange
 
