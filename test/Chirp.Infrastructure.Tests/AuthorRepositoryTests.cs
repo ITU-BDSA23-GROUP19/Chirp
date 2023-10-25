@@ -10,23 +10,81 @@ public class AuthorRepositoryTests
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
-        context.Database.EnsureCreated();
+        SeedDatabase(context);
         _repository = new AuthorRepository(context);
+    }
+
+    private void SeedDatabase(ChirpContext context)
+    {
+
     }
 
     [Fact]
     public void CanCreateAuthorRepositoryTest()
     {
-        //Arrange
-
-        //Act
-
         //Assert
         Assert.NotNull(_repository);
     }
 
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateAuthorGetAuthorFromName(string name, string email)
+    {
+        //Arrange
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
+
+        //Act
+        _repository.CreateAuthor(authorDTO);
+
+        //Assert
+        AuthorDTO author = await _repository.GetAuthorFromNameAsync(name);
+
+        Assert.Equal(name, author.Name);
+        Assert.Equal(email, author.Email);
+        Assert.Equal(authorDTO, author);
+    }
+
+    [Theory]
+    [InlineData("Simon", "simr@itu.dk")]
+    [InlineData("Annabell", "apno@itu.dk")]
+    public async void CanCreateAuthorGetAuthorFromEmail(string name, string email)
+    {
+        //Arrange
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
+
+        //Act
+        _repository.CreateAuthor(authorDTO);
+
+        //Assert
+        AuthorDTO author = await _repository.GetAuthorFromEmailAsync(email);
+
+        Assert.Equal(name, author.Name);
+        Assert.Equal(email, author.Email);
+        Assert.Equal(authorDTO, author);
+    }
+
+    public async void CanCreateAuthorWhichExists()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
+
+    public async void CanGetAuthorFromName()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
     [Fact]
-    public async void CanGetAuthorNull()
+    public async void CanGetAuthorFromNameWhichDoesNotExists()
     {
         try
         {
@@ -38,8 +96,17 @@ public class AuthorRepositoryTests
         }
     }
 
+    public async void CanGetAuthorFromEmail()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
     [Fact]
-    public async void CanGetEmailNull()
+    public async void CanGetAuthorFromEmailWhichDoesNotExists()
     {
         try
         {
@@ -49,40 +116,5 @@ public class AuthorRepositoryTests
         {
             Assert.Equal("No author with email: 'jjjj@itu.dk'", e.Message);
         }
-    }
-
-
-    [Theory]
-    [InlineData("Simon", "simr@itu.dk")]
-    [InlineData("Annabell", "apno@itu.dk")]
-    public async void CanCreateAuthor(String name, String email)
-    {
-        //Arrange
-        AuthorDTO author = new AuthorDTO(name, email);
-
-        //Act
-        _repository.CreateAuthor(author);
-        string Name = author.Name;
-
-        //Assert
-        AuthorDTO authorFromDatabase = await _repository.GetAuthorFromNameAsync(Name);
-        Assert.Equal(authorFromDatabase, author);
-    }
-
-    [Theory]
-    [InlineData("Simon", "simr@itu.dk")]
-    [InlineData("Annabell", "apno@itu.dk")]
-    public async void CanCreateEmail(String name, String email)
-    {
-        //Arrange
-        AuthorDTO author = new AuthorDTO(name, email);
-
-        //Act
-        _repository.CreateAuthor(author);
-        string Email = author.Email;
-
-        //Assert
-        AuthorDTO emailFromDatabase = await _repository.GetAuthorFromEmailAsync(Email);
-        Assert.Equal(emailFromDatabase, author);
     }
 }
