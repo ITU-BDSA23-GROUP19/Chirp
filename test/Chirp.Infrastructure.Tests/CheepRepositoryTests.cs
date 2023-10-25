@@ -14,7 +14,7 @@ public class CheepRepositoryTests
         _repository = new CheepRepository(context);
     }
 
-    private void SeedDatabase(ChirpContext context)
+    private static void SeedDatabase(ChirpContext context)
     {
         Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" };
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
