@@ -11,7 +11,7 @@ public class AuthorRepository : IAuthorRepository
 
     public void CreateAuthor(AuthorDTO author)
     {
-        _context.Authors.Add(new Author() { Name = author.Name, Email = author.Email });
+        _context.Authors.Add(new Author() { Name = author.Name, Email = author.Email, Cheeps = new List<Cheep>() });
         _context.SaveChanges();
     }
 
