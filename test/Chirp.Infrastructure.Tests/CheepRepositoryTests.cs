@@ -20,6 +20,7 @@ public class CheepRepositoryTests
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
         Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
         Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
+        Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk", Cheeps = new List<Cheep>() };
 
         Cheep c1 = new Cheep() { Author = a4, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c2 = new Cheep() { Author = a4, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
@@ -27,7 +28,7 @@ public class CheepRepositoryTests
         Cheep c4 = new Cheep() { Author = a4, Text = "you disrespect yourself and your nation", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c5 = new Cheep() { Author = a4, Text = "mine to sidste hjerneceller", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
 
-        List<Author> authors = new List<Author>() { a1, a2, a3, a4 };
+        List<Author> authors = new List<Author>() { a1, a2, a3, a4, a5 };
         List<Cheep> cheeps = new List<Cheep>() { c1, c2, c3, c4, c5 };
 
         context.Authors.AddRange(authors);
@@ -65,41 +66,53 @@ public class CheepRepositoryTests
         Assert.Equal(cheepDTO, cheep);
     }
 
-    public async void CanCreateCheepFromAuthorWhichExists()
-    {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
-
+    [Fact]
     public async void CanGetCheeps()
     {
-        // Arrange
-
         // Act
+        var result = await _repository.GetCheepsAsync(1, 2);
 
         // Assert
+        Assert.Equal(2, result.Count());
+        Assert.Equal("hejsameddejsa", result.First().Author);
+        Assert.Equal("hejsa med dejsa", result.First().Text);
     }
 
     [Theory]
-    [InlineData("Test", 0, 0)]
-    public async void GetCheepsFromAuthor(string author, int pageNumber, int pageSize)
+    [InlineData("GetCheepsFromAuthor", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
-        // Arrange
-
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        //test if we get the correct amount of cheeps
+        Assert.Equal(2, result.Count());
+        //for all the shown cheeps, check if the cheep.author is the author
+        Assert.All(result, cheep => Assert.Equal(author, cheep.Author));
+
     }
 
-    public async void CanGetCheepsFromAuthorWhichDoesNotExists()
+    [Theory]
+    [InlineData("ThisAuthorHasNoCheeps", 1, 2)]
+    public async void CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps(string author, int pageNumber, int pageSize)
     {
-        // Arrange
-
         // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
         // Assert
+        Assert.Empty(result);
+    }
+
+    [Theory]
+    [InlineData("GetCheepsFromAuthor", 100, 10)]
+    public async void CanGetCheepsFromAuthorAsyncTooBigPageNumber(string author, int pageNumber, int pageSize)
+    {
+        // Act
+        var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
+
+        // Assert
+        Assert.Empty(result);
+
     }
 }

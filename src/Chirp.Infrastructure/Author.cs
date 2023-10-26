@@ -6,5 +6,5 @@ public class Author
     public required string Name { get; set; }
     public required string Email { get; set; }
 
-    public IEnumerable<Cheep> Cheeps { get; set; } = new List<Cheep>();
+    public required ICollection<Cheep> Cheeps { get; set; }
 }
