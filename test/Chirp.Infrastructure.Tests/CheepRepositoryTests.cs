@@ -10,32 +10,25 @@ public class CheepRepositoryTests
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
-        context.Database.EnsureCreated();
-        DBinitializer(context);
+        SeedDatabase(context);
         _repository = new CheepRepository(context);
     }
 
-    private void DBinitializer(ChirpContext context)
+    private static void SeedDatabase(ChirpContext context)
     {
-        //Authors for CanCreateCheep
-        Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com", Cheeps = new List<Cheep>() };
-        Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com", Cheeps = new List<Cheep>() };
-        Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com", Cheeps = new List<Cheep>() };
-
-        // Author for CanGetCheepsFromAuthorAsync
-        Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk", Cheeps = new List<Cheep>() };
-
-        //Author for CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps
+        Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com" };
+        Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com" };
+        Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com" };
+        Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk" };
         Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk", Cheeps = new List<Cheep>() };
 
-        //Cheeps for everyone
-        Cheep c1 = new Cheep() { Author = a1, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
-        Cheep c2 = new Cheep() { Author = a2, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c1 = new Cheep() { Author = a4, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Cheep c2 = new Cheep() { Author = a4, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c3 = new Cheep() { Author = a4, Text = "vent jeg tror det virker", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c4 = new Cheep() { Author = a4, Text = "you disrespect yourself and your nation", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
         Cheep c5 = new Cheep() { Author = a4, Text = "mine to sidste hjerneceller", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
 
-        List<Author> authors = new List<Author>() { a1, a2, a3, a4 };
+        List<Author> authors = new List<Author>() { a1, a2, a3, a4, a5 };
         List<Cheep> cheeps = new List<Cheep>() { c1, c2, c3, c4, c5 };
 
         context.Authors.AddRange(authors);
@@ -64,18 +57,18 @@ public class CheepRepositoryTests
 
         // Assert
         IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
-        foreach (CheepDTO cheep in cheeps)
-        {
-            Assert.Equal(text, cheep.Text);
-            Assert.Equal(timeStamp, cheep.TimeStamp);
-        }
+        CheepDTO cheep = cheeps.Single();
+
+        Assert.Single(cheeps);
+        Assert.Equal(author, cheep.Author);
+        Assert.Equal(text, cheep.Text);
+        Assert.Equal(timeStamp, cheep.TimeStamp);
+        Assert.Equal(cheepDTO, cheep);
     }
 
     [Fact]
-    public async void CanGetCheepsAsync()
+    public async void CanGetCheeps()
     {
-        // Arrange
-
         // Act
         var result = await _repository.GetCheepsAsync(1, 2);
 
@@ -89,9 +82,6 @@ public class CheepRepositoryTests
     [InlineData("GetCheepsFromAuthor", 1, 2)]
     public async void CanGetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
-        // Arrange
-        //the arranging is happening in the inlinedata part, where we put the specific author for the test
-
         // Act
         var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
@@ -107,8 +97,6 @@ public class CheepRepositoryTests
     [InlineData("ThisAuthorHasNoCheeps", 1, 2)]
     public async void CanGetCheepsFromAuthorAsyncAuthorWithNoCheeps(string author, int pageNumber, int pageSize)
     {
-        // Arrange
-
         // Act
         var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 
@@ -120,8 +108,6 @@ public class CheepRepositoryTests
     [InlineData("GetCheepsFromAuthor", 100, 10)]
     public async void CanGetCheepsFromAuthorAsyncTooBigPageNumber(string author, int pageNumber, int pageSize)
     {
-        // Arrange
-
         // Act
         var result = await _repository.GetCheepsFromAuthorAsync(author, pageNumber, pageSize);
 

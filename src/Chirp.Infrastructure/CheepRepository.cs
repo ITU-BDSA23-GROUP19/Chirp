@@ -9,10 +9,10 @@ public class CheepRepository : ICheepRepository
         _context = context;
     }
 
-    public async void CreateCheep(CheepDTO cheepDTO)
+    public void CreateCheep(CheepDTO cheepDTO)
     {
-        Author author = await _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
-                                              .FirstOrDefaultAsync() ?? throw new ArgumentException();
+        Author author = _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
+                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{cheepDTO.Author}'");
 
         Cheep cheep = new Cheep()
         {

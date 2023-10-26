@@ -9,12 +9,12 @@ public class CheepDTOTests
     public void CanCreateCheepDTO(string author, string text, string timeStamp)
     {
         // Arrange
-        CheepDTO cheep = new CheepDTO(author, text, timeStamp);
+        CheepDTO cheepDTO = new CheepDTO(author, text, timeStamp);
 
         // Act
-        string Author = cheep.Author;
-        string Text = cheep.Text;
-        string TimeStamp = cheep.TimeStamp;
+        string Author = cheepDTO.Author;
+        string Text = cheepDTO.Text;
+        string TimeStamp = cheepDTO.TimeStamp;
 
         // Assert
         Assert.Equal(author, Author);
