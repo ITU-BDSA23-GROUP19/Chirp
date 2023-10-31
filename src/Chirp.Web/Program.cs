@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+
 namespace Chirp.Web;
 
 public class Program
@@ -25,6 +28,7 @@ public class Program
             ChirpContext context = services.GetRequiredService<ChirpContext>();
             DbInitializer.SeedDatabase(context);
         }
+        
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
