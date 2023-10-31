@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
+using WebStartup.Middleware;
 
 namespace Chirp.Web;
 
@@ -10,6 +11,8 @@ public class Program
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorPages();
+        builder.Services.AddTransient<IStartupFilter,
+                      RequestSetOptionsStartupFilter>();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddDbContext<ChirpContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
@@ -32,6 +35,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        app.UseAuthorization();
 
         app.UseRouting();
 
