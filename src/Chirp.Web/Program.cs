@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+
 namespace Chirp.Web;
 
 public class Program
@@ -6,11 +10,14 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddRazorPages();
+        builder.Services.AddRazorPages()
+            .AddMicrosoftIdentityUI();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
         builder.Services.AddDbContext<ChirpContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
+        builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+            .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
         WebApplication app = builder.Build();
 
@@ -29,10 +36,11 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseRouting();
-
         app.MapRazorPages();
+        app.MapControllers();
 
         app.Run();
     }
