@@ -8,6 +8,7 @@ public class Program
 
         builder.Services.AddRazorPages();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+        builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
         builder.Services.AddDbContext<ChirpContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
 
