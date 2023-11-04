@@ -20,34 +20,35 @@ public class AuthorRepositoryTests
         Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com", Cheeps = new List<Cheep>() };
         Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com", Cheeps = new List<Cheep>() };
         Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk", Cheeps = new List<Cheep>() };
+        Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk", Cheeps = new List<Cheep>() };
 
-        List<Author> authors = new List<Author>() { a1, a2, a3, a4 };
+        List<Author> authors = new List<Author>() { a1, a2, a3, a4, a5 };
 
         context.Authors.AddRange(authors);
         context.SaveChanges();
     }
 
     [Fact]
-    public void CanCreateAuthorRepositoryTest()
+    public void CanCreateAuthorRepository()
     {
-        //Assert
+        // Assert
         Assert.NotNull(_repository);
     }
 
     [Theory]
     [InlineData("Simon", "simr@itu.dk")]
     [InlineData("Annabell", "apno@itu.dk")]
-    public async void CanCreateAuthorGetAuthorFromName(string name, string email)
+    [InlineData("Johnnie Calixto", "Jacqualine.Gilcoine@gmail.com")]
+    public async void CanCreateAuthorCanGetAuthorFromName(string name, string email)
     {
-        //Arrange
+        // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
-        //Act
+        // Act
         _repository.CreateAuthor(authorDTO);
-
-        //Assert
         AuthorDTO author = await _repository.GetAuthorFromNameAsync(name);
 
+        // Assert
         Assert.Equal(name, author.Name);
         Assert.Equal(email, author.Email);
         Assert.Equal(authorDTO, author);
@@ -56,31 +57,32 @@ public class AuthorRepositoryTests
     [Theory]
     [InlineData("Simon", "simr@itu.dk")]
     [InlineData("Annabell", "apno@itu.dk")]
-    public async void CanCreateAuthorGetAuthorFromEmail(string name, string email)
+    [InlineData("Johnnie Calixto", "Jacqualine.Gilcoine@gmail.com")]
+    public async void CanCreateAuthorCanGetAuthorFromEmail(string name, string email)
     {
-        //Arrange
+        // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
-        //Act
+        // Act
         _repository.CreateAuthor(authorDTO);
-
-        //Assert
         AuthorDTO author = await _repository.GetAuthorFromEmailAsync(email);
 
+        // Assert
         Assert.Equal(name, author.Name);
         Assert.Equal(email, author.Email);
         Assert.Equal(authorDTO, author);
     }
 
     [Theory]
-    [InlineData("hejsameddejsa", "simr@itu.dk")]
-    [InlineData("f1skef1let", "apno@itu.dk")]
+    [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
+    [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
+    [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
     public void CanCreateAuthorWhichExists(string name, string email)
     {
-        //Arrange
+        // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
-        //Act and Assert
+        // Act and Assert
         try
         {
             _repository.CreateAuthor(authorDTO);
@@ -94,6 +96,7 @@ public class AuthorRepositoryTests
     [Theory]
     [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
     [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
+    [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
     public async void CanGetAuthorFromName(string name, string email)
     {
         // Act
@@ -106,9 +109,11 @@ public class AuthorRepositoryTests
 
     [Theory]
     [InlineData("rødspætte")]
-    [InlineData("fisker")]
+    [InlineData("skrubbe")]
+    [InlineData("søtunge")]
     public async void CanGetAuthorFromNameWhichDoesNotExists(string name)
     {
+        // Act and Assert
         try
         {
             Assert.Null(await _repository.GetAuthorFromNameAsync(name));
@@ -120,8 +125,9 @@ public class AuthorRepositoryTests
     }
 
     [Theory]
+    [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
+    [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
     [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
-    [InlineData("GetCheepsFromAuthor", "anotheremail@email.dk")]
     public async void CanGetAuthorFromEmail(string name, string email)
     {
         // Act
@@ -133,8 +139,9 @@ public class AuthorRepositoryTests
     }
 
     [Theory]
-    [InlineData("hellow@hotmail.com")]
-    [InlineData("dasbot@email.dk")]
+    [InlineData("rødspætte@hotmail.com")]
+    [InlineData("skrubbe@email.dk")]
+    [InlineData("søtunge@gmail.com")]
     public async void CanGetAuthorFromEmailWhichDoesNotExists(string email)
     {
         // Act and Assert
