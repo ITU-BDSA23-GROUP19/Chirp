@@ -11,6 +11,11 @@ public class AuthorRepository : IAuthorRepository
 
     public void CreateAuthor(AuthorDTO authorDTO)
     {
+        if (authorDTO.Name.Length > 50)
+        {
+            throw new ArgumentException($"Name length exceeds 50 characters using {authorDTO.Name.Length} characters");
+        }
+
         if (_context.Authors.Any(a => a.Name.Equals(authorDTO.Name)))
         {
             throw new ArgumentException($"An author already exists with name: '{authorDTO.Name}'");
