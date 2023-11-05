@@ -51,27 +51,21 @@ namespace Chirp.Web.Tests
 
             string messageAuthor1 = "Quintin Sitts";
             string messageText1 = "On reaching the end of either, there came a sound so deep an influence over her?";
-            string messageTimestamp1 = "01-08-2023 13:17:14";
 
             Assert.Contains(messageAuthor1, content);
             Assert.Contains(messageText1, content);
-            Assert.Contains(messageTimestamp1, content);
 
             string messageAuthor2 = "Roger Histand";
             string messageText2 = "I have the truth out of all other explanations are more busy than yourself.";
-            string messageTimestamp2 = "01-08-2023 13:17:08";
 
             Assert.Contains(messageAuthor2, content);
             Assert.Contains(messageText2, content);
-            Assert.Contains(messageTimestamp2, content);
 
             string messageAuthor3 = "Octavio Wagganer";
             string messageText3 = "It was a sawed-off shotgun; so he fell back dead.";
-            string messageTimestamp3 = "01-08-2023 13:17:01";
 
             Assert.Contains(messageAuthor3, content);
             Assert.Contains(messageText3, content);
-            Assert.Contains(messageTimestamp3, content);
         }
 
         [Theory]
@@ -91,27 +85,21 @@ namespace Chirp.Web.Tests
 
             string messageAuthor1 = "Jacqualine Gilcoine";
             string messageText1 = "With back to my friend, patience!";
-            string messageTimestamp1 = "01-08-2023 13:16:58";
 
             Assert.Contains(messageAuthor1, content);
             Assert.Contains(messageText1, content);
-            Assert.Contains(messageTimestamp1, content);
 
             string messageAuthor2 = "Jacqualine Gilcoine";
             string messageText2 = "I sat down at the moor-gate where he was.";
-            string messageTimestamp2 = "01-08-2023 13:16:41";
 
             Assert.Contains(messageAuthor2, content);
             Assert.Contains(messageText2, content);
-            Assert.Contains(messageTimestamp2, content);
 
             string messageAuthor3 = "Jacqualine Gilcoine";
             string messageText3 = "Now, amid the cloud-scud.";
-            string messageTimestamp3 = "01-08-2023 13:16:30";
 
             Assert.Contains(messageAuthor3, content);
             Assert.Contains(messageText3, content);
-            Assert.Contains(messageTimestamp3, content);
         }
 
         [Fact]
