@@ -75,7 +75,7 @@ public class AuthorRepositoryTests
     [Theory]
     [InlineData("hejsameddejsa", "simr@itu.dk")]
     [InlineData("f1skef1let", "apno@itu.dk")]
-    public void CanCreateAuthorWhichExists(string name, string email)
+    public void CanCreateAuthorWhereNameExists(string name, string email)
     {
         //Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
@@ -88,6 +88,26 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"An author already exists with name: '{name}'", e.Message);
+        }
+    }
+
+    [Theory]
+    [InlineData("Simon", "hejsameddejsa@gmail.com")]
+    [InlineData("Annabell", "f1skef1let@coldmail.com")]
+    [InlineData("Johnnie Calixto", "isbjørnogskruetrækker@hotmail.com")]
+    public void CanCreateAuthorWhereEmailExists(string name, string email)
+    {
+        //Arrange
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
+
+        //Act and Assert
+        try
+        {
+            _repository.CreateAuthor(authorDTO);
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal($"An author already exists with email: '{email}'", e.Message);
         }
     }
 
