@@ -27,6 +27,7 @@ public class ChirpContext : DbContext
         {
             cheep.Property(c => c.Text).IsRequired();
             cheep.Property(c => c.Text).HasMaxLength(160);
+            cheep.Property(c => c.TimeStamp).IsRequired();
         });
     }
 }
