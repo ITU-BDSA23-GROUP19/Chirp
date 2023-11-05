@@ -91,6 +91,22 @@ public class AuthorRepositoryTests
         }
     }
 
+    [Fact]
+    public void CanCreateAuthorWithLongName()
+    {
+        // Arrange
+        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
+
+        try
+        {
+            _repository.CreateAuthor(authorDTO);
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("Name length exceeds 50 characters using 56 characters", e.Message);
+        }
+    }
+
     [Theory]
     [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
     [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
