@@ -91,7 +91,7 @@ public class CheepRepositoryTests
     public void CanCreateCheepWithLongText()
     {
         // Arrange
-        CheepDTO cheepDTO = new CheepDTO("hejsameddejsa", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-08-01 13:13:23");
+        CheepDTO cheepDTO = new CheepDTO("Cohen Spears", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-08-01 13:13:23");
 
         // Act and Assert
         try

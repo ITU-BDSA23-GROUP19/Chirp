@@ -120,7 +120,7 @@ public class AuthorRepositoryTests
     public void CanCreateAuthorWithLongName()
     {
         // Arrange
-        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
+        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Cohen.Spears@gmail.com");
 
         // Act and Assert
         try
