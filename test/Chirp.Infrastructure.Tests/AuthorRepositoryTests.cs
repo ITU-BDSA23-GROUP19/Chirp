@@ -16,11 +16,13 @@ public class AuthorRepositoryTests
 
     private static void SeedDatabase(ChirpContext context)
     {
-        Author a1 = DataGenerator.GenerateAuthor(1);
-        Author a2 = DataGenerator.GenerateAuthor(2);
-        Author a3 = DataGenerator.GenerateAuthor(3);
-        Author a4 = DataGenerator.GenerateAuthor(4);
-        Author a5 = DataGenerator.GenerateAuthor(5);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        Author a1 = dataGenerator.GenerateAuthor(1);
+        Author a2 = dataGenerator.GenerateAuthor(2);
+        Author a3 = dataGenerator.GenerateAuthor(3);
+        Author a4 = dataGenerator.GenerateAuthor(4);
+        Author a5 = dataGenerator.GenerateAuthor(5);
 
         List<Author> authors = new List<Author>() { a1, a2, a3, a4, a5 };
 
@@ -42,7 +44,9 @@ public class AuthorRepositoryTests
     public async void CanCreateAuthorCanGetAuthorFromName(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act
         _repository.CreateAuthor(authorDTO);
@@ -61,7 +65,9 @@ public class AuthorRepositoryTests
     public async void CanCreateAuthorCanGetAuthorFromEmail(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act
         _repository.CreateAuthor(authorDTO);
@@ -80,7 +86,9 @@ public class AuthorRepositoryTests
     public void CanCreateAuthorWhereNameExists(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act and Assert
         try
@@ -101,7 +109,9 @@ public class AuthorRepositoryTests
     public void CanCreateAuthorWhereEmailExists(int seed)
     {
         //Arrange
-        AuthorDTO tempAuthorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO tempAuthorDTO = dataGenerator.GenerateAuthorDTO(seed);
         AuthorDTO authorDTO = new AuthorDTO("Cohen Spears", tempAuthorDTO.Email);
 
         //Act and Assert
@@ -141,7 +151,9 @@ public class AuthorRepositoryTests
     public async void CanGetAuthorFromName(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act
         AuthorDTO author = await _repository.GetAuthorFromNameAsync(authorDTO.Name);
@@ -159,7 +171,9 @@ public class AuthorRepositoryTests
     public async void CanGetAuthorFromNameWhichDoesNotExists(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act and Assert
         try
@@ -180,7 +194,9 @@ public class AuthorRepositoryTests
     public async void CanGetAuthorFromEmail(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act
         AuthorDTO author = await _repository.GetAuthorFromEmailAsync(authorDTO.Email);
@@ -198,7 +214,9 @@ public class AuthorRepositoryTests
     public async void CanGetAuthorFromEmailWhichDoesNotExists(int seed)
     {
         // Arrange
-        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(seed);
+        DataGenerator dataGenerator = new DataGenerator();
+
+        AuthorDTO authorDTO = dataGenerator.GenerateAuthorDTO(seed);
 
         // Act and Assert
         try

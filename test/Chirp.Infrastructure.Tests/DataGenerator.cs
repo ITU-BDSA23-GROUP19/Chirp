@@ -1,8 +1,8 @@
 namespace Chirp.Infrastructure.Tests;
 
-public static class DataGenerator
+public class DataGenerator
 {
-    public static AuthorDTO GenerateAuthorDTO(int seed)
+    public AuthorDTO GenerateAuthorDTO(int seed)
     {
         Randomizer.Seed = new Random(seed);
 
@@ -15,7 +15,7 @@ public static class DataGenerator
         ).Generate();
     }
 
-    public static Author GenerateAuthor(int seed)
+    public Author GenerateAuthor(int seed)
     {
         Randomizer.Seed = new Random(seed);
 
@@ -29,7 +29,7 @@ public static class DataGenerator
         ).Generate();
     }
 
-    public static CheepDTO GenerateCheepDTO(int seed, AuthorDTO authorDTO)
+    public CheepDTO GenerateCheepDTO(int seed, AuthorDTO authorDTO)
     {
         Randomizer.Seed = new Random(seed);
 
@@ -43,7 +43,7 @@ public static class DataGenerator
         ).Generate();
     }
 
-    public static Cheep GenerateCheep(int seed, Author author)
+    public Cheep GenerateCheep(int seed, Author author)
     {
         Randomizer.Seed = new Random(seed);
 
@@ -57,7 +57,7 @@ public static class DataGenerator
         ).Generate();
     }
 
-    private static string GetTimeStamp(double unixTimeStamp)
+    private string GetTimeStamp(double unixTimeStamp)
     {
         DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         dateTime = dateTime.AddSeconds(unixTimeStamp);
