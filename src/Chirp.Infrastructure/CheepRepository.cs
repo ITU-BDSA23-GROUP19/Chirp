@@ -11,6 +11,11 @@ public class CheepRepository : ICheepRepository
 
     public void CreateCheep(CheepDTO cheepDTO)
     {
+        if (cheepDTO.Text.Length > 160)
+        {
+            throw new ArgumentException($"Text length exceeds 160 characters using {cheepDTO.Text.Length} characters");
+        }
+
         Author author = _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
                                         .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{cheepDTO.Author}'");
 
