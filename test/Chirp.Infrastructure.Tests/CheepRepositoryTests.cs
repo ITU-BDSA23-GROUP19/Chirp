@@ -16,20 +16,22 @@ public class CheepRepositoryTests
 
     private static void SeedDatabase(ChirpContext context)
     {
-        Author a1 = new Author() { Name = "hejsameddejsa", Email = "hejsameddejsa@gmail.com", Cheeps = new List<Cheep>() };
-        Author a2 = new Author() { Name = "f1skef1let", Email = "f1skef1let@coldmail.com", Cheeps = new List<Cheep>() };
-        Author a3 = new Author() { Name = "IsbjørnOgSkruetrækker", Email = "isbjørnogskruetrækker@hotmail.com", Cheeps = new List<Cheep>() };
-        Author a4 = new Author() { Name = "GetCheepsFromAuthor", Email = "anotheremail@email.dk", Cheeps = new List<Cheep>() };
-        Author a5 = new Author() { Name = "ThisAuthorHasNoCheeps", Email = "DAMthisisamail@email.dk", Cheeps = new List<Cheep>() };
-
-        Cheep c1 = new Cheep() { Author = a4, Text = "Totalsupercool", TimeStamp = DateTime.Parse("2023-08-01 13:15:25") };
-        Cheep c2 = new Cheep() { Author = a4, Text = "wow hvad foregår der", TimeStamp = DateTime.Parse("2023-08-01 13:15:24") };
-        Cheep c3 = new Cheep() { Author = a4, Text = "vent jeg tror det virker", TimeStamp = DateTime.Parse("2023-08-01 13:15:23") };
-        Cheep c4 = new Cheep() { Author = a4, Text = "you disrespect yourself and your nation", TimeStamp = DateTime.Parse("2023-08-01 13:15:22") };
-        Cheep c5 = new Cheep() { Author = a4, Text = "mine to sidste hjerneceller", TimeStamp = DateTime.Parse("2023-08-01 13:15:21") };
+        Author a1 = DataGenerator.GenerateAuthor(1);
+        Author a2 = DataGenerator.GenerateAuthor(2);
+        Author a3 = DataGenerator.GenerateAuthor(3);
+        Author a4 = DataGenerator.GenerateAuthor(4);
+        Author a5 = DataGenerator.GenerateAuthor(5);
 
         List<Author> authors = new List<Author>() { a1, a2, a3, a4, a5 };
+
+        Cheep c1 = DataGenerator.GenerateCheep(1, a5);
+        Cheep c2 = DataGenerator.GenerateCheep(2, a5);
+        Cheep c3 = DataGenerator.GenerateCheep(3, a5);
+        Cheep c4 = DataGenerator.GenerateCheep(4, a5);
+        Cheep c5 = DataGenerator.GenerateCheep(5, a5);
+
         List<Cheep> cheeps = new List<Cheep>() { c1, c2, c3, c4, c5 };
+        a5.Cheeps = new List<Cheep>() { c1, c2, c3, c4, c5 };
 
         context.Authors.AddRange(authors);
         context.Cheeps.AddRange(cheeps);
@@ -44,24 +46,25 @@ public class CheepRepositoryTests
     }
 
     [Theory]
-    [InlineData("hejsameddejsa", "hejsa med dejsa", "2023-08-01 13:13:23")]
-    [InlineData("f1skef1let", "Jeg elsker fiskefilet.", "2023-08-03 13:13:23")]
-    [InlineData("IsbjørnOgSkruetrækker", "lidt effektikt: lidt godt, meget effektivt: meget godt", "2023-10-01 13:13:23")]
-    public async void CanCreateCheep(string author, string text, string timeStamp)
+    [InlineData(10)]
+    [InlineData(15)]
+    [InlineData(20)]
+    public async void CanCreateCheep(int seed)
     {
         // Arrange
-        CheepDTO cheepDTO = new CheepDTO(author, text, timeStamp);
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(1);
+        CheepDTO cheepDTO = DataGenerator.GenerateCheepDTO(seed, authorDTO);
 
         // Act
         _repository.CreateCheep(cheepDTO);
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
         Assert.Single(cheeps);
-        Assert.Equal(author, cheep.Author);
-        Assert.Equal(text, cheep.Text);
-        Assert.Equal(timeStamp, cheep.TimeStamp);
+        Assert.Equal(cheepDTO.Author, cheep.Author);
+        Assert.Equal(cheepDTO.Text, cheep.Text);
+        Assert.Equal(cheepDTO.TimeStamp, cheep.TimeStamp);
         Assert.Equal(cheepDTO, cheep);
     }
 
@@ -69,16 +72,18 @@ public class CheepRepositoryTests
     public void CanCreateCheepWhereAuthorDoesNotExists()
     {
         //Arrange
-        CheepDTO cheepDTO = new CheepDTO("This author does not exists", "hejsa med dejsa", "2023-08-01 13:13:23");
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(6);
+        CheepDTO cheepDTO = DataGenerator.GenerateCheepDTO(6, authorDTO);
 
         //Act and Assert
         try
         {
             _repository.CreateCheep(cheepDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
-            Assert.Equal($"No author with name: 'This author does not exists'", e.Message);
+            Assert.Equal($"No author with name: '{authorDTO.Name}'", e.Message);
         }
     }
 
@@ -92,6 +97,7 @@ public class CheepRepositoryTests
         try
         {
             _repository.CreateCheep(cheepDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -102,15 +108,19 @@ public class CheepRepositoryTests
     [Fact]
     public async void CanGetCheeps()
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+        CheepDTO cheepDTO = DataGenerator.GenerateCheepDTO(5, authorDTO);
+
         // Act
         IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, 1);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
         Assert.Single(cheeps);
-        Assert.Equal("GetCheepsFromAuthor", cheep.Author);
-        Assert.Equal("Totalsupercool", cheep.Text);
-        Assert.Equal("2023-08-01 13:15:25", cheep.TimeStamp);
+        Assert.Equal(cheepDTO.Author, cheep.Author);
+        Assert.Equal(cheepDTO.Text, cheep.Text);
+        Assert.Equal(cheepDTO.TimeStamp, cheep.TimeStamp);
     }
 
     [Theory]
@@ -165,22 +175,28 @@ public class CheepRepositoryTests
     [Fact]
     public async void CanGetCheepsFromAuthor()
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+        CheepDTO cheepDTO = DataGenerator.GenerateCheepDTO(5, authorDTO);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, 1);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
         Assert.Single(cheeps);
-        Assert.Equal("GetCheepsFromAuthor", cheep.Author);
-        Assert.Equal("Totalsupercool", cheep.Text);
-        Assert.Equal("2023-08-01 13:15:25", cheep.TimeStamp);
+        Assert.Equal(cheepDTO.Author, cheep.Author);
+        Assert.Equal(cheepDTO.Text, cheep.Text);
+        Assert.Equal(cheepDTO.TimeStamp, cheep.TimeStamp);
     }
 
     [Fact]
     public async void CanGetCheepsFromAuthorWithNoCheeps()
     {
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(1);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("ThisAuthorHasNoCheeps", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, 1);
 
         // Assert
         Assert.Empty(cheeps);
@@ -189,8 +205,11 @@ public class CheepRepositoryTests
     [Fact]
     public async void CanGetCheepsFromAuthorWhichDoesNotExists()
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(6);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("ThisAuthorDoesNotExists", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, 1);
 
         // Assert
         Assert.Empty(cheeps);
@@ -202,8 +221,11 @@ public class CheepRepositoryTests
     [InlineData(5)]
     public async void CanGetCheepsFromAuthorPageSize(int pageSize)
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, pageSize);
 
         // Assert
         Assert.Equal(pageSize, cheeps.Count());
@@ -215,8 +237,11 @@ public class CheepRepositoryTests
     [InlineData(30)]
     public async void CanGetCheepsFromAuthorPageSizeTooLarge(int pageSize)
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, pageSize);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -225,8 +250,11 @@ public class CheepRepositoryTests
     [Fact]
     public async void CanGetCheepsFromAuthorPageNumber()
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, 1, 5);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -238,8 +266,11 @@ public class CheepRepositoryTests
     [InlineData(30)]
     public async void CanGetCheepsFromAuthorPageNumberTooLarge(int pageNumber)
     {
+        // Arrange
+        AuthorDTO authorDTO = DataGenerator.GenerateAuthorDTO(5);
+
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", pageNumber, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(authorDTO.Name, pageNumber, 5);
 
         // Assert
         Assert.Empty(cheeps);
