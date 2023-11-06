@@ -81,7 +81,8 @@ public class CheepRepositoryTests
             Assert.Equal($"No author with name: 'This author does not exists'", e.Message);
         }
     }
-  
+
+    [Fact]
     public void CanCreateCheepWithLongText()
     {
         // Arrange
