@@ -66,6 +66,22 @@ public class CheepRepositoryTests
     }
 
     [Fact]
+    public void CanCreateCheepWhereAuthorDoesNotExists()
+    {
+        //Arrange
+        CheepDTO cheepDTO = new CheepDTO("This author does not exists", "hejsa med dejsa", "2023-08-01 13:13:23");
+
+        //Act and Assert
+        try
+        {
+            _repository.CreateCheep(cheepDTO);
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal($"No author with name: 'This author does not exists'", e.Message);
+        }
+    }
+  
     public void CanCreateCheepWithLongText()
     {
         // Arrange

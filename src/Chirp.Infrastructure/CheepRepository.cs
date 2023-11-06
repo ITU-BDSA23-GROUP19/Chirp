@@ -19,14 +19,13 @@ public class CheepRepository : ICheepRepository
         Author author = _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
                                         .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{cheepDTO.Author}'");
 
-        Cheep cheep = new Cheep()
+        _context.Cheeps.Add(new Cheep()
         {
             Author = author,
             Text = cheepDTO.Text,
             TimeStamp = DateTime.Parse(cheepDTO.TimeStamp)
-        };
+        });
 
-        _context.Cheeps.Add(cheep);
         _context.SaveChanges();
     }
 

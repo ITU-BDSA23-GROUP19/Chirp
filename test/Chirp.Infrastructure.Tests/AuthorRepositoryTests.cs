@@ -73,11 +73,11 @@ public class AuthorRepositoryTests
         Assert.Equal(authorDTO, author);
     }
 
-    [Theory]
-    [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
-    [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
-    [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
-    public void CanCreateAuthorWhichExists(string name, string email)
+    [Theory]  
+    [InlineData("hejsameddejsa", "simr@itu.dk")]
+    [InlineData("f1skef1let", "apno@itu.dk")]
+    [InlineData("IsbjørnOgSkruetrækker", "Jacqualine.Gilcoine@gmail.com")]  
+    public void CanCreateAuthorWhereNameExists(string name, string email)    
     {
         // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
@@ -90,6 +90,42 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"An author already exists with name: '{name}'", e.Message);
+        }
+    }
+
+    [Theory]
+    [InlineData("Simon", "hejsameddejsa@gmail.com")]
+    [InlineData("Annabell", "f1skef1let@coldmail.com")]
+    [InlineData("Johnnie Calixto", "isbjørnogskruetrækker@hotmail.com")]
+    public void CanCreateAuthorWhereEmailExists(string name, string email)
+    {
+        //Arrange
+        AuthorDTO authorDTO = new AuthorDTO(name, email);
+
+        //Act and Assert
+        try
+        {
+            _repository.CreateAuthor(authorDTO);
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal($"An author already exists with email: '{email}'", e.Message);
+        }
+    }
+
+    [Fact]
+    public void CanCreateAuthorWithLongName()
+    {
+        // Arrange
+        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
+
+        try
+        {
+            _repository.CreateAuthor(authorDTO);
+        }
+        catch (ArgumentException e)
+        {
+            Assert.Equal("Name length exceeds 50 characters using 56 characters", e.Message);
         }
     }
 
