@@ -13,6 +13,8 @@ public class UserTimelineModel : PageModel
         _repository = repository;
     }
 
+    public string Text { get; set; } = "";
+
     public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
     {
         if (page < 1)
@@ -24,4 +26,14 @@ public class UserTimelineModel : PageModel
 
         return Page();
     }
+
+    public void OnPost(string text)
+    {
+        Text = text;
+
+        CheepDTO cheepDTO = new CheepDTO("Jacqualine Gilcoine", Text, "2023-08-01 13:17:45");
+
+        _repository.CreateCheep(cheepDTO);
+    }
+
 }

@@ -17,7 +17,6 @@ public class PublicModel : PageModel
     public void OnPost(string text)
     {
         Text = text;
-        Console.WriteLine(Text);
 
         CheepDTO cheepDTO = new CheepDTO("Jacqualine Gilcoine", Text, "2023-08-01 13:17:45");
 
