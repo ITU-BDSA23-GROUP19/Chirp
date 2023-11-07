@@ -7,18 +7,19 @@ public class PublicModel : PageModel
 {
     private readonly ICheepRepository _repository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
-    public string Text { get; set; }
+    public string Text { get; set; } = "";
 
     public PublicModel(ICheepRepository repository)
     {
         _repository = repository;
     }
 
-    public void OnPost()
+    public void OnPost(string text)
     {
+        Text = text;
         Console.WriteLine(Text);
 
-        CheepDTO cheepDTO = new CheepDTO("Jacqualine Gilcoine", Text, "2023-08-01 13:17:40");
+        CheepDTO cheepDTO = new CheepDTO("Jacqualine Gilcoine", Text, "2023-08-01 13:17:45");
 
         _repository.CreateCheep(cheepDTO);
     }
