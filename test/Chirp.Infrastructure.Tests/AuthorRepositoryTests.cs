@@ -73,11 +73,11 @@ public class AuthorRepositoryTests
         Assert.Equal(authorDTO, author);
     }
 
-    [Theory]  
+    [Theory]
     [InlineData("hejsameddejsa", "simr@itu.dk")]
     [InlineData("f1skef1let", "apno@itu.dk")]
-    [InlineData("IsbjørnOgSkruetrækker", "Jacqualine.Gilcoine@gmail.com")]  
-    public void CanCreateAuthorWhereNameExists(string name, string email)    
+    [InlineData("IsbjørnOgSkruetrækker", "Jacqualine.Gilcoine@gmail.com")]
+    public void CanCreateAuthorWhereNameExists(string name, string email)
     {
         // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
