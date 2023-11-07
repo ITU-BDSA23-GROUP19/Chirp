@@ -15,7 +15,7 @@ public class Program
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
         builder.Services.AddDbContext<ChirpContext>(options =>
-            options.UseSqlite(builder.Configuration.GetConnectionString("Chirp")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Chirp")));
         builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
             .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
