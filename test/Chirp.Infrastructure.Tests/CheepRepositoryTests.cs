@@ -75,6 +75,7 @@ public class CheepRepositoryTests
         try
         {
             _repository.CreateCheep(cheepDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -92,6 +93,7 @@ public class CheepRepositoryTests
         try
         {
             _repository.CreateCheep(cheepDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {

@@ -86,6 +86,7 @@ public class AuthorRepositoryTests
         try
         {
             _repository.CreateAuthor(authorDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -106,6 +107,7 @@ public class AuthorRepositoryTests
         try
         {
             _repository.CreateAuthor(authorDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -122,6 +124,7 @@ public class AuthorRepositoryTests
         try
         {
             _repository.CreateAuthor(authorDTO);
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -153,6 +156,7 @@ public class AuthorRepositoryTests
         try
         {
             Assert.Null(await _repository.GetAuthorFromNameAsync(name));
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
@@ -184,6 +188,7 @@ public class AuthorRepositoryTests
         try
         {
             Assert.Null(await _repository.GetAuthorFromEmailAsync(email));
+            Assert.Fail();
         }
         catch (ArgumentException e)
         {
