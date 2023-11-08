@@ -6,20 +6,16 @@
     Layout = "Shared/_Layout";
 }
 
-<div class="cheepbox">
-    @if (User.Identity != null && User.Identity.IsAuthenticated)
-    {
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="cheepbox">
         <h3>What's on your mind @(User.Identity.Name)?</h3>
-    }
-    else
-    {
-        <h3>What's on your mind John Doe?</h3>
-    }
-    <form method="post">
-        <input style="float: left" type="text" asp-for="Text">
-        <input type="submit" value="Share" , asp-action="OnPost(text)">
-    </form>
-</div>
+        <form method="post">
+            <input style="float: left" type="text" asp-for="Text">
+            <input type="submit" value="Share" , asp-action="OnPost(text)">
+        </form>
+    </div>
+}
 
 <div>
     <h2> @HttpContext.GetRouteValue("author")'s Timeline </h2>
