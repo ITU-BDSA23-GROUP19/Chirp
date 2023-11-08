@@ -128,7 +128,7 @@ public class AuthorRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Name length exceeds 50 characters using 56 characters", e.Message);
+            Assert.Equal("AuthorDTO failed validation", e.Message);
         }
     }
 
