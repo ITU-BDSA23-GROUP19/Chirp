@@ -11,9 +11,16 @@ public class CheepRepository : ICheepRepository
 
     public void CreateCheep(CheepDTO cheepDTO)
     {
-        if (cheepDTO.Text.Length > 160)
+        CheepValidator validator = new CheepValidator();
+        ValidationResult result = validator.Validate(cheepDTO);
+        if (!result.IsValid)
         {
-            throw new ArgumentException($"Text length exceeds 160 characters using {cheepDTO.Text.Length} characters");
+            foreach (ValidationFailure error in result.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
+            throw new ArgumentException("CheepDTO failed validation");
         }
 
         Author author = _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
