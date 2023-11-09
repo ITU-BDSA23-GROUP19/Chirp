@@ -97,7 +97,7 @@ public class CheepRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Text length exceeds 160 characters using 231 characters", e.Message);
+            Assert.Equal("CheepDTO failed validation", e.Message);
         }
     }
 
