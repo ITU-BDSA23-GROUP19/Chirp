@@ -4,16 +4,15 @@ updates:
    directory: "/"
    schedule:
      interval: "daily"
-   open-pull-requests-limit: 25
 
 - package-ecosystem: "docker"
   directory: "/"
   schedule:
     interval: "daily"
-  open-pull-requests-limit: 25
 
 - package-ecosystem: "nuget"
   directory: "/"
   schedule:
     interval: "daily"
+    
   open-pull-requests-limit: 25
