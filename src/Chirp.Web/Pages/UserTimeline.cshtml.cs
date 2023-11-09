@@ -16,11 +16,11 @@ public class UserTimelineModel : PageModel
 
     public void OnPost(string text)
     {
-        Text = text;
-
-        CheepDTO cheepDTO = new CheepDTO("Jacqualine Gilcoine", Text, "2023-08-01 13:17:45");
-
-        _repository.CreateCheep(cheepDTO);
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            Text = text;
+            _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+        }
     }
 
     public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
