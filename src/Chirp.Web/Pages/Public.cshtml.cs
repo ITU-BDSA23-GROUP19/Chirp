@@ -7,6 +7,7 @@ public class PublicModel : PageModel
 {
     private readonly ICheepRepository _repository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
+    public int PageCount { get; set; } = 0;
     public string Text { get; set; } = "";
 
     public PublicModel(ICheepRepository repository)
@@ -25,12 +26,22 @@ public class PublicModel : PageModel
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
     {
+        int cheepCount = await _repository.GetCheepCountAsync();
+        int pageSize = 32;
+
+        PageCount = cheepCount / pageSize;
+
+        if (cheepCount % pageSize != 0)
+        {
+            PageCount++;
+        }
+
         if (page < 1)
         {
             page = 1;
         }
 
-        Cheeps = await _repository.GetCheepsAsync(page);
+        Cheeps = await _repository.GetCheepsAsync(page, pageSize);
 
         return Page();
     }
