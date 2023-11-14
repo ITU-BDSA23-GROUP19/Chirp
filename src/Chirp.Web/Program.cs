@@ -45,23 +45,31 @@ public class Program
             DbInitializer.SeedDatabase(context);
         }
 
-        // something about this needs to be changed, should it go into ChirpContext?
-        // link: https://learn.microsoft.com/en-us/azure/azure-sql/database/azure-sql-dotnet-entity-framework-core-quickstart?view=azuresql&tabs=visual-studio%2Cservice-connector%2Cportal
         app.MapGet("/Authors", (ChirpContext context) =>
         {
             return context.Authors.ToList();
         })
-        .WithName("GetAuthors")
-        .WithOpenApi();
+        .WithName("GetAuthors");
 
         app.MapPost("/Author", (Author author, ChirpContext context) =>
         {
             context.Add(author);
             context.SaveChanges();
         })
-        .WithName("CreateAuthor")
-        .WithOpenApi();
-        // figuring this out is the last thing and then we can update migrations and it should work
+        .WithName("CreateAuthor");
+
+        app.MapGet("/Cheeps", (ChirpContext context) =>
+        {
+            return context.Cheeps.ToList();
+        })
+        .WithName("GetCheeps");
+
+        app.MapPost("/Cheep", (Cheep cheep, ChirpContext context) =>
+        {
+            context.Add(cheep);
+            context.SaveChanges();
+        })
+        .WithName("CreateCheep");
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
