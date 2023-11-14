@@ -36,6 +36,17 @@ public class CheepRepository : ICheepRepository
         _context.SaveChanges();
     }
 
+    public async Task<int> GetCheepCountAsync()
+    {
+        return await _context.Cheeps.CountAsync();
+    }
+
+    public async Task<int> GetCheepCountFromAuthorAsync(string author)
+    {
+        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))
+                                    .CountAsync();
+    }
+
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
     {
         if (pageNumber < 1)

@@ -7,6 +7,8 @@ public class UserTimelineModel : PageModel
 {
     private readonly ICheepRepository _repository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
+    public int CurrentPage { get; set; } = 1;
+    public int PageCount { get; set; } = 0;
     public string Text { get; set; } = "";
 
     public UserTimelineModel(ICheepRepository repository)
@@ -25,12 +27,25 @@ public class UserTimelineModel : PageModel
 
     public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
     {
+        CurrentPage = page;
+
+        int cheepCount = await _repository.GetCheepCountFromAuthorAsync(author);
+        int pageSize = 32;
+
+        PageCount = cheepCount / pageSize;
+
+        if (cheepCount % pageSize != 0)
+        {
+            PageCount++;
+        }
+
         if (page < 1)
         {
             page = 1;
+            CurrentPage = 1;
         }
 
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
+        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page, pageSize);
 
         return Page();
     }
