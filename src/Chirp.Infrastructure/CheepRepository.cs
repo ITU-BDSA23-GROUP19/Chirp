@@ -38,6 +38,16 @@ public class CheepRepository : ICheepRepository
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
     {
+        if (pageNumber < 1)
+        {
+            throw new ArgumentException("Page number below 1 not allowed");
+        }
+
+        if (pageSize < 1)
+        {
+            throw new ArgumentException("Page size below 1 not allowed");
+        }
+
         return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
                                     .Skip(pageSize * (pageNumber - 1))
                                     .Take(pageSize)
@@ -47,6 +57,16 @@ public class CheepRepository : ICheepRepository
 
     public async Task<IEnumerable<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
     {
+        if (pageNumber < 1)
+        {
+            throw new ArgumentException("Page number below 1 not allowed");
+        }
+
+        if (pageSize < 1)
+        {
+            throw new ArgumentException("Page size below 1 not allowed");
+        }
+
         return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))
                                     .OrderByDescending(c => c.TimeStamp)
                                     .Skip(pageSize * (pageNumber - 1))
