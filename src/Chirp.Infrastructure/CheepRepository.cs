@@ -40,12 +40,12 @@ public class CheepRepository : ICheepRepository
     {
         if (pageNumber < 1)
         {
-            throw new ArgumentException("");
+            throw new ArgumentException("Page number below 1 not allowed");
         }
 
         if (pageSize < 1)
         {
-            throw new ArgumentException("");
+            throw new ArgumentException("Page size below 1 not allowed");
         }
 
         return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
@@ -59,12 +59,12 @@ public class CheepRepository : ICheepRepository
     {
         if (pageNumber < 1)
         {
-            throw new ArgumentException("");
+            throw new ArgumentException("Page number below 1 not allowed");
         }
 
         if (pageSize < 1)
         {
-            throw new ArgumentException("");
+            throw new ArgumentException("Page size below 1 not allowed");
         }
 
         return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))
