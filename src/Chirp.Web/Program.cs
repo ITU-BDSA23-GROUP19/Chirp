@@ -10,7 +10,7 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        string connection = string.Empty;
+        var connection = string.Empty;
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
