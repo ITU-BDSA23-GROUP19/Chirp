@@ -10,7 +10,7 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        var connection = string.Empty;
+        string connection = string.Empty;
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
@@ -21,14 +21,11 @@ public class Program
             connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
         }
 
-        builder.Services.AddRazorPages()
-            .AddMicrosoftIdentityUI();
+        builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-        builder.Services.AddDbContext<ChirpContext>(options =>
-            options.UseSqlServer(connection));
-        builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-            .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+        builder.Services.AddDbContext<ChirpContext>(options => options.UseSqlServer(connection));
+        builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
         WebApplication app = builder.Build();
 
@@ -44,32 +41,6 @@ public class Program
             ChirpContext context = services.GetRequiredService<ChirpContext>();
             DbInitializer.SeedDatabase(context);
         }
-
-        app.MapGet("/Authors", (ChirpContext context) =>
-        {
-            return context.Authors.ToList();
-        })
-        .WithName("GetAuthors");
-
-        app.MapPost("/Author", (Author author, ChirpContext context) =>
-        {
-            context.Add(author);
-            context.SaveChanges();
-        })
-        .WithName("CreateAuthor");
-
-        app.MapGet("/Cheeps", (ChirpContext context) =>
-        {
-            return context.Cheeps.ToList();
-        })
-        .WithName("GetCheeps");
-
-        app.MapPost("/Cheep", (Cheep cheep, ChirpContext context) =>
-        {
-            context.Add(cheep);
-            context.SaveChanges();
-        })
-        .WithName("CreateCheep");
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
