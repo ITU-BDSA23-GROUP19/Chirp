@@ -62,7 +62,7 @@ public class CheepRepository : ICheepRepository
         return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
                                     .Skip(pageSize * (pageNumber - 1))
                                     .Take(pageSize)
-                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString()))
+                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy/MM/dd HH:mm:ss")))
                                     .ToListAsync();
     }
 
@@ -82,7 +82,7 @@ public class CheepRepository : ICheepRepository
                                     .OrderByDescending(c => c.TimeStamp)
                                     .Skip(pageSize * (pageNumber - 1))
                                     .Take(pageSize)
-                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString()))
+                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy/MM/dd HH:mm:ss")))
                                     .ToListAsync();
     }
 }
