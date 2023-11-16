@@ -10,7 +10,7 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        var connection = string.Empty;
+        string connection = string.Empty;
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
@@ -41,32 +41,6 @@ public class Program
             ChirpContext context = services.GetRequiredService<ChirpContext>();
             DbInitializer.SeedDatabase(context);
         }
-
-        app.MapGet("/Authors", (ChirpContext context) =>
-        {
-            return context.Authors.ToList();
-        })
-        .WithName("GetAuthors");
-
-        app.MapPost("/Author", (Author author, ChirpContext context) =>
-        {
-            context.Add(author);
-            context.SaveChanges();
-        })
-        .WithName("CreateAuthor");
-
-        app.MapGet("/Cheeps", (ChirpContext context) =>
-        {
-            return context.Cheeps.ToList();
-        })
-        .WithName("GetCheeps");
-
-        app.MapPost("/Cheep", (Cheep cheep, ChirpContext context) =>
-        {
-            context.Add(cheep);
-            context.SaveChanges();
-        })
-        .WithName("CreateCheep");
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
