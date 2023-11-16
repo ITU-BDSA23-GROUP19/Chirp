@@ -42,6 +42,32 @@ public class Program
             DbInitializer.SeedDatabase(context);
         }
 
+        app.MapGet("/Authors", (ChirpContext context) =>
+        {
+            return context.Authors.ToList();
+        })
+        .WithName("GetAuthors");
+
+        app.MapPost("/Author", (Author author, ChirpContext context) =>
+        {
+            context.Add(author);
+            context.SaveChanges();
+        })
+        .WithName("CreateAuthor");
+
+        app.MapGet("/Cheeps", (ChirpContext context) =>
+        {
+            return context.Cheeps.ToList();
+        })
+        .WithName("GetCheeps");
+
+        app.MapPost("/Cheep", (Cheep cheep, ChirpContext context) =>
+        {
+            context.Add(cheep);
+            context.SaveChanges();
+        })
+        .WithName("CreateCheep");
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseAuthentication();
