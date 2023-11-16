@@ -10,11 +10,11 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        var connection = String.Empty;
+        var connection = string.Empty;
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-            connection = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
+            connection = builder.Configuration.GetConnectionString("Chirp");
         }
         else
         {
