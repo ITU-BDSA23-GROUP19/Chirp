@@ -14,7 +14,7 @@ public class Program
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-            connection = builder.Configuration.GetConnectionString("Chirp");
+            connection = builder.Configuration.GetConnectionString("CHIRP_SQL_CONNECTIONSTRING");
         }
         else
         {
