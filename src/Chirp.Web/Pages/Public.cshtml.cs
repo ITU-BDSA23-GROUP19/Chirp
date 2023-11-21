@@ -20,6 +20,7 @@ public class PublicModel : PageModel
 
     public RedirectToPageResult OnPost(string text)
     {
+        Console.WriteLine("onPost method is accessed.");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
