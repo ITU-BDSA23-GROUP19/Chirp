@@ -9,20 +9,28 @@ public class PublicModel : PageModel
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
-    public string Text { get; set; } = "";
+
+    [BindProperty]
+    public string Text { get; set; } "";
 
     public PublicModel(ICheepRepository repository)
     {
         _repository = repository;
     }
 
-    public void OnPost(string text)
+    public IActionResult OnPost(string text)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        /*if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+            Console.WriteLine("The onPost method is accessed.");
+
         }
+        Console.WriteLine("The onPost method is accessed.");
+        return RedirectToPage("Public");*/
+
+        return RedirectToPage("Public");
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)

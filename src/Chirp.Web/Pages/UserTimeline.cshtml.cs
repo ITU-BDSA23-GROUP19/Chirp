@@ -9,6 +9,8 @@ public class UserTimelineModel : PageModel
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
+
+    [BindProperty]
     public string Text { get; set; } = "";
 
     public UserTimelineModel(ICheepRepository repository)
