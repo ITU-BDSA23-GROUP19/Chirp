@@ -10,21 +10,19 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        string connection = string.Empty;
         if (builder.Environment.IsDevelopment())
         {
             builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-            connection = builder.Configuration.GetConnectionString("Chirp");
+            builder.Services.AddDbContext<ChirpContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CHIRP_SQL_CONNECTIONSTRING")));
         }
         else
         {
-            connection = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING");
+            builder.Services.AddDbContext<ChirpContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTIONSTRING")));
         }
 
         builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-        builder.Services.AddDbContext<ChirpContext>(options => options.UseSqlServer(connection));
         builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
         WebApplication app = builder.Build();
