@@ -20,7 +20,7 @@ public class PublicModel : PageModel
 
     public IActionResult OnPost(string text)
     {
-        /*if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
@@ -28,8 +28,6 @@ public class PublicModel : PageModel
 
         }
         Console.WriteLine("The onPost method is accessed.");
-        return RedirectToPage("Public");*/
-
         return RedirectToPage("Public");
     }
 
