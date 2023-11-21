@@ -11,23 +11,21 @@ public class PublicModel : PageModel
     public int PageCount { get; set; } = 0;
 
     [BindProperty]
-    public string Text { get; set; } "";
+    public string Text { get; set; } = "";
 
     public PublicModel(ICheepRepository repository)
     {
         _repository = repository;
     }
 
-    public IActionResult OnPost(string text)
+    public RedirectToPageResult OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
-            Console.WriteLine("The onPost method is accessed.");
 
         }
-        Console.WriteLine("The onPost method is accessed.");
         return RedirectToPage("Public");
     }
 
