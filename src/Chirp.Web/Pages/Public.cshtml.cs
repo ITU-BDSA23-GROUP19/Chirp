@@ -18,7 +18,7 @@ public class PublicModel : PageModel
         _repository = repository;
     }
 
-    public RedirectToPageResult OnPost(string text)
+    public IActionResult OnPost(string text)
     {
         Console.WriteLine("onPost method is accessed.");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
