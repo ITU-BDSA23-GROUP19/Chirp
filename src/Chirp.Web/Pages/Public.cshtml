@@ -10,9 +10,9 @@
 {
     <div class="cheepbox">
         <h3>What's on your mind @(User.Identity.Name)?</h3>
-        <form method="post">
+        <form method="post" asp-action="OnPost">
             <input style="float: left" type="text" asp-for="Text">
-            <input type="submit" value="Share" asp-action="OnPost">
+            <input type="submit" value="Share">
         </form>
     </div>
 }
@@ -30,8 +30,8 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                    <form method="follow">
-                        <input type="submit" value="Follow" asp-action="OnFollow">
+                    <form method="post" asp-action="OnFollow">
+                        <input type="submit" value="Follow">
                     </form>
                     <br>
                         @cheep.Text
