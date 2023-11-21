@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Infrastructure.Migrations
 {
     [DbContext(typeof(ChirpContext))]
-    [Migration("20231121121159_InitialCommit")]
-    partial class InitialCommit
+    [Migration("20231121130350_FollowUpdate")]
+    partial class FollowUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace Chirp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AuthorAuthor", b =>
-                {
-                    b.Property<Guid>("FollowerAuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FollowingAuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("FollowerAuthorId", "FollowingAuthorId");
-
-                    b.HasIndex("FollowingAuthorId");
-
-                    b.ToTable("AuthorAuthor");
-                });
 
             modelBuilder.Entity("Chirp.Infrastructure.Author", b =>
                 {
@@ -90,19 +75,19 @@ namespace Chirp.Infrastructure.Migrations
                     b.ToTable("Cheeps");
                 });
 
-            modelBuilder.Entity("AuthorAuthor", b =>
+            modelBuilder.Entity("Chirp.Infrastructure.Follow", b =>
                 {
-                    b.HasOne("Chirp.Infrastructure.Author", null)
-                        .WithMany()
-                        .HasForeignKey("FollowerAuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("FollowerId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasOne("Chirp.Infrastructure.Author", null)
-                        .WithMany()
-                        .HasForeignKey("FollowingAuthorId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                    b.Property<Guid>("FollowingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FollowerId", "FollowingId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.ToTable("Follows");
                 });
 
             modelBuilder.Entity("Chirp.Infrastructure.Cheep", b =>
@@ -116,9 +101,32 @@ namespace Chirp.Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Chirp.Infrastructure.Follow", b =>
+                {
+                    b.HasOne("Chirp.Infrastructure.Author", "FollowerAuthor")
+                        .WithMany("Follower")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chirp.Infrastructure.Author", "FollowingAuthor")
+                        .WithMany("Following")
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FollowerAuthor");
+
+                    b.Navigation("FollowingAuthor");
+                });
+
             modelBuilder.Entity("Chirp.Infrastructure.Author", b =>
                 {
                     b.Navigation("Cheeps");
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Chirp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCommit : Migration
+    public partial class FollowUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,29 +22,6 @@ namespace Chirp.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AuthorAuthor",
-                columns: table => new
-                {
-                    FollowerAuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FollowingAuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthorAuthor", x => new { x.FollowerAuthorId, x.FollowingAuthorId });
-                    table.ForeignKey(
-                        name: "FK_AuthorAuthor_Authors_FollowerAuthorId",
-                        column: x => x.FollowerAuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "AuthorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AuthorAuthor_Authors_FollowingAuthorId",
-                        column: x => x.FollowingAuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "AuthorId");
                 });
 
             migrationBuilder.CreateTable(
@@ -67,10 +44,29 @@ namespace Chirp.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AuthorAuthor_FollowingAuthorId",
-                table: "AuthorAuthor",
-                column: "FollowingAuthorId");
+            migrationBuilder.CreateTable(
+                name: "Follows",
+                columns: table => new
+                {
+                    FollowerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FollowingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Follows", x => new { x.FollowerId, x.FollowingId });
+                    table.ForeignKey(
+                        name: "FK_Follows_Authors_FollowerId",
+                        column: x => x.FollowerId,
+                        principalTable: "Authors",
+                        principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Follows_Authors_FollowingId",
+                        column: x => x.FollowingId,
+                        principalTable: "Authors",
+                        principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Authors_Email",
@@ -88,16 +84,21 @@ namespace Chirp.Infrastructure.Migrations
                 name: "IX_Cheeps_AuthorId",
                 table: "Cheeps",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Follows_FollowingId",
+                table: "Follows",
+                column: "FollowingId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuthorAuthor");
+                name: "Cheeps");
 
             migrationBuilder.DropTable(
-                name: "Cheeps");
+                name: "Follows");
 
             migrationBuilder.DropTable(
                 name: "Authors");

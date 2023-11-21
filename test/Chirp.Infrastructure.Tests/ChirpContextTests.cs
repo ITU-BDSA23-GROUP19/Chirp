@@ -30,8 +30,8 @@ public class ChirpContextTests
                 Name = "Simon",
                 Email = "unique1@gmail.com",
                 Cheeps = new List<Cheep>(),
-                Following = new HashSet<Author>(),
-                Follower = new HashSet<Author>()
+                Following = new HashSet<Follow>(),
+                Follower = new HashSet<Follow>()
             });
 
             _context.Authors.Add(new Author()
@@ -39,8 +39,8 @@ public class ChirpContextTests
                 Name = "Simon",
                 Email = "unique2@gmail.com",
                 Cheeps = new List<Cheep>(),
-                Following = new HashSet<Author>(),
-                Follower = new HashSet<Author>()
+                Following = new HashSet<Follow>(),
+                Follower = new HashSet<Follow>()
             });
 
             _context.SaveChanges();
@@ -63,8 +63,8 @@ public class ChirpContextTests
                 Name = "Unique1",
                 Email = "besr@itu.dk",
                 Cheeps = new List<Cheep>(),
-                Following = new HashSet<Author>(),
-                Follower = new HashSet<Author>()
+                Following = new HashSet<Follow>(),
+                Follower = new HashSet<Follow>()
             });
 
             _context.Authors.Add(new Author()
@@ -72,8 +72,8 @@ public class ChirpContextTests
                 Name = "Unique2",
                 Email = "besr@itu.dk",
                 Cheeps = new List<Cheep>(),
-                Following = new HashSet<Author>(),
-                Follower = new HashSet<Author>()
+                Following = new HashSet<Follow>(),
+                Follower = new HashSet<Follow>()
             });
 
             _context.SaveChanges();

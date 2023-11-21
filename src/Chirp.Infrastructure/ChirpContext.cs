@@ -4,6 +4,7 @@ public class ChirpContext : DbContext
 {
     public DbSet<Cheep> Cheeps => Set<Cheep>();
     public DbSet<Author> Authors => Set<Author>();
+    public DbSet<Follow> Follows => Set<Follow>();
 
     public ChirpContext(DbContextOptions<ChirpContext> options) : base(options)
     {
@@ -19,6 +20,8 @@ public class ChirpContext : DbContext
             author.Property(a => a.Name).HasMaxLength(50);
             author.HasIndex(a => a.Email).IsUnique();
             author.Property(a => a.Email).IsRequired();
+            author.HasMany(a => a.Follower).WithOne(a => a.FollowerAuthor).HasForeignKey(a => a.FollowerId).HasPrincipalKey(a => a.AuthorId);
+            author.HasMany(a => a.Following).WithOne(a => a.FollowingAuthor).HasForeignKey(a => a.FollowingId).HasPrincipalKey(a => a.AuthorId);
         });
 
         modelBuilder.Entity<Cheep>(cheep =>
@@ -26,6 +29,10 @@ public class ChirpContext : DbContext
             cheep.Property(c => c.Text).IsRequired();
             cheep.Property(c => c.Text).HasMaxLength(160);
             cheep.Property(c => c.TimeStamp).IsRequired();
+        });
+
+        modelBuilder.Entity<Follow>(follow =>{
+            follow.HasKey(f => new { f.FollowerId, f.FollowingId});
         });
     }
 }

@@ -38,8 +38,8 @@ public class AuthorRepository : IAuthorRepository
             Name = authorDTO.Name,
             Email = authorDTO.Email,
             Cheeps = new List<Cheep>(),
-            Following = new HashSet<Author>(),
-            Follower = new HashSet<Author>()
+            Following = new HashSet<Follow>(),
+            Follower = new HashSet<Follow>()
         });
 
         _context.SaveChanges();
@@ -58,4 +58,10 @@ public class AuthorRepository : IAuthorRepository
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email: '{email}'");
     }
+
+    /*public async Task<AuthorDTO> FollowNewAuthor(string authorNameFollowing, string authorNameFollower){
+        AuthorDTO authorFollowing = await GetAuthorFromNameAsync(authorNameFollowing);
+        AuthorDTO authorFollower = await GetAuthorFromNameAsync(authorNameFollower);
+
+    }*/
 }
