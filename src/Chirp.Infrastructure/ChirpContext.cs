@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Chirp.Infrastructure;
 
 public class ChirpContext : DbContext

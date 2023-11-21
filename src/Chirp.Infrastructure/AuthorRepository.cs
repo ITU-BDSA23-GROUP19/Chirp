@@ -37,7 +37,9 @@ public class AuthorRepository : IAuthorRepository
         {
             Name = authorDTO.Name,
             Email = authorDTO.Email,
-            Cheeps = new List<Cheep>()
+            Cheeps = new List<Cheep>(),
+            Following = new HashSet<Author>(),
+            Follower = new HashSet<Author>()
         });
 
         _context.SaveChanges();
