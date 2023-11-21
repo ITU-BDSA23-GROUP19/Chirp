@@ -16,6 +16,11 @@ public class PublicModel : PageModel
         _repository = repository;
     }
 
+    public void OnFollow()
+    {
+        Console.WriteLine("WOW2!");
+    }
+
     public void OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
@@ -23,6 +28,8 @@ public class PublicModel : PageModel
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
         }
+
+        Console.WriteLine("WOW!");
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
