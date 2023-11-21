@@ -59,9 +59,19 @@ public class AuthorRepository : IAuthorRepository
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email: '{email}'");
     }
 
-    /*public async Task<AuthorDTO> FollowNewAuthor(string authorNameFollowing, string authorNameFollower){
-        AuthorDTO authorFollowing = await GetAuthorFromNameAsync(authorNameFollowing);
-        AuthorDTO authorFollower = await GetAuthorFromNameAsync(authorNameFollower);
+    public void FollowAuthor(FollowDTO followDTO)
+    {
+        Author followingAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowingName))
+                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowingName}'");
+        Author followerAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowerName))
+                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowerName}'");
 
-    }*/
+        _context.Follows.Add(new Follow()
+        {
+            FollowerAuthor = followerAuthor,
+            FollowingAuthor = followingAuthor
+        });
+
+        _context.SaveChanges();
+    }
 }
