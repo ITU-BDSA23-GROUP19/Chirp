@@ -80,4 +80,9 @@ public class AuthorRepository : IAuthorRepository
                                      .Select(f => new FollowDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
                                      .ToListAsync();
     }
+
+    public Task<IEnumerable<FollowDTO>> GetFollowers(AuthorDTO AuthorDTO){
+        return await _context.Follows.Where(f => f.FollowingName.Name.Equals(AuthorDTO.Name))
+                                     .Select(f => new followDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
+    }                                .ToListAsync();
 }
