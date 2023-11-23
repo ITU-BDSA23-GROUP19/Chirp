@@ -30,6 +30,13 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated){
+                            //mangler at checke for om user allerede følger cheep.author
+
+                            <form asp-page-handler="Unfollow" method="post">
+                        <button type="submit">Unfollow</button>
+                    </form>
+                        }
                     <form asp-page-handler="Follow" method="post">
                         <button type="submit">Follow</button>
                     </form>

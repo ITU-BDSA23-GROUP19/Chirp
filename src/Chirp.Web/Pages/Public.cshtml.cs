@@ -31,6 +31,15 @@ public class PublicModel : PageModel
 
     }
 
+    public async Task OnPostUnfollow(Author author)
+    {
+        Console.WriteLine("Ja nu unfollower vi");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            //mangler at fjerne en followdto fra _authorrepository - måske mangler også funktionalitet til at fjerne overhovedet??
+        }
+
+    }
 
     public void OnPost(string text)
     {
