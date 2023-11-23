@@ -6,19 +6,39 @@ namespace Chirp.Web.Pages;
 public class PublicModel : PageModel
 {
     private readonly ICheepRepository _repository;
+    private readonly IAuthorRepository _authorRepository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
     public string Text { get; set; } = "";
 
-    public PublicModel(ICheepRepository repository)
+    public PublicModel(ICheepRepository repository, IAuthorRepository authorRepository)
     {
         _repository = repository;
+        _authorRepository = authorRepository;
     }
 
-    public void OnFollow()
+
+    public async Task OnPostFollow(Author author)
     {
-        Console.WriteLine("WOW2!");
+        Console.WriteLine("WOWSADOWSA");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            var followDTO = new FollowDTO(User.Identity.Name, author.Name);
+            _authorRepository.FollowAuthor(followDTO);
+            Console.WriteLine("kan jeg følge folk nu så?");
+        }
+
+    }
+
+    public async Task OnPostUnfollow(Author author)
+    {
+        Console.WriteLine("Ja nu unfollower vi");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            //mangler at fjerne en followdto fra _authorrepository - måske mangler også funktionalitet til at fjerne overhovedet??
+        }
+
     }
 
     public void OnPost(string text)
@@ -28,8 +48,6 @@ public class PublicModel : PageModel
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
         }
-
-        Console.WriteLine("WOW!");
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
