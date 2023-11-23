@@ -42,9 +42,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseRouting();
         app.MapRazorPages();
         app.MapControllers();
 
