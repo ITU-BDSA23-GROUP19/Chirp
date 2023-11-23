@@ -30,8 +30,8 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                    <form method="post" asp-action="OnFollow">
-                        <input type="submit" value="Follow">
+                    <form asp-page-handler="Follow" method="post">
+                        <button type="submit">Follow</button>
                     </form>
                     <br>
                         @cheep.Text
