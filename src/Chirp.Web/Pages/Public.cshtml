@@ -6,6 +6,24 @@
     Layout = "Shared/_Layout";
 }
 
+@{
+    var followButtonText = "Follow";
+}
+
+@functions {
+    void changeFollowButtonText(string followButtonText)
+    {
+        if (followButtonText == "Follow")
+        {
+            followButtonText = "Unfollow";
+        }
+        else
+        {
+            followButtonText = "Follow";
+        }
+    }
+}
+
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
     <div class="cheepbox">
@@ -30,16 +48,20 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                        @if (User.Identity != null && User.Identity.IsAuthenticated){
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
                             //mangler at checke for om user allerede følger cheep.author
 
-                            <form asp-page-handler="Unfollow" method="post">
-                        <button type="submit">Unfollow</button>
-                    </form>
+                        <form asp-page-handler="Follow" method="post">
+                            <button id="followButton" type="submit" onClick=changeFollowButtonText2()>@followButtonText</button>
+                            <script>
+                                function changeFollowButtonText2() {
+                                    <button id="followButton" type="submit">Unfollow</button>
+                                }
+                            </script>
+                        </form>
                         }
-                    <form asp-page-handler="Follow" method="post">
-                        <button type="submit">Follow</button>
-                    </form>
+
                     <br>
                         @cheep.Text
                     <small>&mdash; @cheep.TimeStamp</small>

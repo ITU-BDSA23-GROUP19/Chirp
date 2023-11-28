@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection.Metadata;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages;
@@ -19,16 +21,21 @@ public class PublicModel : PageModel
     }
 
 
-    public async Task OnPostFollow(Author author)
+    public async Task<RedirectToPageResult> OnPostFollow(Author author)
     {
         Console.WriteLine("WOWSADOWSA");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            var followDTO = new FollowDTO(User.Identity.Name, author.Name);
-            _authorRepository.FollowAuthor(followDTO);
+            //var followDTO = new FollowDTO(User.Identity.Name, author.Name);
+            //_authorRepository.FollowAuthor(followDTO);
             Console.WriteLine("kan jeg følge folk nu så?");
         }
+        return RedirectToPage("");
 
+    }
+
+    public void changeText(string text){
+        
     }
 
     public async Task OnPostUnfollow(Author author)
