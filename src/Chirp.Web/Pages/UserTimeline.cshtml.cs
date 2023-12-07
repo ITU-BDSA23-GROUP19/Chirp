@@ -1,21 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 namespace Chirp.Web.Pages;
 
 public class UserTimelineModel : PageModel
 {
     private readonly ICheepRepository _repository;
+    private readonly IAuthorRepository _arepository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
+
+    [BindProperty]
+    public AuthorDTO Author { get; set; }
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
 
     [BindProperty]
     public string Text { get; set; } = "";
 
-    public UserTimelineModel(ICheepRepository repository)
+    public UserTimelineModel(ICheepRepository repository, IAuthorRepository arepository)
     {
         _repository = repository;
+        _arepository = arepository;
+    }
+
+    //Get author email and name from azure
+    //Save that email and name in an author
+    //Insert that author into our database
+    public void SignIn()
+    {
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (!string.IsNullOrEmpty(userEmailClaim) && !string.IsNullOrEmpty(userNameClaim))
+            {
+                var userEmail = userEmailClaim.ToString();
+                var userName = userNameClaim.ToString();
+
+                var author = new AuthorDTO(userName, userEmail);
+                _arepository.CreateAuthor(author);
+
+            }
+            //User.Claims.Where(c => c.GetType(""))
+        }
     }
 
     public void OnPost(string text)

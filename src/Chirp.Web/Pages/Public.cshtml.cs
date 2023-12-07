@@ -52,7 +52,6 @@ public class PublicModel : PageModel
 
     public IActionResult OnPost(string text)
     {
-        Console.WriteLine("onPost method is accessed.");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
@@ -61,6 +60,10 @@ public class PublicModel : PageModel
         }
         return RedirectToPage("Public");
     }
+
+    //public IActionResult onRegister(string )
+
+    //@User.Claims.Where(c => c.GetType() == "")
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
     {
