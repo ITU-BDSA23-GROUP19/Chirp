@@ -11,6 +11,8 @@ public class UserTimelineModel : PageModel
     private readonly ICheepRepository _repository;
     private readonly IAuthorRepository _arepository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
+
+    [BindProperty]
     public AuthorDTO Author { get; set; }
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
@@ -27,7 +29,7 @@ public class UserTimelineModel : PageModel
     //Get author email and name from azure
     //Save that email and name in an author
     //Insert that author into our database
-    public void onLogin()
+    public void SignIn()
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
