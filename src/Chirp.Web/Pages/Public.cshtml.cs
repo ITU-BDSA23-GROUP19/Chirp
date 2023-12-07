@@ -14,6 +14,9 @@ public class PublicModel : PageModel
     public int PageCount { get; set; } = 0;
 
     [BindProperty]
+    public AuthorDTO Author { get; set; }
+
+    [BindProperty]
     public string Text { get; set; } = "";
 
     public PublicModel(ICheepRepository repository, IAuthorRepository authorRepository)
@@ -36,8 +39,9 @@ public class PublicModel : PageModel
 
     }
 
-    public void changeText(string text){
-        
+    public void changeText(string text)
+    {
+
     }
 
     public async Task OnPostUnfollow(Author author)

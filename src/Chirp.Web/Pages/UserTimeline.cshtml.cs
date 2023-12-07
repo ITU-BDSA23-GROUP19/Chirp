@@ -14,6 +14,8 @@ public class UserTimelineModel : PageModel
 
     [BindProperty]
     public AuthorDTO Author { get; set; }
+    [BindProperty]
+    public CheepDTO Cheep { get; set; }
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
 
