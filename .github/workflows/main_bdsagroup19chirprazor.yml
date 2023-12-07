@@ -54,4 +54,4 @@ jobs:
           app-name: 'bdsagroup19chirprazor'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_04C31985EE4B422FBFB9AA5E4481A3A2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FDD4A6D238114A16939FAE166569D7A6 }}
