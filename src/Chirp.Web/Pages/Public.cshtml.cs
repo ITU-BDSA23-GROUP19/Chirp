@@ -30,6 +30,10 @@ public class PublicModel : PageModel
         return RedirectToPage("Public");
     }
 
+    //public IActionResult onRegister(string )
+
+    //@User.Claims.Where(c => c.GetType() == "")
+
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
     {
         CurrentPage = page;
