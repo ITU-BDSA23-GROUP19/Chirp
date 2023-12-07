@@ -6,35 +6,6 @@
     Layout = "Shared/_Layout";
 }
 
-@{
-    var followButtonText = "Follow";
-}
-
-@functions {
-    void changeFollowButtonText(string followButtonText)
-    {
-        if (followButtonText == "Follow")
-        {
-            followButtonText = "Unfollow";
-        }
-        else
-        {
-            followButtonText = "Follow";
-        }
-    }
-}
-
-@if (User.Identity != null && User.Identity.IsAuthenticated)
-{
-    <div class="cheepbox">
-        <h3>What's on your mind @(User.Identity.Name)?</h3>
-        <form method="post" asp-action="OnPost">
-            <input style="float: left" type="text" asp-for="Text">
-            <input type="submit" value="Share">
-        </form>
-    </div>
-}
-
 <div>
     <h2> Public Timeline </h2>
 
@@ -53,12 +24,7 @@
                             //mangler at checke for om user allerede følger cheep.author
 
                         <form asp-page-handler="Follow" method="post">
-                            <button id="followButton" type="submit" onClick=changeFollowButtonText2()>@followButtonText</button>
-                            <script>
-                                function changeFollowButtonText2() {
-                                    <button id="followButton" type="submit">Unfollow</button>
-                                }
-                            </script>
+                            <button id="followButton" type="submit">Follow</button>
                         </form>
                         }
 
