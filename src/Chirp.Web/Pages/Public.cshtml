@@ -5,7 +5,6 @@
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
 }
-
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
     <div class="cheepbox">
@@ -24,7 +23,6 @@
     </form>
     </div>*/
 }
-
 <div>
     <h2> Public Timeline </h2>
 
@@ -38,8 +36,18 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            //mangler at checke for om user allerede følger cheep.author
+
+                        <form asp-page-handler="Follow" method="post">
+                            <button id="followButton" type="submit">Follow</button>
+                        </form>
+                        }
+
+                    <br>
                         @cheep.Text
-                        <small>&mdash; @cheep.TimeStamp</small>
+                    <small>&mdash; @cheep.TimeStamp</small>
                     </p>
                 </li>
             }

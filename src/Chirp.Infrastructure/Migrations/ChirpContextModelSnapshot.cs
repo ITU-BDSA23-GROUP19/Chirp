@@ -72,6 +72,21 @@ namespace Chirp.Infrastructure.Migrations
                     b.ToTable("Cheeps");
                 });
 
+            modelBuilder.Entity("Chirp.Infrastructure.Follow", b =>
+                {
+                    b.Property<Guid>("FollowerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FollowingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FollowerId", "FollowingId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.ToTable("Follows");
+                });
+
             modelBuilder.Entity("Chirp.Infrastructure.Cheep", b =>
                 {
                     b.HasOne("Chirp.Infrastructure.Author", "Author")
@@ -83,9 +98,32 @@ namespace Chirp.Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Chirp.Infrastructure.Follow", b =>
+                {
+                    b.HasOne("Chirp.Infrastructure.Author", "FollowerAuthor")
+                        .WithMany("Follower")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chirp.Infrastructure.Author", "FollowingAuthor")
+                        .WithMany("Following")
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FollowerAuthor");
+
+                    b.Navigation("FollowingAuthor");
+                });
+
             modelBuilder.Entity("Chirp.Infrastructure.Author", b =>
                 {
                     b.Navigation("Cheeps");
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
                 });
 #pragma warning restore 612, 618
         }

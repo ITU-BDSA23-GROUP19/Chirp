@@ -37,7 +37,9 @@ public class AuthorRepository : IAuthorRepository
         {
             Name = authorDTO.Name,
             Email = authorDTO.Email,
-            Cheeps = new List<Cheep>()
+            Cheeps = new List<Cheep>(),
+            Following = new HashSet<Follow>(),
+            Follower = new HashSet<Follow>()
         });
 
         _context.SaveChanges();
@@ -55,5 +57,36 @@ public class AuthorRepository : IAuthorRepository
         return await _context.Authors.Where(a => a.Email.Equals(email))
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email: '{email}'");
+    }
+
+    public void FollowAuthor(FollowDTO followDTO)
+    {
+        Author followingAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowingName))
+                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowingName}'");
+        Author followerAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowerName))
+                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowerName}'");
+
+        _context.Follows.Add(new Follow()
+        {
+            FollowerAuthor = followerAuthor,
+            FollowingAuthor = followingAuthor
+        });
+
+        _context.SaveChanges();
+    }
+
+
+    public async Task<IEnumerable<FollowDTO>> GetFollowings(AuthorDTO AuthorDTO)
+    {
+        return await _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(AuthorDTO.Name))
+                                     .Select(f => new FollowDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
+                                     .ToListAsync();
+    }
+
+    public async Task<IEnumerable<FollowDTO>> GetFollowers(AuthorDTO AuthorDTO)
+    {
+        return await _context.Follows.Where(f => f.FollowingAuthor.Name.Equals(AuthorDTO.Name))
+                                     .Select(f => new FollowDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
+                                     .ToListAsync();
     }
 }

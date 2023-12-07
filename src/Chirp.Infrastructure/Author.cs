@@ -7,4 +7,6 @@ public class Author
     public required string Email { get; set; }
 
     public required ICollection<Cheep> Cheeps { get; set; }
+    public required ICollection<Follow> Following { get; set; }
+    public required ICollection<Follow> Follower { get; set; }
 }

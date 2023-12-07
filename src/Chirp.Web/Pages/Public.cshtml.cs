@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection.Metadata;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages;
@@ -6,6 +8,7 @@ namespace Chirp.Web.Pages;
 public class PublicModel : PageModel
 {
     private readonly ICheepRepository _repository;
+    private readonly IAuthorRepository _authorRepository;
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
@@ -13,9 +16,38 @@ public class PublicModel : PageModel
     [BindProperty]
     public string Text { get; set; } = "";
 
-    public PublicModel(ICheepRepository repository)
+    public PublicModel(ICheepRepository repository, IAuthorRepository authorRepository)
     {
         _repository = repository;
+        _authorRepository = authorRepository;
+    }
+
+
+    public async Task<RedirectToPageResult> OnPostFollow(Author author)
+    {
+        Console.WriteLine("WOWSADOWSA");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            //var followDTO = new FollowDTO(User.Identity.Name, author.Name);
+            //_authorRepository.FollowAuthor(followDTO);
+            Console.WriteLine("kan jeg følge folk nu så?");
+        }
+        return RedirectToPage("");
+
+    }
+
+    public void changeText(string text){
+        
+    }
+
+    public async Task OnPostUnfollow(Author author)
+    {
+        Console.WriteLine("Ja nu unfollower vi");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            //mangler at fjerne en followdto fra _authorrepository - måske mangler også funktionalitet til at fjerne overhovedet??
+        }
+
     }
 
     public IActionResult OnPost(string text)
