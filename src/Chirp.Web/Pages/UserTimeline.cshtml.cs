@@ -44,7 +44,9 @@ public class UserTimelineModel : PageModel
                 var userName = userNameClaim.ToString();
 
                 var author = new AuthorDTO(userName, userEmail);
+
                 _arepository.CreateAuthor(author);
+                Console.WriteLine(author);
 
             }
             //User.Claims.Where(c => c.GetType(""))
