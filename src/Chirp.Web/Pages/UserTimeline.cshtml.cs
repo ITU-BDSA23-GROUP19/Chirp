@@ -68,7 +68,7 @@ public class UserTimelineModel : PageModel
             {
                 Text = text;
                 var authorName = User.Identity.Name; 
-                _repository.CreateCheep(new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+                _repository.CreateCheep(Cheep = new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
             }
         }
         catch (Exception e) {
