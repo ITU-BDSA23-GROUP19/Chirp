@@ -110,6 +110,7 @@ namespace Chirp.Web.Tests
             string content = await response.Content.ReadAsStringAsync();
 
             int occurences = content.Split("<li>").Length - 1;
+            Console.WriteLine(occurences);
 
             Assert.Contains("Chirp!", content);
             Assert.Contains("Public Timeline", content);
@@ -125,6 +126,7 @@ namespace Chirp.Web.Tests
             string content = await response.Content.ReadAsStringAsync();
 
             int occurences = content.Split("<li>").Length - 1;
+            Console.WriteLine(occurences);
 
             Assert.Contains("Chirp!", content);
             Assert.Contains("Jacqualine Gilcoine's Timeline", content);
