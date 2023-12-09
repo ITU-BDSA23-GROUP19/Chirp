@@ -13,9 +13,9 @@ public class UserTimelineModel : PageModel
     public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
 
     [BindProperty]
-    public AuthorDTO Author { get; set; } = new AuthorDTO();
+    public AuthorDTO Author { get; set; } = new AuthorDTO("Name", "Email");
     [BindProperty]
-    public CheepDTO Cheep { get; set; } = new CheepDTO();
+    public CheepDTO Cheep { get; set; } = new CheepDTO("Author", "Text", "00:00:00");
     public int CurrentPage { get; set; } = 1;
     public int PageCount { get; set; } = 0;
 
@@ -47,7 +47,7 @@ public class UserTimelineModel : PageModel
                     var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
 
                     if (authorExists == null) {
-                        var newAuthor = new AuthorDTO(userName, userEmail);
+                        Author = new AuthorDTO(userName, userEmail);
                         
                         await _arepository.CreateAuthor(newAuthor);
                     }
