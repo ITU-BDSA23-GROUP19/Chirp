@@ -66,7 +66,7 @@ public class PublicModel : PageModel
             //check if author exists. If it doesn't:
             //create new author object.
             //then create new authorDTO object. (which then adds that author in the repository.)
-
+            //
         }
 
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
