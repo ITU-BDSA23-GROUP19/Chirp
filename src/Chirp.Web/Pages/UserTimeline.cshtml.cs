@@ -31,7 +31,7 @@ public class UserTimelineModel : PageModel
     //Get author email and name from azure
     //Save that email and name in an author
     //Insert that author into our database
-    public void SignIn()
+    public void SignInAsync()
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
@@ -59,7 +59,8 @@ public class UserTimelineModel : PageModel
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
-            _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+            var authorName = User.Identity.Name; 
+            _repository.CreateCheep(new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
         }
     }
 
