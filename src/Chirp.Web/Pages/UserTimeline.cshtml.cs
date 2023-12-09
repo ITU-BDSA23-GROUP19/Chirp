@@ -43,13 +43,14 @@ public class UserTimelineModel : PageModel
                 var userEmail = userEmailClaim.ToString();
                 var userName = userNameClaim.ToString();
 
-                var author = new AuthorDTO(userName, userEmail);
+                var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
 
-                _arepository.CreateAuthor(author);
-                Console.WriteLine(author);
+                if (authorExists == null) {
+                    var newAuthor = new AuthorDTO(userName, userEmail);
+                    await _arepository.CreateAuthor(newAuthor);
+                }
 
             }
-            //User.Claims.Where(c => c.GetType(""))
         }
     }
 
