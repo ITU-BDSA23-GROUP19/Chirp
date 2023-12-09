@@ -33,34 +33,46 @@ public class UserTimelineModel : PageModel
     //Insert that author into our database
     public void SignInAsync()
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
-        {
-            var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (!string.IsNullOrEmpty(userEmailClaim) && !string.IsNullOrEmpty(userNameClaim))
+        try {
+            if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
             {
-                var userEmail = userEmailClaim.ToString();
-                var userName = userNameClaim.ToString();
+                var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
-                var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
+                if (!string.IsNullOrEmpty(userEmailClaim) && !string.IsNullOrEmpty(userNameClaim))
+                {
+                    var userEmail = userEmailClaim.ToString();
+                    var userName = userNameClaim.ToString();
 
-                if (authorExists == null) {
-                    var newAuthor = new AuthorDTO(userName, userEmail);
-                    await _arepository.CreateAuthor(newAuthor);
+                    var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
+
+                    if (authorExists == null) {
+                        var newAuthor = new AuthorDTO(userName, userEmail);
+                        await _arepository.CreateAuthor(newAuthor);
+                    }
+
                 }
-
             }
+        }
+        catch (Exception e) {
+            Console.WriteLine($"Exception in OnPost: {ex}");
+            throw;
         }
     }
 
     public void OnPost(string text)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
-        {
-            Text = text;
-            var authorName = User.Identity.Name; 
-            _repository.CreateCheep(new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+        try {
+            if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+            {
+                Text = text;
+                var authorName = User.Identity.Name; 
+                _repository.CreateCheep(new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine($"Exception in OnPost: {ex}");
+            throw;
         }
     }
 
