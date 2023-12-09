@@ -9,7 +9,7 @@ public class AuthorRepository : IAuthorRepository
         _context = context;
     }
 
-    public void CreateAuthor(AuthorDTO authorDTO)
+    public async Task CreateAuthor(AuthorDTO authorDTO)
     {
         AuthorValidator validator = new AuthorValidator();
         ValidationResult result = validator.Validate(authorDTO);
@@ -42,7 +42,7 @@ public class AuthorRepository : IAuthorRepository
             Follower = new HashSet<Follow>()
         });
 
-        _context.SaveChanges();
+        await _context.SaveChanges();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)

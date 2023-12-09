@@ -47,7 +47,8 @@ public class UserTimelineModel : PageModel
                     var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
 
                     if (authorExists == null) {
-                        var newAuthor = new Author(userName, userEmail);
+                        var newAuthor = new AuthorDTO(userName, userEmail);
+                        
                         await _arepository.CreateAuthor(newAuthor);
                     }
 
