@@ -49,7 +49,7 @@ public class UserTimelineModel : PageModel
                     if (authorExists == null) {
                         Author = new AuthorDTO(userName, userEmail);
                         
-                        await _arepository.CreateAuthor(newAuthor);
+                        await _arepository.CreateAuthor(Author);
                     }
 
                 }
