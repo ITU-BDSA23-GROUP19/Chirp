@@ -96,7 +96,7 @@ public class AuthorRepositoryTests
         {
             await _repository.CreateAuthor(authorDTO);
         });
-        Assert.Equal($"An author already exists with email: '{name}'", e.Message);
+        Assert.Equal($"An author already exists with name: '{name}'", e.Message);
     }
 
     [Theory]
