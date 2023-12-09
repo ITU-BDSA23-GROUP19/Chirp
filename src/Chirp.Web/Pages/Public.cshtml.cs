@@ -55,7 +55,7 @@ public class PublicModel : PageModel
 
     }
 
-    public IActionResult OnPost(string text)
+    /*public IActionResult OnPost(string text)
     {
         var userEmail = User.Claims.Where(c => c.Type == "Email");
         AuthorDTO author = User.Claims.Where(c => c.Type.Equals(userName));
@@ -77,7 +77,7 @@ public class PublicModel : PageModel
 
         }
         return RedirectToPage("Public");
-    }
+    }*/
 
     //public IActionResult onRegister(string )
 

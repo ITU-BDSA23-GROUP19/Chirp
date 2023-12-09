@@ -47,7 +47,7 @@ public class UserTimelineModel : PageModel
                     var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
 
                     if (authorExists == null) {
-                        var newAuthor = new AuthorDTO(userName, userEmail);
+                        var newAuthor = new Author(userName, userEmail);
                         await _arepository.CreateAuthor(newAuthor);
                     }
 
@@ -55,7 +55,7 @@ public class UserTimelineModel : PageModel
             }
         }
         catch (Exception e) {
-            Console.WriteLine($"Exception in OnPost: {ex}");
+            Console.WriteLine($"Exception in OnPost: {e}");
             throw;
         }
     }
@@ -71,7 +71,7 @@ public class UserTimelineModel : PageModel
             }
         }
         catch (Exception e) {
-            Console.WriteLine($"Exception in OnPost: {ex}");
+            Console.WriteLine($"Exception in OnPost: {e}");
             throw;
         }
     }
