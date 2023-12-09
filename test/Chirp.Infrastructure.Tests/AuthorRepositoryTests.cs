@@ -98,13 +98,17 @@ public class AuthorRepositoryTests
     [InlineData("Simon", "hejsameddejsa@gmail.com")]
     [InlineData("Annabell", "f1skef1let@coldmail.com")]
     [InlineData("Johnnie Calixto", "isbjørnogskruetrækker@hotmail.com")]
-    public void CanCreateAuthorWhereEmailExists(string name, string email)
+    public async Task CanCreateAuthorWhereEmailExists(string name, string email)
     {
         //Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
         //Act and Assert
-        try
+        ArgumentException e = await Assert.ThrowAsync<ArgumentException>(async () => 
+        {
+            await _repository.CreateAuthor(authorDTO);
+        });
+        /*try
         {
             _repository.CreateAuthor(authorDTO);
             Assert.Fail();
@@ -112,7 +116,8 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"An author already exists with email: '{email}'", e.Message);
-        }
+        }*/
+        Assert.Equal($"An author already exists with email: '{email}", e.Message);
     }
 
     [Fact]
