@@ -77,13 +77,13 @@ public class AuthorRepositoryTests
     [InlineData("hejsameddejsa", "simr@itu.dk")]
     [InlineData("f1skef1let", "apno@itu.dk")]
     [InlineData("IsbjørnOgSkruetrækker", "Jacqualine.Gilcoine@gmail.com")]
-    public void CanCreateAuthorWhereNameExists(string name, string email)
+    public async Task CanCreateAuthorWhereNameExists(string name, string email)
     {
         // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
         // Act and Assert
-        try
+        /*try
         {
             _repository.CreateAuthor(authorDTO);
             Assert.Fail();
@@ -91,7 +91,12 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"An author already exists with name: '{name}'", e.Message);
-        }
+        }*/
+        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
+        {
+            await _repository.CreateAuthor(authorDTO);
+        });
+        Assert.Equal($"An author already exists with email: '{name}'", e.Message);
     }
 
     [Theory]
@@ -117,24 +122,28 @@ public class AuthorRepositoryTests
         {
             Assert.Equal($"An author already exists with email: '{email}'", e.Message);
         }*/
-        Assert.Equal($"An author already exists with email: '{email}", e.Message);
+        Assert.Equal($"An author already exists with email: '{email}'", e.Message);
     }
 
     [Fact]
-    public void CanCreateAuthorWithLongName()
+    public async Task CanCreateAuthorWithLongName()
     {
         // Arrange
         AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
 
-        try
+        /*try
         {
-            _repository.CreateAuthor(authorDTO);
+            await _repository.CreateAuthor(authorDTO);
             Assert.Fail();
         }
         catch (ArgumentException e)
         {
             Assert.Equal("AuthorDTO failed validation", e.Message);
-        }
+        }*/
+        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
+        {
+            await _repository.CreateAuthor(authorDTO);
+        });
     }
 
     [Theory]
