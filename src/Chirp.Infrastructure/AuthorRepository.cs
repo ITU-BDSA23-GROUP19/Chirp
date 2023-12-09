@@ -42,7 +42,7 @@ public class AuthorRepository : IAuthorRepository
             Follower = new HashSet<Follow>()
         });
 
-        await _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
