@@ -104,7 +104,7 @@ public class AuthorRepositoryTests
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
         //Act and Assert
-        ArgumentException e = await Assert.ThrowAsync<ArgumentException>(async () => 
+        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
         {
             await _repository.CreateAuthor(authorDTO);
         });
