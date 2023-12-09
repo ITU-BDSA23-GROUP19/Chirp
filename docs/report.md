@@ -19,20 +19,18 @@ Provide an illustration of your domain model. Make sure that it is correct and c
 
 ## Architecture — In the small
 Illustrate the organization of your code base. That is, illustrate which layers exist in your (onion) architecture. Make sure to illustrate which part of your code is residing in which layer.
+Find inspiration fra/tag udgangspunkt i Rasmus' slides da han gennemgik onion
 
 ## Architecture of deployed application
 Illustrate the architecture of your deployed application. Remember, you developed a client-server application. Illustrate the server component and to where it is deployed, illustrate a client component, and show how these communicate with each other.
+En snak om azure og hvordan det er sat op. Her ville vi også snakke om det hvis vi var gået tilbage til en SQLite server, men istedet skal vi måske bare nævne i en sidebemærkning, at vi løb tør for credits så vi gjorde det hele igen?
 
-OBS: In case you ran out of credits for hosting an Azure SQL database and you switched back to deploying an application with in-process SQLite database, then do the following:
-
-Under this section, provide two diagrams, one that shows how Chirp! was deployed with hosted database and one that shows how it is now again with SQLite.
-Under this section, provide a brief description of the reason for switching again to SQLite as database.
-In that description, provide a link to the commit hash in your GitHub repository that points to the latest version of your Chirp! application with hosted database (we look at the entire history of your project, so we see that it was there at some point).
 
 ## User activities
 Illustrate typical scenarios of a user journey through your Chirp! application. That is, start illustrating the first page that is presented to a non-authorized user, illustrate what a non-authorized user can do with your Chirp! application, and finally illustrate what a user can do after authentication.
 
 Make sure that the illustrations are in line with the actual behavior of your application.
+Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer?
 
 ## Sequence of functionality/calls trough _Chirp!_
 With a UML sequence diagram, illustrate the flow of messages and data through your Chirp! application. Start with an HTTP request that is send by an unauthorized user to the root endpoint of your application and end with the completely rendered web-page that is returned to the user.
@@ -49,13 +47,15 @@ Describe the illustration briefly, i.e., how your application is built, tested, 
 ## Team work
 Show a screenshot of your project board right before hand-in. Briefly describe which tasks are still unresolved, i.e., which features are missing from your applications or which functionality is incomplete.
 
-Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository.
+Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository. Det her kan jeg gøre lige nu.
 
 ## How to make _Chirp!_ work locally
 There has to be some documentation on how to come from cloning your project to a running system. That is, Rasmus or Helge have to know precisely what to do in which order. Likely, it is best to describe how we clone your project, which commands we have to execute, and what we are supposed to see then.
+En mindre README.md inden i den her fil
 
 ## How to run test suite locally
 List all necessary steps that Rasmus or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
+"run the command dotnet test from the root directory and hope for a bunch of checkmarks" lol
 
 Briefly describe what kinds of tests you have in your test suites and what they are testing.
 
@@ -63,6 +63,7 @@ Briefly describe what kinds of tests you have in your test suites and what they 
 
 ## License
 State which software license you chose for your application.
+MIT License? er det det den hedder? Hvem var det der kiggede på det dengang?
 
 ## LLMs, ChatGPT, CoPilot, and others
-State which LLM(s) were used during development of your project. In case you were not using any, just state so. In case you were using an LLM to support your development, briefly describe when and how it was applied. Reflect in writing to which degree the responses of the LLM were helpful. Discuss briefly if application of LLMs sped up your development or if the contrary was the case.
+During the development of this project, we have at times used ChatGPT to figure out why the code was not doing as we thought it would or how to fix functionality that did not work as intended. ChatGPT has been good at detecting where the faults have been and what we might need to change but actually doing the change and creating a solution was a bigger challenge for the LLM. Mainly we have used the information about the mistakes to further research for more in depth explanations of the APIs or method calls we have used. This way we created the solution ourselves but ChatGPT helped us understand where the fault were.
