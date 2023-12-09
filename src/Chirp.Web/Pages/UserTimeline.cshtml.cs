@@ -31,7 +31,7 @@ public class UserTimelineModel : PageModel
     //Get author email and name from azure
     //Save that email and name in an author
     //Insert that author into our database
-    public void SignInAsync()
+    public async Task SignInAsync()
     {
         try {
             if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
