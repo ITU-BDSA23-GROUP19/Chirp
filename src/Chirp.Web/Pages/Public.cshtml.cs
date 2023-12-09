@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Collections.Specialized;
+using System.Reflection.Metadata;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,12 +15,15 @@ public class PublicModel : PageModel
     public int PageCount { get; set; } = 0;
 
     [BindProperty]
+    public AuthorDTO Author { get; set; }
+
+    [BindProperty]
     public string Text { get; set; } = "";
 
     public PublicModel(ICheepRepository repository, IAuthorRepository authorRepository)
     {
-        _repository = repository;
-        _authorRepository = authorRepository;
+        repository = _repository;
+        authorRepository = _authorRepository;
     }
 
 
@@ -36,8 +40,9 @@ public class PublicModel : PageModel
 
     }
 
-    public void changeText(string text){
-        
+    public void changeText(string text)
+    {
+
     }
 
     public async Task OnPostUnfollow(Author author)
@@ -52,8 +57,21 @@ public class PublicModel : PageModel
 
     public IActionResult OnPost(string text)
     {
+        var userEmail = User.Claims.Where(c => c.Type == "Email");
+        AuthorDTO author = User.Claims.Where(c => c.Type.Equals(userName));
+        var userName = User.Claims.Where(c => c.Type == "Name");
+        //first we must look in the database to see if the user exists:
+        if (author == null)
+        {
+            //check if author exists. If it doesn't:
+            //create new author object.
+            //then create new authorDTO object. (which then adds that author in the repository.)
+
+        }
+
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
+
             Text = text;
             _repository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
 
