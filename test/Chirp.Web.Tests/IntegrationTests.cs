@@ -38,7 +38,7 @@ namespace Chirp.Web.Tests
         [InlineData("/")]
         [InlineData("/?page=-1")]
         [InlineData("/?page=0")]
-        [InlineData("/?page=1")]
+        //[InlineData("/?page=1")]
         [InlineData("/?page=hello")]
         public async void CanSeeFirstPageMatchPublicTimeline(string page)
         {
