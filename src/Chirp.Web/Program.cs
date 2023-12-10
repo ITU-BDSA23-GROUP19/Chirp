@@ -44,12 +44,13 @@ public class Program
             DbInitializer.SeedDatabase(context);
         }
 
-        if (!app.Environment.IsDevelopment()) {
+        /*if (!app.Environment.IsDevelopment()) {
             app.UseExceptionHandler("/Error");
             app.UseHsts();
         } else {
             app.UseHttpsRedirection();
-        }
+        }*/
+        app.UseHttpsRedirection();
 
         app.UseStaticFiles();
         app.UseRouting();
@@ -57,6 +58,9 @@ public class Program
         app.UseAuthorization();
         app.MapRazorPages();
         app.MapControllers();
+        app.UseEndpoints(endpoints => {
+            endpoints.MapRazorPages();
+        });
 
         app.Run();
     }
