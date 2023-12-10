@@ -44,7 +44,13 @@ public class Program
             DbInitializer.SeedDatabase(context);
         }
 
-        app.UseHttpsRedirection();
+        if (!app.Environment.IsDevelopment()) {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        } else {
+            app.UseHttpsRedirection();
+        }
+
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
