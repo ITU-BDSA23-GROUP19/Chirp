@@ -35,7 +35,11 @@ public class Program
         {
             app.UseExceptionHandler("/Error");
             app.UseHsts();
-        }
+        } else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
+            }
 
         using (IServiceScope scope = app.Services.CreateScope())
         {
