@@ -27,9 +27,6 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Trust
-        run: dotnet dev-certs https --trust
-
       - name: Restore dependencies
         run: dotnet restore
 
