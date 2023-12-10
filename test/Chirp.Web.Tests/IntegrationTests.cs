@@ -1,6 +1,5 @@
 namespace Chirp.Web.Tests
 {   
-    [Collection("Sequential")]
     public class IntegrationTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
