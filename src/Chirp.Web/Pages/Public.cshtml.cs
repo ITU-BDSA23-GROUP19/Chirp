@@ -87,24 +87,29 @@ public class PublicModel : PageModel
     {
         CurrentPage = page;
 
-        int cheepCount = await _repository.GetCheepCountAsync();
-        int pageSize = 32;
-
-        PageCount = cheepCount / pageSize;
-
-        if (cheepCount % pageSize != 0)
+        if (_repository != null) 
         {
-            PageCount++;
+            int cheepCount = await _repository.GetCheepCountAsync();
+            int pageSize = 32;
+
+            PageCount = cheepCount / pageSize;
+
+            if (cheepCount % pageSize != 0)
+            {
+                PageCount++;
+            }
+
+            if (page < 1)
+            {
+                page = 1;
+                CurrentPage = 1;
+            }
+
+            Cheeps = await _repository.GetCheepsAsync(page, pageSize);
+
+            return Page();
         }
 
-        if (page < 1)
-        {
-            page = 1;
-            CurrentPage = 1;
-        }
-
-        Cheeps = await _repository.GetCheepsAsync(page, pageSize);
-
-        return Page();
+        return RedirectToPage("");
     }
 }
