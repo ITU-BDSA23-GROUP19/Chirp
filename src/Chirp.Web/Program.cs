@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-
+using 
 using System.Security.Claims;
 
 namespace Chirp.Web;
@@ -35,11 +35,7 @@ public class Program
         {
             app.UseExceptionHandler("/Error");
             app.UseHsts();
-        } else
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-            }
+        } 
 
         using (IServiceScope scope = app.Services.CreateScope())
         {
