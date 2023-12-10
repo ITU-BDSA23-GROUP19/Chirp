@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using 
 using System.Security.Claims;
 
 namespace Chirp.Web;
