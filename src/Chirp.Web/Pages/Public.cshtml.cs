@@ -22,8 +22,8 @@ public class PublicModel : PageModel
 
     public PublicModel(ICheepRepository repository, IAuthorRepository authorRepository)
     {
-        repository = _repository;
-        authorRepository = _authorRepository;
+        _repository = repository;
+        _authorRepository = authorRepository;
     }
 
 
@@ -87,7 +87,7 @@ public class PublicModel : PageModel
     {
         CurrentPage = page;
 
-        if (_repository != null) 
+        if (_repository != null)
         {
             int cheepCount = await _repository.GetCheepCountAsync();
             int pageSize = 32;

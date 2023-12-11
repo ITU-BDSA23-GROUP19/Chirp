@@ -33,7 +33,8 @@ public class UserTimelineModel : PageModel
     //Insert that author into our database
     public async Task SignInAsync()
     {
-        try {
+        try
+        {
             if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
             {
                 var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
@@ -46,32 +47,36 @@ public class UserTimelineModel : PageModel
 
                     var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
 
-                    if (authorExists == null) {
+                    if (authorExists == null)
+                    {
                         Author = new AuthorDTO(userName, userEmail);
-                        
+
                         await _arepository.CreateAuthor(Author);
                     }
 
                 }
             }
         }
-        catch (Exception e) {
-            Console.WriteLine($"Exception in OnPost: {e}");
+        catch (Exception e)
+        {
+            Console.WriteLine($"Exception in SignInAsync: {e}");
             throw;
         }
     }
 
     public void OnPost(string text)
     {
-        try {
+        try
+        {
             if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
             {
                 Text = text;
-                var authorName = User.Identity.Name; 
+                var authorName = User.Identity.Name;
                 _repository.CreateCheep(Cheep = new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
             }
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine($"Exception in OnPost: {e}");
             throw;
         }
