@@ -24,7 +24,15 @@ public class CheepRepository : ICheepRepository
         }
 
         Author author = _context.Authors.Where(a => a.Name.Equals(cheepDTO.Author))
-                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{cheepDTO.Author}'");
+                                        .FirstOrDefault() ?? new Author()
+                                        {
+                                            Name = cheepDTO.Author,
+                                            Cheeps = new List<Cheep>(),
+                                            Following = new HashSet<Follow>(),
+                                            Follower = new HashSet<Follow>()
+                                        };
+
+
 
         _context.Cheeps.Add(new Cheep()
         {
