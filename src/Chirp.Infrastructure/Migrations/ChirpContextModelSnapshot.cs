@@ -17,7 +17,7 @@ namespace Chirp.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -29,8 +29,7 @@ namespace Chirp.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -38,9 +37,6 @@ namespace Chirp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -84,6 +80,9 @@ namespace Chirp.Infrastructure.Migrations
 
                     b.HasIndex("FollowingId");
 
+                    b.HasIndex("FollowerId", "FollowingId")
+                        .IsUnique();
+
                     b.ToTable("Follows");
                 });
 
@@ -101,15 +100,15 @@ namespace Chirp.Infrastructure.Migrations
             modelBuilder.Entity("Chirp.Infrastructure.Follow", b =>
                 {
                     b.HasOne("Chirp.Infrastructure.Author", "FollowerAuthor")
-                        .WithMany("Follower")
+                        .WithMany("Following")
                         .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Chirp.Infrastructure.Author", "FollowingAuthor")
-                        .WithMany("Following")
+                        .WithMany("Follower")
                         .HasForeignKey("FollowingId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FollowerAuthor");

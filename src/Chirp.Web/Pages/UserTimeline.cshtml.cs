@@ -64,12 +64,17 @@ public class UserTimelineModel : PageModel
         }
     }
 
-    public void OnPost(string text)
+    public async Task<RedirectToPageResult> OnPost(string text)
     {
+        Console.WriteLine("onPost method is called.");
         try
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+            }
             if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
             {
+                Console.WriteLine("The onPost method runs.");
                 Text = text;
                 var authorName = User.Identity.Name;
                 _repository.CreateCheep(Cheep = new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
@@ -80,6 +85,7 @@ public class UserTimelineModel : PageModel
             Console.WriteLine($"Exception in OnPost: {e}");
             throw;
         }
+        return RedirectToPage("");
     }
 
     public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
