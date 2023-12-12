@@ -47,9 +47,11 @@ Describe the illustration briefly, i.e., how your application is built, tested, 
 ## Team work
 Show a screenshot of your project board right before hand-in. Briefly describe which tasks are still unresolved, i.e., which features are missing from your applications or which functionality is incomplete.
 
-Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository. Det her kan jeg gøre lige nu.
+Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository.
 
-Our commit graph is not equal but there can be several different reasons for this, such as a member spending a lot of time working on Azure or being sick.
+Our typical flow when it comes to adding new features, was to first write an issue. If the feature was from our weekly project work, we would base the description and acceptance criteria on that. We then added the issue to the project board and when someone started working on the issue, they assigned themselves to it and moved it to "In Progress".
+
+Our commit graph is not equal but there can be several different reasons for this, such as a member spending a lot of time working on Azure or being sick. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less.
 
 ## How to make _Chirp!_ work locally
 There has to be some documentation on how to come from cloning your project to a running system. That is, Rasmus or Helge have to know precisely what to do in which order. Likely, it is best to describe how we clone your project, which commands we have to execute, and what we are supposed to see then.
