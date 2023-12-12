@@ -51,7 +51,7 @@ Briefly describe and illustrate the flow of activities that happen from the new 
 
 
 Our typical flow when it comes to adding new features, was to first write an issue. If the feature was from our weekly project work, we would base the description and acceptance criteria on that. We then added the issue to the project board and when someone started working on the issue, they assigned themselves to it and moved it to "In Progress". 
-Then it came to the coding itself. We would usually be two or three people working together, and after we learned about pair programming, we began doing it that way.
+Then it came to the coding itself. We would usually be two or three people working together, and after we learned about pair programming, we began doing it that way. How long it took to make varied greatly. We would frequently use guides from Microsoft's website when it came to Azure.
 
 Our commit graph is not equal but there can be several different reasons for this, such as a member spending a lot of time working on Azure or being sick. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less.
 
