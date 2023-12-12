@@ -18,7 +18,7 @@ public class ChirpContext : DbContext
             author.HasIndex(a => a.Name).IsUnique();
             author.Property(a => a.Name).IsRequired();
             author.Property(a => a.Name).HasMaxLength(50);
-            //author.HasIndex(a => a.Email).IsUnique();
+            author.HasIndex(a => a.Email).IsUnique();
             //author.Property(a => a.Email).IsRequired();
             //author.HasMany(a => a.Follower).WithOne(a => a.FollowerAuthor).HasForeignKey(a => a.FollowerId).HasPrincipalKey(a => a.AuthorId);
             //author.HasMany(a => a.Following).WithOne(a => a.FollowingAuthor).HasForeignKey(a => a.FollowingId).HasPrincipalKey(a => a.AuthorId);
