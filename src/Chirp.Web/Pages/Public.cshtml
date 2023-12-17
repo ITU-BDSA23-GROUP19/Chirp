@@ -5,24 +5,22 @@
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
 }
-@if (User.Identity != null && User.Identity.IsAuthenticated)
-{
-    <div class="cheepbox">
-        <h3>What's on your mind @(User.Identity.Name)?</h3>
+
+<div class="cheepbox">
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <h3>What's on your mind @(User.Identity.Name)</h3>
         <form method="post">
             <input style="float: left" type="text" asp-for="Text">
             <input type="submit" value="Share" , asp-action="OnPost(text)">
         </form>
-    </div>
+    }
+    else
+    {
+        <em>You can not cheep when not logged in!</em>
+    }
+</div>
 
-    /*<div class="cheepbox">
-    <h3>What's on your mind @(User.Identity.Name)?</h3>
-    <form method="post" asp-action="OnPost">
-    <input style="float: left" type="text" asp-for="Text">
-    <input type="submit" value="Share">
-    </form>
-    </div>*/
-}
 <div>
     <h2> Public Timeline </h2>
 
@@ -38,13 +36,10 @@
                         </strong>
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            //mangler at checke for om user allerede følger cheep.author
-
                         <form asp-page-handler="Follow" method="post">
                             <button id="followButton" type="submit">Follow</button>
                         </form>
                         }
-
                     <br>
                         @cheep.Text
                     <small>&mdash; @cheep.TimeStamp</small>
@@ -55,9 +50,10 @@
     }
     else
     {
-        <em>There are no cheeps so far.</em>
+        <em>There are no cheeps.</em>
     }
 </div>
+
 <div style="text-align:center;">
     @if (Model.CurrentPage > 1)
     {

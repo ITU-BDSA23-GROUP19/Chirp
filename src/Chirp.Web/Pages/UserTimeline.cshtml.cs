@@ -1,115 +1,85 @@
-﻿using System.Security.Claims;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 namespace Chirp.Web.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly ICheepRepository _repository;
-    private readonly IAuthorRepository _arepository;
-    public IEnumerable<CheepDTO> Cheeps { get; set; } = new List<CheepDTO>();
+    private readonly ICheepRepository _cheepRepository;
+    private readonly IAuthorRepository _authorRepository;
 
-    [BindProperty]
-    public AuthorDTO Author { get; set; } = new AuthorDTO("Name", "Email");
-    [BindProperty]
-    public CheepDTO Cheep { get; set; } = new CheepDTO("Author", "Text", "00:00:00");
-    public int CurrentPage { get; set; } = 1;
-    public int PageCount { get; set; } = 0;
+    public IEnumerable<CheepDTO> Cheeps { get; set; }
+    public string Text { get; set; }
+    public int CurrentPage { get; set; }
+    public int PageCount { get; set; }
 
-    [BindProperty]
-    public string Text { get; set; } = "";
-
-    public UserTimelineModel(ICheepRepository repository, IAuthorRepository arepository)
+    public UserTimelineModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
     {
-        _repository = repository;
-        _arepository = arepository;
+        _cheepRepository = cheepRepository;
+        _authorRepository = authorRepository;
+
+        Cheeps = new List<CheepDTO>();
+        Text = "";
     }
 
-    //Get author email and name from azure
-    //Save that email and name in an author
-    //Insert that author into our database
-    public async Task SignInAsync()
+    public async Task<ActionResult> OnPostFollow(Author author)
     {
-        try
+        Console.WriteLine("Following");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
-            {
-                var userEmailClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-                var userNameClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-                if (!string.IsNullOrEmpty(userEmailClaim) && !string.IsNullOrEmpty(userNameClaim))
-                {
-                    var userEmail = userEmailClaim.ToString();
-                    var userName = userNameClaim.ToString();
-
-                    var authorExists = await _arepository.GetAuthorFromEmailAsync(userEmail);
-
-                    if (authorExists == null)
-                    {
-                        Author = new AuthorDTO(userName, userEmail);
-
-                        await _arepository.CreateAuthor(Author);
-                    }
-
-                }
-            }
         }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Exception in SignInAsync: {e}");
-            throw;
-        }
+
+        return RedirectToPage();
     }
 
-    public async Task<RedirectToPageResult> OnPost(string text)
+    public async Task<ActionResult> OnPostUnfollow(Author author)
     {
-        Console.WriteLine("onPost method is called.");
-        try
+        Console.WriteLine("Unfollowing");
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-            }
-            if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
-            {
-                Console.WriteLine("The onPost method runs.");
-                Text = text;
-                var authorName = User.Identity.Name;
-                _repository.CreateCheep(Cheep = new CheepDTO(authorName, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
-            }
         }
-        catch (Exception e)
+
+        return RedirectToPage();
+    }
+
+    public async Task<ActionResult> OnPost(string text)
+    {
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            Console.WriteLine($"Exception in OnPost: {e}");
-            throw;
+            Text = text;
+            _cheepRepository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
         }
-        return RedirectToPage("");
+
+        return RedirectToPage();
     }
 
     public async Task<ActionResult> OnGetAsync(string author, [FromQuery] int page)
     {
         CurrentPage = page;
 
-        int cheepCount = await _repository.GetCheepCountFromAuthorAsync(author);
-        int pageSize = 32;
-
-        PageCount = cheepCount / pageSize;
-
-        if (cheepCount % pageSize != 0)
+        if (_cheepRepository != null)
         {
-            PageCount++;
+            int cheepCount = await _cheepRepository.GetCheepCountFromAuthorAsync(author);
+            int pageSize = 32;
+
+            PageCount = cheepCount / pageSize;
+
+            if (cheepCount % pageSize != 0)
+            {
+                PageCount++;
+            }
+
+            if (page < 1)
+            {
+                page = 1;
+                CurrentPage = 1;
+            }
+
+            Cheeps = await _cheepRepository.GetCheepsFromAuthorAsync(author, page, pageSize);
+
+            return Page();
         }
 
-        if (page < 1)
-        {
-            page = 1;
-            CurrentPage = 1;
-        }
-
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page, pageSize);
-
-        return Page();
+        return RedirectToPage();
     }
 }
