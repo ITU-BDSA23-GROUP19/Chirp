@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Chirp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FollowUpdate : Migration
+    public partial class UniqueEmail : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace Chirp.Infrastructure.Migrations
                 {
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,20 +59,21 @@ namespace Chirp.Infrastructure.Migrations
                         column: x => x.FollowerId,
                         principalTable: "Authors",
                         principalColumn: "AuthorId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Follows_Authors_FollowingId",
                         column: x => x.FollowingId,
                         principalTable: "Authors",
                         principalColumn: "AuthorId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Authors_Email",
                 table: "Authors",
                 column: "Email",
-                unique: true);
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Authors_Name",
@@ -84,6 +85,12 @@ namespace Chirp.Infrastructure.Migrations
                 name: "IX_Cheeps_AuthorId",
                 table: "Cheeps",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Follows_FollowerId_FollowingId",
+                table: "Follows",
+                columns: new[] { "FollowerId", "FollowingId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Follows_FollowingId",
