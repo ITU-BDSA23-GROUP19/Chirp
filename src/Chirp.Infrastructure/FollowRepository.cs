@@ -96,4 +96,21 @@ public class FollowRepository : IFollowRepository
                                      .Select(f => new FollowDTO(f.FollowingAuthor.Name))
                                      .ToListAsync();
     }
+
+    public void DeleteAuthorFromFollowers(string author)
+    {
+        //find all people who follow this author
+        //delete that authors name from their following list
+        _context.Remove()
+        _context.Remove(_context.Follows.Any(f => f.FollowerAuthor.Name.Equals(author)));
+        _context.SaveChanges();
+    }
+    public void DeleteAuthorFromFollowing(string author)
+    {
+        //find all people that the given author follows
+        //delete them from that authors following list
+        _context.Remove(_context..Any(f => f.Author.Name.Equals(author)));
+        _context.SaveChanges();
+
+    }
 }
