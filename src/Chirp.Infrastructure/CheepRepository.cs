@@ -32,8 +32,6 @@ public class CheepRepository : ICheepRepository
                                             Follower = new HashSet<Follow>()
                                         };
 
-
-
         _context.Cheeps.Add(new Cheep()
         {
             Author = author,
@@ -59,12 +57,16 @@ public class CheepRepository : ICheepRepository
     {
         if (pageNumber < 1)
         {
-            throw new ArgumentException("Page number below 1 not allowed");
+            throw new ArgumentException("Page number below 1 is not allowed.");
         }
 
         if (pageSize < 1)
         {
-            throw new ArgumentException("Page size below 1 not allowed");
+            throw new ArgumentException("Page size below 1 is not allowed.");
+        }
+        else if (pageSize > 32)
+        {
+            throw new ArgumentException("Page size above 32 is not allowed.");
         }
 
         return await _context.Cheeps.OrderByDescending(c => c.TimeStamp)
@@ -78,12 +80,16 @@ public class CheepRepository : ICheepRepository
     {
         if (pageNumber < 1)
         {
-            throw new ArgumentException("Page number below 1 not allowed");
+            throw new ArgumentException("Page number below 1 is not allowed.");
         }
 
         if (pageSize < 1)
         {
-            throw new ArgumentException("Page size below 1 not allowed");
+            throw new ArgumentException("Page size below 1 is not allowed.");
+        }
+        else if (pageSize > 32)
+        {
+            throw new ArgumentException("Page size above 32 is not allowed.");
         }
 
         return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))

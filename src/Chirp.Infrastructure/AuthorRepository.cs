@@ -9,7 +9,7 @@ public class AuthorRepository : IAuthorRepository
         _context = context;
     }
 
-    public async Task CreateAuthor(AuthorDTO authorDTO)
+    public void CreateAuthor(AuthorDTO authorDTO)
     {
         AuthorValidator validator = new AuthorValidator();
         ValidationResult result = validator.Validate(authorDTO);
@@ -28,11 +28,6 @@ public class AuthorRepository : IAuthorRepository
             throw new ArgumentException($"An author already exists with name: '{authorDTO.Name}'");
         }
 
-        if (_context.Authors.Any(a => a.Email.Equals(authorDTO.Email)))
-        {
-            throw new ArgumentException($"An author already exists with email: '{authorDTO.Email}'");
-        }
-
         _context.Authors.Add(new Author()
         {
             Name = authorDTO.Name,
@@ -42,7 +37,7 @@ public class AuthorRepository : IAuthorRepository
             Follower = new HashSet<Follow>()
         });
 
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
@@ -50,43 +45,5 @@ public class AuthorRepository : IAuthorRepository
         return await _context.Authors.Where(a => a.Name.Equals(name))
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{name}'");
-    }
-
-    public async Task<AuthorDTO> GetAuthorFromEmailAsync(string email)
-    {
-        return await _context.Authors.Where(a => a.Email.Equals(email))
-                                     .Select(a => new AuthorDTO(a.Name, a.Email))
-                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with email: '{email}'");
-    }
-
-    public void FollowAuthor(FollowDTO followDTO)
-    {
-        Author followingAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowingName))
-                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowingName}'");
-        Author followerAuthor = _context.Authors.Where(a => a.Name.Equals(followDTO.FollowerName))
-                                        .FirstOrDefault() ?? throw new ArgumentException($"No author with name: '{followDTO.FollowerName}'");
-
-        _context.Follows.Add(new Follow()
-        {
-            FollowerAuthor = followerAuthor,
-            FollowingAuthor = followingAuthor
-        });
-
-        _context.SaveChanges();
-    }
-
-
-    public async Task<IEnumerable<FollowDTO>> GetFollowings(AuthorDTO AuthorDTO)
-    {
-        return await _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(AuthorDTO.Name))
-                                     .Select(f => new FollowDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
-                                     .ToListAsync();
-    }
-
-    public async Task<IEnumerable<FollowDTO>> GetFollowers(AuthorDTO AuthorDTO)
-    {
-        return await _context.Follows.Where(f => f.FollowingAuthor.Name.Equals(AuthorDTO.Name))
-                                     .Select(f => new FollowDTO(f.FollowerAuthor.Name, f.FollowingAuthor.Name))
-                                     .ToListAsync();
     }
 }
