@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages;
@@ -19,6 +20,7 @@ public class ProfileModel : PageModel
         CheepRepository = cheepRepository;
         AuthorRepository = authorRepository;
         FollowRepository = followRepository;
+
 
         Cheeps = new List<CheepDTO>();
         Follows = new HashSet<FollowDTO>();
@@ -55,10 +57,13 @@ public class ProfileModel : PageModel
         return RedirectToPage();
     }
 
-    public void DeleteAccount(string author, FollowDTO followDTO)
+    public IActionResult OnPostDeleteAccount(string author, FollowDTO followDTO, FollowDTO follower, FollowDTO following)
     {
+        Console.WriteLine("DELETE ACCOUNT METHOD RUNS.");
         CheepRepository.DeleteCheepsFromAuthor(author);
         FollowRepository.DeleteFollows(followDTO);
+        FollowRepository.DeleteFollow(follower, following);
         AuthorRepository.DeleteAuthor(author);
+        return RedirectToPage();
     }
 }

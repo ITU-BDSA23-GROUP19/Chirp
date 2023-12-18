@@ -16,6 +16,7 @@
             <b> Email: Unknown </b>
             <br>
             <form asp-page-handler="DeleteAccount" method="post">
+                <input type="hidden" name="Author" value="@(User.Identity.Name)" />
                 <button id="DeleteButton" type="submit">Delete My Account</button>
             </form>
         </div>
