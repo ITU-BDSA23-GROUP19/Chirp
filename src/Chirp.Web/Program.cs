@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.Extensions.Options;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-
-using System.Security.Claims;
 
 namespace Chirp.Web;
 
@@ -27,6 +23,7 @@ public class Program
         builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+        builder.Services.AddScoped<IFollowRepository, FollowRepository>();
         builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
         WebApplication app = builder.Build();

@@ -66,6 +66,36 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
+    public void DeleteFollow(FollowDTO follower, FollowDTO following)
+    {
+        FollowValidator validator = new FollowValidator();
+        ValidationResult result = validator.Validate(follower);
+        if (!result.IsValid)
+        {
+            foreach (ValidationFailure error in result.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
+            throw new ArgumentException("FollowDTO failed validation");
+        }
+
+        result = validator.Validate(following);
+        if (!result.IsValid)
+        {
+            foreach (ValidationFailure error in result.Errors)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+
+            throw new ArgumentException("FollowDTO failed validation");
+        }
+
+        _context.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author)));
+
+        _context.SaveChanges();
+    }
+
     public async Task<bool> CheckFollowExistsAsync(FollowDTO follower, FollowDTO following)
     {
         return await _context.Follows.AnyAsync(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author));

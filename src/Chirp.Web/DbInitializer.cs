@@ -11,7 +11,7 @@ public static class DbInitializer
             Author a3 = new Author() { Name = "Wendell Ballan", Email = "Wendell-Ballan@gmail.com", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
             Author a4 = new Author() { Name = "Nathan Sirmon", Email = "Nathan+Sirmon@dtu.dk", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
             Author a5 = new Author() { Name = "Quintin Sitts", Email = "Quintin+Sitts@itu.dk", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
-            Author a6 = new Author() { Name = "Mellie Yost", Email = "Mellie+Yost@ku.dk", Cheeps = new List<Cheep>(),Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
+            Author a6 = new Author() { Name = "Mellie Yost", Email = "Mellie+Yost@ku.dk", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
             Author a7 = new Author() { Name = "Malcolm Janski", Email = "Malcolm-Janski@gmail.com", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
             Author a8 = new Author() { Name = "Octavio Wagganer", Email = "Octavio.Wagganer@dtu.dk", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };
             Author a9 = new Author() { Name = "Johnnie Calixto", Email = "Johnnie+Calixto@itu.dk", Cheeps = new List<Cheep>(), Following = new HashSet<Follow>(), Follower = new HashSet<Follow>() };

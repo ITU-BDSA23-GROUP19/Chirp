@@ -5,17 +5,18 @@ namespace Chirp.Web.Pages;
 
 public class ProfileModel : PageModel
 {
-    private readonly ICheepRepository _cheepRepository;
-    private readonly IAuthorRepository _authorRepository;
-
+    public ICheepRepository CheepRepository { get; private set; }
+    public IAuthorRepository AuthorRepository { get; private set; }
+    public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
-    public ProfileModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
+    public ProfileModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IFollowRepository followRepository)
     {
-        _cheepRepository = cheepRepository;
-        _authorRepository = authorRepository;
+        CheepRepository = cheepRepository;
+        AuthorRepository = authorRepository;
+        FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
     }
@@ -24,9 +25,9 @@ public class ProfileModel : PageModel
     {
         CurrentPage = page;
 
-        if (_cheepRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (CheepRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            int cheepCount = await _cheepRepository.GetCheepCountFromAuthorAsync(User.Identity.Name);
+            int cheepCount = await CheepRepository.GetCheepCountFromAuthorAsync(User.Identity.Name);
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -42,7 +43,7 @@ public class ProfileModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await _cheepRepository.GetCheepsFromAuthorAsync(User.Identity.Name, page, pageSize);
+            Cheeps = await CheepRepository.GetCheepsFromAuthorAsync(User.Identity.Name, page, pageSize);
 
             return Page();
         }
