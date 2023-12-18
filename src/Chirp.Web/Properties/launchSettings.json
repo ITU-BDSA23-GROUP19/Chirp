@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7102",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SQLCONNSTR_AZUREDB": "Server=127.0.0.1,1433; Initial Catalog=Chirp; User Id=SA; Password=Y0waddup; TrustServerCertificate=True;"
       }
     },
     "IIS Express": {
