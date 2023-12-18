@@ -10,7 +10,7 @@
     @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
         <div>
-            <h2> My Informations </h2>
+            <h2> My Information </h2>
             <b> Username: @(User.Identity.Name) </b>
             <br>
             <b> Email: Unknown </b>
@@ -60,6 +60,6 @@
     }
     else
     {
-        <em>You can not see your profile when not logged in!</em>
+        <em>You can't see your profile you aren't logged in!</em>
     }
 </div>
