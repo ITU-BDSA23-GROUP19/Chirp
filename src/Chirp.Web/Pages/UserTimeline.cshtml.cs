@@ -5,18 +5,19 @@ namespace Chirp.Web.Pages;
 
 public class UserTimelineModel : PageModel
 {
-    private readonly ICheepRepository _cheepRepository;
-    private readonly IAuthorRepository _authorRepository;
-
+    public ICheepRepository CheepRepository { get; private set; }
+    public IAuthorRepository AuthorRepository { get; private set; }
+    public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
     public string Text { get; set; }
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
-    public UserTimelineModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
+    public UserTimelineModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IFollowRepository followRepository)
     {
-        _cheepRepository = cheepRepository;
-        _authorRepository = authorRepository;
+        CheepRepository = cheepRepository;
+        AuthorRepository = authorRepository;
+        FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
         Text = "";
@@ -24,9 +25,9 @@ public class UserTimelineModel : PageModel
 
     public async Task<ActionResult> OnPostFollow(Author author)
     {
-        Console.WriteLine("Following");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
+            FollowRepository.CreateFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
         }
 
         return RedirectToPage();
@@ -34,9 +35,9 @@ public class UserTimelineModel : PageModel
 
     public async Task<ActionResult> OnPostUnfollow(Author author)
     {
-        Console.WriteLine("Unfollowing");
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
+            FollowRepository.DeleteFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
         }
 
         return RedirectToPage();
@@ -47,7 +48,7 @@ public class UserTimelineModel : PageModel
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
-            _cheepRepository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
+            CheepRepository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
         }
 
         return RedirectToPage();
@@ -57,9 +58,9 @@ public class UserTimelineModel : PageModel
     {
         CurrentPage = page;
 
-        if (_cheepRepository != null)
+        if (CheepRepository != null)
         {
-            int cheepCount = await _cheepRepository.GetCheepCountFromAuthorAsync(author);
+            int cheepCount = await CheepRepository.GetCheepCountFromAuthorAsync(author);
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -75,7 +76,7 @@ public class UserTimelineModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await _cheepRepository.GetCheepsFromAuthorAsync(author, page, pageSize);
+            Cheeps = await CheepRepository.GetCheepsFromAuthorAsync(author, page, pageSize);
 
             return Page();
         }

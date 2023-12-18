@@ -35,11 +35,22 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
+                       User.Identity.IsAuthenticated)
                         {
-                        <form asp-page-handler="Follow" method="post">
-                            <button id="followButton" type="submit">Follow</button>
-                        </form>
+                            @if (await Model.FollowRepository.CheckFollowExistsAsync(new FollowDTO(User.Identity.Name), new
+                           FollowDTO(cheep.Author)))
+                            {
+                            <form asp-page-handler="Unfollow" method="post">
+                                <button id="unfollowButton" type="submit">Unfollow</button>
+                            </form>
+                            }
+                            else
+                            {
+                            <form asp-page-handler="Follow" method="post">
+                                <button id="followButton" type="submit">Follow</button>
+                            </form>
+                            }
                         }
                     <br>
                         @cheep.Text
