@@ -52,6 +52,7 @@ public class ProfileModel : PageModel
 
     public void DeleteAccount(string author) {
         _cheepRepository.DeleteCheepsFromAuthor(author);
+        //_followingRepository.Delete the things
         _authorRepository.DeleteAuthor(author);
     }
 }
