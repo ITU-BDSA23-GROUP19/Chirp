@@ -57,8 +57,8 @@ public class ProfileModel : PageModel
 
     public void DeleteAccount(string author, FollowDTO followDTO)
     {
-        _cheepRepository.DeleteCheepsFromAuthor(author);
-        _followRepository.DeleteFollows(followDTO);
-        _authorRepository.DeleteAuthor(author);
+        CheepRepository.DeleteCheepsFromAuthor(author);
+        FollowRepository.DeleteFollows(followDTO);
+        AuthorRepository.DeleteAuthor(author);
     }
 }
