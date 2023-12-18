@@ -1,0 +1,65 @@
+﻿@page "/profile"
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Chirp.Web.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <div>
+            <h2> My Informations </h2>
+            <b> Username: @(User.Identity.Name) </b>
+            <br>
+            <b> Email: Unknown </b>
+            <br>
+            <a href="/profile">Delete my account</a>
+        </div>
+
+        <br> <br>
+
+        <div>
+            <h2> Following </h2>
+        </div>
+
+        <br> <br>
+
+        <div>
+            <h2> Followers </h2>
+        </div>
+
+        <br> <br>
+
+        <div>
+            <h2> My Cheeps </h2>
+
+            @if (Model.Cheeps.Any())
+            {
+                <ul id="messagelist" class="cheeps">
+                    @foreach (CheepDTO cheep in Model.Cheeps)
+                    {
+                        <li>
+                            <p>
+                                <strong>
+                                    <a href="/@cheep.Author">@cheep.Author</a>
+                                </strong>
+                                @cheep.Text
+                                <small>&mdash; @cheep.TimeStamp</small>
+                            </p>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <em>There are no cheeps.</em>
+            }
+        </div>
+    }
+    else
+    {
+        <em>You can not see your profile when not logged in!</em>
+    }
+</div>

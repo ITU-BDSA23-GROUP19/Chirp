@@ -15,8 +15,9 @@
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 <div>
-                    <a href="/@(User.Identity.Name)">my timeline</a> |
                     <a href="/">public timeline</a> |
+                    <a href="/@(User.Identity.Name)">my timeline</a> |
+                    <a href="/profile">profile</a> |
                     <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">logout
                         [@(User.Identity.Name)]</a>
                 </div>
@@ -25,7 +26,7 @@
             {
                 <div>
                     <a href="/">public timeline</a> |
-                    <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignUp">register</a> |
+                    <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">register</a> |
                     <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">login</a>
                 </div>
             }
