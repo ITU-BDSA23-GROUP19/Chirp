@@ -1,5 +1,5 @@
 namespace Chirp.Web.Tests
-{   
+{
     public class IntegrationTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
@@ -132,6 +132,12 @@ namespace Chirp.Web.Tests
             Assert.Contains("Jacqualine Gilcoine's Timeline", content);
 
             Assert.Equal(32, occurences);
+        }
+
+        [Fact]
+        public void CanDeleteAccountFromAllRepositories()
+        {
+
         }
     }
 }

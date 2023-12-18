@@ -1,8 +1,11 @@
+using SQLitePCL;
+
 namespace Chirp.Infrastructure.Tests;
 
 public class AuthorRepositoryTests
 {
     private readonly IAuthorRepository _repository;
+    private readonly ChirpContext _context;
 
     public AuthorRepositoryTests()
     {
@@ -10,6 +13,7 @@ public class AuthorRepositoryTests
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
+        _context = context;
         SeedDatabase(context);
         _repository = new AuthorRepository(context);
     }
@@ -122,5 +126,18 @@ public class AuthorRepositoryTests
         {
             Assert.Equal($"No author with name: '{name}'", e.Message);
         }
+    }
+
+    [Fact]
+    public void CanDeleteAuthorFromAuthorRepository()
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO("author1", "");
+        _repository.CreateAuthor(author);
+        //Act
+        _repository.DeleteAuthor("author1");
+        //Assert
+        bool existsInRepository = _context.Authors.Any(a => a.Name.Equals(author.Name));
+        Assert.False(existsInRepository);
     }
 }

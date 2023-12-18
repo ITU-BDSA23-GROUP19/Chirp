@@ -84,4 +84,5 @@ public class ChirpContextTests
             Assert.Equal("An error occurred while saving the entity changes. See the inner exception for details.", e.Message);
         }
     }
+
 }
