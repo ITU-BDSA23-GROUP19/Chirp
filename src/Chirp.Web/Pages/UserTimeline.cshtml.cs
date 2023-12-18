@@ -27,7 +27,7 @@ public class UserTimelineModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
+            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
         return RedirectToPage();
@@ -37,7 +37,7 @@ public class UserTimelineModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
+            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
         return RedirectToPage();
