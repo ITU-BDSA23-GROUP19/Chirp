@@ -46,4 +46,9 @@ public class AuthorRepository : IAuthorRepository
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{name}'");
     }
+
+    public void DeleteAuthor(string author) {
+        _context.Remove(_context.Authors.Any(a => a.Name.Equals(author)));
+        _context.SaveChanges();
+    }
 }

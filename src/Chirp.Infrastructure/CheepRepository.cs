@@ -99,4 +99,9 @@ public class CheepRepository : ICheepRepository
                                     .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")))
                                     .ToListAsync();
     }
+
+    public void DeleteCheepsFromAuthor(string author) {
+        _context.Remove(_context.Cheeps.Any(c => c.Author.Name.Equals(author)));
+        _context.SaveChanges();
+    }
 }

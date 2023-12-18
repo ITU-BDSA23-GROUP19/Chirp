@@ -49,4 +49,9 @@ public class ProfileModel : PageModel
 
         return RedirectToPage();
     }
+
+    public void DeleteAccount(string author) {
+        _cheepRepository.DeleteCheepsFromAuthor(author);
+        _authorRepository.DeleteAuthor(author);
+    }
 }
