@@ -3,6 +3,7 @@ namespace Chirp.Infrastructure.Tests;
 public class CheepRepositoryTests
 {
     private readonly ICheepRepository _repository;
+    private readonly ChirpContext _context;
 
     public CheepRepositoryTests()
     {
@@ -10,6 +11,7 @@ public class CheepRepositoryTests
         connection.Open();
         DbContextOptionsBuilder<ChirpContext> builder = new DbContextOptionsBuilder<ChirpContext>().UseSqlite(connection);
         ChirpContext context = new ChirpContext(builder.Options);
+        _context = context;
         SeedDatabase(context);
         _repository = new CheepRepository(context);
     }
@@ -315,5 +317,19 @@ public class CheepRepositoryTests
         {
             Assert.Equal("Page number below 1 is not allowed.", e.Message);
         }
+    }
+
+    [Fact]
+    public void CanDeleteAuthorCheepsFromCheepRepository()
+    {
+        //Arrange
+        AuthorDTO author = new AuthorDTO("author1", "");
+        CheepDTO cheep = new CheepDTO("author1", "Lorem ipsum dolor sit amet, consect ut lemco laboris nisi ut aliquip ex ea commodo consequat.", "2023-08-01 13:13:23");
+        //Act
+        _repository.CreateCheep(cheep);
+        _repository.DeleteCheepsFromAuthor("author1");
+        //Assert
+        bool existsInRepository = _context.Cheeps.Any(c => c.Author.Name.Equals(author.Name));
+        Assert.False(existsInRepository);
     }
 }

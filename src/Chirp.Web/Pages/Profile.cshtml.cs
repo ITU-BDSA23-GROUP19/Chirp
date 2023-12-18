@@ -9,6 +9,8 @@ public class ProfileModel : PageModel
     public IAuthorRepository AuthorRepository { get; private set; }
     public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
+    public IEnumerable<FollowDTO> Follows { get; set; }
+
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
@@ -19,6 +21,8 @@ public class ProfileModel : PageModel
         FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
+        Follows = new HashSet<FollowDTO>();
+
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
@@ -49,5 +53,12 @@ public class ProfileModel : PageModel
         }
 
         return RedirectToPage();
+    }
+
+    public void DeleteAccount(string author, FollowDTO followDTO)
+    {
+        CheepRepository.DeleteCheepsFromAuthor(author);
+        FollowRepository.DeleteFollows(followDTO);
+        AuthorRepository.DeleteAuthor(author);
     }
 }

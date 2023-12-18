@@ -3,6 +3,7 @@ namespace Chirp.Core;
 public interface IFollowRepository
 {
     public void CreateFollow(FollowDTO follower, FollowDTO following);
+    public void DeleteFollows(FollowDTO followDTO);
     public void DeleteFollow(FollowDTO follower, FollowDTO following);
     public Task<bool> CheckFollowExistsAsync(FollowDTO follower, FollowDTO following);
     public Task<int> GetFollowersCountAsync(string author);

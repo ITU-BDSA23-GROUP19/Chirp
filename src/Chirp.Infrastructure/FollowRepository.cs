@@ -66,6 +66,16 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
+    public void DeleteFollows(FollowDTO followDTO)
+    {
+        List<Follow> follows = _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(followDTO.Author) || f.FollowingAuthor.Name.Equals(followDTO.Author)).ToList();
+
+        foreach (Follow follow in follows)
+        {
+            _context.Remove(follow);
+        }
+         _context.SaveChanges();
+}
     public void DeleteFollow(FollowDTO follower, FollowDTO following)
     {
         FollowValidator validator = new FollowValidator();
