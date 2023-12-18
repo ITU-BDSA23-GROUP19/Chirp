@@ -153,7 +153,7 @@ public class CheepRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Page size below 1 not allowed", e.Message);
+            Assert.Equal("Page size below 1 is not allowed.", e.Message);
         }
     }
 
@@ -194,7 +194,7 @@ public class CheepRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Page number below 1 not allowed", e.Message);
+            Assert.Equal("Page number below 1 is not allowed.", e.Message);
         }
     }
 
@@ -272,7 +272,7 @@ public class CheepRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Page size below 1 not allowed", e.Message);
+            Assert.Equal("Page size below 1 is not allowed.", e.Message);
         }
     }
 
@@ -313,7 +313,7 @@ public class CheepRepositoryTests
         }
         catch (ArgumentException e)
         {
-            Assert.Equal("Page number below 1 not allowed", e.Message);
+            Assert.Equal("Page number below 1 is not allowed.", e.Message);
         }
     }
 }
