@@ -50,7 +50,8 @@ public class ProfileModel : PageModel
         return RedirectToPage();
     }
 
-    public void DeleteAccount(string author) {
+    public void DeleteAccount(string author)
+    {
         _cheepRepository.DeleteCheepsFromAuthor(author);
         //_followingRepository.Delete the things
         _authorRepository.DeleteAuthor(author);
