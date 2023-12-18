@@ -27,14 +27,12 @@ public class PublicModel : PageModel
 
     public async Task<ActionResult> OnPostFollow(string author)
     {
-        Console.WriteLine("Hello my friend: " + author);
-
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
     public async Task<ActionResult> OnPostUnfollow(Author author)
@@ -44,7 +42,7 @@ public class PublicModel : PageModel
             FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
     public async Task<ActionResult> OnPost(string text)
