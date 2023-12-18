@@ -23,6 +23,15 @@
 
 <div>
     <h2> Public Timeline </h2>
+    <script>
+        @foreach (var cheep in Model.Cheeps)
+        {
+            // Output to browser console using JavaScript
+            <text>
+                    console.log("rudolf: ", @Json.Serialize(cheep.Author));
+            </text>
+        }
+    </script>
 
     @if (Model.Cheeps.Any())
     {
@@ -34,6 +43,9 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
+                        @{
+                            Console.WriteLine("rudolf: ", cheep.Author);
+                        }
                         @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
                        User.Identity.IsAuthenticated)
                         {

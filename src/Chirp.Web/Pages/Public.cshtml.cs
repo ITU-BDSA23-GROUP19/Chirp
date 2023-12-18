@@ -35,8 +35,18 @@ public class PublicModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPostUnfollow(Author author)
+    public async Task<IActionResult> OnPostUnfollow(string cheepAuthor)
     {
+        //string cheepAuthor = Request.Form["cheepAuthor"];
+        if (cheepAuthor == null)
+        {
+            Console.WriteLine("The cheep author is null");
+        }
+        else
+        {
+            Console.WriteLine("Author name is: ", cheepAuthor);
+        }
+
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
