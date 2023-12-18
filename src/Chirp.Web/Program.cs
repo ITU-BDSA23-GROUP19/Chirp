@@ -27,6 +27,7 @@ public class Program
         builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
         builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+        builder.Services.AddScoped<IFollowRepository, FollowRepository>();
         builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme).AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
         WebApplication app = builder.Build();

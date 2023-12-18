@@ -7,17 +7,23 @@ public class ProfileModel : PageModel
 {
     private readonly ICheepRepository _cheepRepository;
     private readonly IAuthorRepository _authorRepository;
+    private readonly IFollowRepository _followRepository;
 
     public IEnumerable<CheepDTO> Cheeps { get; set; }
+    public IEnumerable<FollowDTO> Follows { get; set; }
+
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
-    public ProfileModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository)
+    public ProfileModel(ICheepRepository cheepRepository, IAuthorRepository authorRepository, IFollowRepository followRepository)
     {
         _cheepRepository = cheepRepository;
         _authorRepository = authorRepository;
+        _followRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
+        Follows = new HashSet<FollowDTO>();
+
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
@@ -50,10 +56,10 @@ public class ProfileModel : PageModel
         return RedirectToPage();
     }
 
-    public void DeleteAccount(string author)
+    public void DeleteAccount(string author, FollowDTO followDTO)
     {
         _cheepRepository.DeleteCheepsFromAuthor(author);
-        //_followingRepository.Delete the things
+        _followRepository.DeleteFollows(followDTO);
         _authorRepository.DeleteAuthor(author);
     }
 }

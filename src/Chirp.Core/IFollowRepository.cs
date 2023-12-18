@@ -9,5 +9,4 @@ public interface IFollowRepository
     public Task<int> GetFollowingsCountAsync(string author);
     public Task<IEnumerable<FollowDTO>> GetFollowersAsync(string author);
     public Task<IEnumerable<FollowDTO>> GetFollowingsAsync(string author);
-
 }
