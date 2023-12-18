@@ -13,7 +13,7 @@ public class AuthorDTOTests
 
         // Act
         string Name = authorDTO.Name;
-        string Email = authorDTO.Email;
+        string Email = authorDTO.Email!;
 
         // Assert
         Assert.Equal(name, Name);
