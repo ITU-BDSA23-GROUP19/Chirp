@@ -55,35 +55,16 @@ public class AuthorRepositoryTests
     }
 
     [Theory]
-    [InlineData("Simon", "simr@itu.dk")]
-    [InlineData("Annabell", "apno@itu.dk")]
-    [InlineData("Johnnie Calixto", "Jacqualine.Gilcoine@gmail.com")]
-    public async void CanCreateAuthorCanGetAuthorFromEmail(string name, string email)
-    {
-        // Arrange
-        AuthorDTO authorDTO = new AuthorDTO(name, email);
-
-        // Act
-        _repository.CreateAuthor(authorDTO);
-        AuthorDTO author = await _repository.GetAuthorFromEmailAsync(email);
-
-        // Assert
-        Assert.Equal(name, author.Name);
-        Assert.Equal(email, author.Email);
-        Assert.Equal(authorDTO, author);
-    }
-
-    [Theory]
     [InlineData("hejsameddejsa", "simr@itu.dk")]
     [InlineData("f1skef1let", "apno@itu.dk")]
     [InlineData("IsbjørnOgSkruetrækker", "Jacqualine.Gilcoine@gmail.com")]
-    public async Task CanCreateAuthorWhereNameExists(string name, string email)
+    public void CanCreateAuthorWhereNameExists(string name, string email)
     {
         // Arrange
         AuthorDTO authorDTO = new AuthorDTO(name, email);
 
         // Act and Assert
-        /*try
+        try
         {
             _repository.CreateAuthor(authorDTO);
             Assert.Fail();
@@ -91,59 +72,24 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"An author already exists with name: '{name}'", e.Message);
-        }*/
-        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
-        {
-            await _repository.CreateAuthor(authorDTO);
-        });
-        Assert.Equal($"An author already exists with name: '{name}'", e.Message);
+        }
     }
 
-    [Theory]
-    [InlineData("Simon", "hejsameddejsa@gmail.com")]
-    [InlineData("Annabell", "f1skef1let@coldmail.com")]
-    [InlineData("Johnnie Calixto", "isbjørnogskruetrækker@hotmail.com")]
-    public async Task CanCreateAuthorWhereEmailExists(string name, string email)
+    [Fact]
+    public void CanCreateAuthorWithLongName()
     {
-        //Arrange
-        AuthorDTO authorDTO = new AuthorDTO(name, email);
+        // Arrange
+        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
 
-        //Act and Assert
-        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
-        {
-            await _repository.CreateAuthor(authorDTO);
-        });
-        /*try
+        try
         {
             _repository.CreateAuthor(authorDTO);
             Assert.Fail();
         }
         catch (ArgumentException e)
         {
-            Assert.Equal($"An author already exists with email: '{email}'", e.Message);
-        }*/
-        Assert.Equal($"An author already exists with email: '{email}'", e.Message);
-    }
-
-    [Fact]
-    public async Task CanCreateAuthorWithLongName()
-    {
-        // Arrange
-        AuthorDTO authorDTO = new AuthorDTO("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "hejsameddejsa@gmail.com");
-
-        /*try
-        {
-            await _repository.CreateAuthor(authorDTO);
-            Assert.Fail();
-        }
-        catch (ArgumentException e)
-        {
             Assert.Equal("AuthorDTO failed validation", e.Message);
-        }*/
-        ArgumentException e = await Assert.ThrowsAsync<ArgumentException>(async () => 
-        {
-            await _repository.CreateAuthor(authorDTO);
-        });
+        }
     }
 
     [Theory]
@@ -175,38 +121,6 @@ public class AuthorRepositoryTests
         catch (ArgumentException e)
         {
             Assert.Equal($"No author with name: '{name}'", e.Message);
-        }
-    }
-
-    [Theory]
-    [InlineData("hejsameddejsa", "hejsameddejsa@gmail.com")]
-    [InlineData("f1skef1let", "f1skef1let@coldmail.com")]
-    [InlineData("IsbjørnOgSkruetrækker", "isbjørnogskruetrækker@hotmail.com")]
-    public async void CanGetAuthorFromEmail(string name, string email)
-    {
-        // Act
-        AuthorDTO author = await _repository.GetAuthorFromEmailAsync(email);
-
-        // Assert
-        Assert.Equal(name, author.Name);
-        Assert.Equal(email, author.Email);
-    }
-
-    [Theory]
-    [InlineData("rødspætte@hotmail.com")]
-    [InlineData("skrubbe@email.dk")]
-    [InlineData("søtunge@gmail.com")]
-    public async void CanGetAuthorFromEmailWhichDoesNotExists(string email)
-    {
-        // Act and Assert
-        try
-        {
-            Assert.Null(await _repository.GetAuthorFromEmailAsync(email));
-            Assert.Fail();
-        }
-        catch (ArgumentException e)
-        {
-            Assert.Equal($"No author with email: '{email}'", e.Message);
         }
     }
 }

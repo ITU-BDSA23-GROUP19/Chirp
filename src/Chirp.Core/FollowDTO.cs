@@ -1,3 +1,3 @@
 namespace Chirp.Core;
 
-public record FollowDTO(string FollowerName, string FollowingName);
+public record FollowDTO(string Author);
