@@ -29,4 +29,34 @@ public class FollowRepositoryTests
         context.Authors.AddRange(authors);
         context.SaveChanges();
     }
+
+    [Fact]
+    public void CanDeleteFollowersFromAuthor()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        _repository.CreateFollow(author2.Name, author1.Name);
+        //Act
+        _repository.DeleteFollow(author2.Name, author1.Name);
+        //Assert
+        bool existsInRepository = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals(author2.Name) || f.FollowingAuthor.Name.Equals(author1.Name));
+        Assert.False(existsInRepository);
+    }
+
+    [Fact]
+    public void CanDeleteAuthorFromFollowing()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        _repository.CreateFollow("author1", "author2");
+        _repository.CreateFollow("author2", "author1");
+
+        //Act
+        _repository.DeleteFollows("author2", "author1");
+        //Assert
+        bool existsInRepository = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals(author2.Name) && f.FollowingAuthor.Name.Equals(author1.Name));
+        Assert.False(existsInRepository);
+    }
 }
