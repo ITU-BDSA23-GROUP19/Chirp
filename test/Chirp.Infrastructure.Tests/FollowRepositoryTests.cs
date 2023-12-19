@@ -1,3 +1,5 @@
+using System.Formats.Asn1;
+
 namespace Chirp.Infrastructure.Tests;
 
 public class FollowRepositoryTests
@@ -28,6 +30,23 @@ public class FollowRepositoryTests
 
         context.Authors.AddRange(authors);
         context.SaveChanges();
+    }
+
+    [Fact]
+    public void CanCreateFollow(){
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+
+        //Act
+        _repository.CreateFollow("author1", "author2");
+
+        //Assert
+        var result = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals("author1") && f.FollowingAuthor.Name.Equals("author2"));
+        Assert.True(result);
+            //check the follow is only created in one direction
+        var nonResult = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals("author2") && f.FollowingAuthor.Name.Equals("author1"));
+        Assert.False(nonResult);
     }
 
     [Fact]
