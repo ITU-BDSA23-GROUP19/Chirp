@@ -59,4 +59,22 @@ public class FollowRepositoryTests
         bool existsInRepository = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals(author2.Name) && f.FollowingAuthor.Name.Equals(author1.Name));
         Assert.False(existsInRepository);
     }
+
+    [Fact]
+    public async void CanCheckFollowExists()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        _repository.CreateFollow("author1", "author2");
+        _repository.CreateFollow("author2", "author1");
+
+        //Act
+        bool result = await _repository.CheckFollowExistsAsync("author1", "author2");
+
+        //Assert
+        Assert.True(result);
+
+
+    }
 }
