@@ -23,15 +23,6 @@
 
 <div>
     <h2> Public Timeline </h2>
-    <script>
-        @foreach (var cheep in Model.Cheeps)
-        {
-            // Output to browser console using JavaScript
-            <text>
-                    console.log("rudolf: ", @Json.Serialize(cheep.Author));
-            </text>
-        }
-    </script>
 
     @if (Model.Cheeps.Any())
     {
@@ -53,12 +44,14 @@
                            FollowDTO(cheep.Author)))
                             {
                             <form asp-page-handler="Unfollow" method="post">
+                                <input type="hidden" name="author" value="@(cheep.Author)" />
                                 <button id="unfollowButton" type="submit">Unfollow</button>
                             </form>
                             }
                             else
                             {
                             <form asp-page-handler="Follow" method="post">
+                                <input type="hidden" name="author" value="@(cheep.Author)" />
                                 <button id="followButton" type="submit">Follow</button>
                             </form>
                             }

@@ -29,17 +29,17 @@ public class PublicModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
+            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public IActionResult OnPostUnfollow(string cheepAuthor)
+    public IActionResult OnPostUnfollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
+            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
