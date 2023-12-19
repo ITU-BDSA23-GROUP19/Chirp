@@ -130,4 +130,48 @@ public class FollowRepositoryTests
         Assert.Equal(1, author1Following);
         Assert.Equal(2, author2Following);
     }
+
+    [Fact]
+    public async void CanGetFollowers()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        AuthorDTO author3 = new AuthorDTO("author3", "");
+        AuthorDTO author4 = new AuthorDTO("author4", "");
+        _repository.CreateFollow("author2", "author1");
+        _repository.CreateFollow("author3", "author1");
+        _repository.CreateFollow("author4", "author1");
+
+        //Act
+        var author1Followers = await _repository.GetFollowersAsync("author1");
+
+        //Assert
+        Assert.Equal(3, author1Followers.Count());
+        Assert.Contains("author2", author1Followers.ToList());
+        Assert.Contains("author3", author1Followers.ToList());
+        Assert.Contains("author4", author1Followers.ToList());
+    }
+
+    [Fact]
+    public async void CanGetFollowings()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        AuthorDTO author3 = new AuthorDTO("author3", "");
+        AuthorDTO author4 = new AuthorDTO("author4", "");
+        _repository.CreateFollow("author1", "author2");
+        _repository.CreateFollow("author1", "author3");
+        _repository.CreateFollow("author1", "author4");
+
+        //Act
+        var author1Followings = await _repository.GetFollowingsAsync("author1");
+
+        //Assert
+        Assert.Equal(3, author1Followings.Count());
+        Assert.Contains("author2", author1Followings.ToList());
+        Assert.Contains("author3", author1Followings.ToList());
+        Assert.Contains("author4", author1Followings.ToList());
+    }
 }
