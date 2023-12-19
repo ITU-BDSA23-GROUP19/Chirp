@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -23,10 +25,23 @@ public class ProfileModel : PageModel
         AuthorRepository = authorRepository;
         FollowRepository = followRepository;
 
-
         Cheeps = new List<CheepDTO>();
         Followers = new List<FollowDTO>();
         Followings = new List<FollowDTO>();
+    }
+
+    public void OnPostDeleteAccount(string author)
+    {
+        CheepRepository.DeleteCheepsFromAuthor(author);
+        FollowRepository.DeleteFollowsFromAuthor(author);
+        AuthorRepository.DeleteAuthor(author);
+        SignOut();
+    }
+
+    public void SignOut()
+    {
+        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        Response.Redirect("/");
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
@@ -59,16 +74,6 @@ public class ProfileModel : PageModel
             return Page();
         }
 
-        return RedirectToPage();
-    }
-
-    public IActionResult OnPostDeleteAccount(string author, FollowDTO followDTO, FollowDTO follower, FollowDTO following)
-    {
-        Console.WriteLine("DELETE ACCOUNT METHOD RUNS.");
-        CheepRepository.DeleteCheepsFromAuthor(author);
-        FollowRepository.DeleteFollows(followDTO);
-        FollowRepository.DeleteFollow(follower, following);
-        AuthorRepository.DeleteAuthor(author);
         return RedirectToPage();
     }
 }
