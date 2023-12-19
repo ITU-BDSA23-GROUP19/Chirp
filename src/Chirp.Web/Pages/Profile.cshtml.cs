@@ -21,10 +21,17 @@ public class ProfileModel : PageModel
         AuthorRepository = authorRepository;
         FollowRepository = followRepository;
 
-
         Cheeps = new List<CheepDTO>();
         Follows = new HashSet<FollowDTO>();
 
+    }
+
+    public IActionResult OnPostDeleteAccount(string author)
+    {
+        CheepRepository.DeleteCheepsFromAuthor(author);
+        FollowRepository.DeleteFollows(author);
+        AuthorRepository.DeleteAuthor(author);
+        return RedirectToPage();
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
@@ -54,16 +61,6 @@ public class ProfileModel : PageModel
             return Page();
         }
 
-        return RedirectToPage();
-    }
-
-    public IActionResult OnPostDeleteAccount(string author, FollowDTO followDTO, FollowDTO follower, FollowDTO following)
-    {
-        Console.WriteLine("DELETE ACCOUNT METHOD RUNS.");
-        CheepRepository.DeleteCheepsFromAuthor(author);
-        FollowRepository.DeleteFollows(followDTO);
-        FollowRepository.DeleteFollow(follower, following);
-        AuthorRepository.DeleteAuthor(author);
         return RedirectToPage();
     }
 }
