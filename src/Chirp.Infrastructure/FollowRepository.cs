@@ -82,14 +82,14 @@ public class FollowRepository : IFollowRepository
     public async Task<IEnumerable<string>> GetFollowersAsync(string author)
     {
         return await _context.Follows.Where(f => f.FollowingAuthor.Name.Equals(author))
-                                     .Select(f => new string(f.FollowerAuthor.Name))
+                                     .Select(f => f.FollowerAuthor.Name)
                                      .ToListAsync();
     }
 
     public async Task<IEnumerable<string>> GetFollowingsAsync(string author)
     {
         return await _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(author))
-                                     .Select(f => new string(f.FollowingAuthor.Name))
+                                     .Select(f => f.FollowingAuthor.Name)
                                      .ToListAsync();
     }
 }
