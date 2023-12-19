@@ -27,7 +27,7 @@
 
         <div>
             <h2> <span style="display: inline-block;">@author's Timeline</span>
-                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != author &&
+                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != author.ToString() &&
                User.Identity.IsAuthenticated)
                 {
                     @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, author.ToString()))
@@ -50,6 +50,11 @@
                     }
                 }
             </h2>
+            <div>
+                <h3> Following: @(Model.FollowingsCount) </h3>
+                <h3> Followers: @(Model.FollowersCount) </h3>
+            </div>
+
 
             @if (Model.Cheeps.Any())
             {
