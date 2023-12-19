@@ -96,7 +96,7 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
-    public void DeleteFollows(string author)
+    public void DeleteFollowsFromAuthor(string author)
     {
         List<Follow> follows = _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(author) || f.FollowingAuthor.Name.Equals(author)).ToList();
 

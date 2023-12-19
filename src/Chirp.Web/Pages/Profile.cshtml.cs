@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages;
@@ -29,7 +28,7 @@ public class ProfileModel : PageModel
     public IActionResult OnPostDeleteAccount(string author)
     {
         CheepRepository.DeleteCheepsFromAuthor(author);
-        FollowRepository.DeleteFollows(author);
+        FollowRepository.DeleteFollowsFromAuthor(author);
         AuthorRepository.DeleteAuthor(author);
         return RedirectToPage();
     }
