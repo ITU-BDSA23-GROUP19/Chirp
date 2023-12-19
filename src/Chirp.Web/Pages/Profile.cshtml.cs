@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -26,8 +25,8 @@ public class ProfileModel : PageModel
         FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
-        Followers = new List<FollowDTO>();
-        Followings = new List<FollowDTO>();
+        Followers = new HashSet<FollowDTO>();
+        Followings = new HashSet<FollowDTO>();
     }
 
     public void OnPostDeleteAccount(string author)
@@ -35,11 +34,6 @@ public class ProfileModel : PageModel
         CheepRepository.DeleteCheepsFromAuthor(author);
         FollowRepository.DeleteFollowsFromAuthor(author);
         AuthorRepository.DeleteAuthor(author);
-        SignOut();
-    }
-
-    public void SignOut()
-    {
         HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         Response.Redirect("/");
     }
@@ -71,6 +65,7 @@ public class ProfileModel : PageModel
             Followings = await FollowRepository.GetFollowingsAsync(User.Identity.Name);
             FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);
             FollowingsCount = await FollowRepository.GetFollowingsCountAsync(User.Identity.Name);
+
             return Page();
         }
 
