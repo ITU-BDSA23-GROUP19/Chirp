@@ -54,7 +54,7 @@ public class FollowRepositoryTests
         _repository.CreateFollow("author2", "author1");
 
         //Act
-        _repository.DeleteFollowsFromAuthor("author2", "author1");
+        _repository.DeleteFollowsFromAuthor("author1");
         //Assert
         bool existsInRepository = _context.Follows.Any(f => f.FollowerAuthor.Name.Equals(author2.Name) && f.FollowingAuthor.Name.Equals(author1.Name));
         Assert.False(existsInRepository);
