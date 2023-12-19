@@ -135,7 +135,7 @@ namespace Chirp.Web.Tests
         }
 
         [Fact]
-        public void CanDeleteAccountFromAllRepositories()
+        public async void CanDeleteAccountFromAllRepositories()
         {
 
         }

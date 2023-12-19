@@ -59,7 +59,7 @@ public class ProfileModel : PageModel
 
     public IActionResult OnPostDeleteAccount(string author, FollowDTO followDTO, FollowDTO follower, FollowDTO following)
     {
-        Console.WriteLine("DELETE ACCOUNT METHOD RUNS.");
+
         CheepRepository.DeleteCheepsFromAuthor(author);
         FollowRepository.DeleteFollows(followDTO);
         FollowRepository.DeleteFollow(follower, following);
