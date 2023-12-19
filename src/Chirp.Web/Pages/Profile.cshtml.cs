@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +31,7 @@ public class ProfileModel : PageModel
     public void OnPostDeleteAccount(string author)
     {
         CheepRepository.DeleteCheepsFromAuthor(author);
-        FollowRepository.DeleteFollows(author);
+        FollowRepository.DeleteFollowsFromAuthor(author);
         AuthorRepository.DeleteAuthor(author);
         SignOut();
     }
