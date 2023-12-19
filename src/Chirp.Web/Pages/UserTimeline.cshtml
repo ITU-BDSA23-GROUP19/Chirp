@@ -7,86 +7,126 @@
     var author = HttpContext.GetRouteValue("author");
 }
 
-<div class="cheepbox">
-    @if (User.Identity != null && User.Identity.IsAuthenticated)
-    {
-        <h3>What's on your mind @(User.Identity.Name)</h3>
-        <form method="post">
-            <input style="float: left" type="text" asp-for="Text">
-            <input type="submit" value="Share" , asp-action="OnPost(text)">
-        </form>
-    }
-    else
-    {
-        <em>You can't cheep when you aren't logged in!</em>
-    }
-</div>
-
 <div>
-    <h2> @author's Timeline </h2>
-
-    @if (Model.Cheeps.Any())
+    @if (Model.AuthorRepository.CheckAuthorExists(author.ToString()))
     {
-        <ul id="messagelist" class="cheeps">
-            @foreach (CheepDTO cheep in Model.Cheeps)
+        <div class="cheepbox">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.Author">@cheep.Author</a>
-                        </strong>
-                        @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
-                       User.Identity.IsAuthenticated)
-                        {
-                            @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
-                            {
+                <h3>What's on your mind @(User.Identity.Name)</h3>
+                <form method="post">
+                    <input style="float: left" type="text" asp-for="Text">
+                    <input type="submit" value="Share" , asp-action="OnPost(text)">
+                </form>
+            }
+            else
+            {
+                <em>You can't cheep when you aren't logged in!</em>
+            }
+        </div>
+
+        <div>
+            <h2> <span style="display: inline-block;">@author's Timeline</span>
+                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != author &&
+               User.Identity.IsAuthenticated)
+                {
+                    @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, author.ToString()))
+                    {
+                        <span style="float: right;">
                             <form asp-page-handler="Unfollow" method="post">
-                                <input type="hidden" name="author" value="@(cheep.Author)" />
+                                <input type="hidden" name="author" value="@(author)" />
                                 <button id="unfollowButton" type="submit">Unfollow</button>
                             </form>
-                            }
-                            else
-                            {
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="float: right;">
                             <form asp-page-handler="Follow" method="post">
-                                <input type="hidden" name="author" value="@(cheep.Author)" />
+                                <input type="hidden" name="author" value="@(author)" />
                                 <button id="followButton" type="submit">Follow</button>
                             </form>
-                            }
-                        }
-                        @cheep.Text
-                    <small>&mdash; @cheep.TimeStamp</small>
-                    </p>
-                </li>
+                        </span>
+                    }
+                }
+            </h2>
+
+            @if (Model.Cheeps.Any())
+            {
+                <ul id="messagelist" class="cheeps">
+                    @foreach (CheepDTO cheep in Model.Cheeps)
+                    {
+                        <li>
+                            <p style="display: flex; justify-content: space-between;">
+                                <span style="display: inline-block;">
+                                    <strong>
+
+                                        <a href="/@cheep.Author">@cheep.Author</a>
+
+                                    </strong>
+                                </span>
+                                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
+                               User.Identity.IsAuthenticated)
+                                {
+                                    @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
+                                    {
+                                        <span style="display: inline-block;">
+                                            <form asp-page-handler=" Unfollow" method="post">
+                                                <input type="hidden" name="author" value="@(cheep.Author)" />
+                                                <button id="unfollowButton" type="submit">Unfollow</button>
+                                            </form>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="display: inline-block;">
+                                            <form asp-page-handler="Follow" method="post">
+                                                <input type="hidden" name="author" value="@(cheep.Author)" />
+                                                <button id="followButton" type="submit">Follow</button>
+                                            </form>
+                                        </span>
+                                    }
+                                }
+                                @cheep.Text
+                                <small>&mdash; @cheep.TimeStamp</small>
+                            </p>
+                        </li>
+                    }
+                </ul>
             }
-        </ul>
+            else
+            {
+                <em>There are no cheeps.</em>
+            }
+        </div>
+
+        <div style="text-align:center;">
+            @if (Model.CurrentPage > 1)
+            {
+                <a href="/@author/?page=1">[&lt;&lt;]</a>
+                <a href="/@author/?page=@(Model.CurrentPage - 1)">[&lt;]</a>
+            }
+
+            @for (int i = int.Max(1, Model.CurrentPage - 5); i <= int.Min(Model.PageCount, Model.CurrentPage + 5); i++)
+            {
+                if (i == Model.CurrentPage)
+                {
+                    <b>[@i]</b>
+                    continue;
+                }
+
+                <a href="/@author/?page=@i">[@i]</a>
+            }
+
+            @if (Model.CurrentPage < Model.PageCount)
+            {
+                <a href="/@author/?page=@(Model.CurrentPage + 1)">[&gt;]</a>
+                <a href="/@author/?page=@Model.PageCount">[&gt;&gt;]</a>
+            }
+        </div>
     }
     else
     {
-        <em>There are no cheeps.</em>
-    }
-</div>
-
-<div style="text-align:center;">
-    @if (Model.CurrentPage > 1)
-    {
-        <a href="/@author/?page=1">[&lt;&lt;]</a>
-        <a href="/@author/?page=@(Model.CurrentPage - 1)">[&lt;]</a>
-    }
-
-    @for (int i = int.Max(1, Model.CurrentPage - 5); i <= int.Min(Model.PageCount, Model.CurrentPage + 5); i++)
-    {
-        if (i == Model.CurrentPage)
-        {
-            <b>[@i]</b>
-            continue;
-        }
-
-        <a href="/@author/?page=@i">[@i]</a>
-    }
-
-    @if (Model.CurrentPage < Model.PageCount)
-    {
-        <a href="/@author/?page=@(Model.CurrentPage + 1)">[&gt;]</a>
-        <a href="/@author/?page=@Model.PageCount">[&gt;&gt;]</a>
+        <em>This user does not exist!</em>
     }
 </div>
