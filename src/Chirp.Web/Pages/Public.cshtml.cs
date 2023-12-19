@@ -29,7 +29,7 @@ public class PublicModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
+            FollowRepository.CreateFollow(User.Identity.Name, author);
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
@@ -39,7 +39,7 @@ public class PublicModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
+            FollowRepository.DeleteFollow(User.Identity.Name, author);
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
