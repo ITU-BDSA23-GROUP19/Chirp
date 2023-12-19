@@ -23,24 +23,24 @@ public class UserTimelineModel : PageModel
         Text = "";
     }
 
-    public ActionResult OnPostFollow(Author author)
+    public ActionResult OnPostFollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public ActionResult OnPostUnfollow(Author author)
+    public ActionResult OnPostUnfollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
     public ActionResult OnPost(string text)
