@@ -74,7 +74,20 @@ public class FollowRepositoryTests
 
         //Assert
         Assert.True(result);
+    }
+    [Fact]
+    public async void CanCheckFollowExistsForNonExsistingFollow()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        _repository.CreateFollow("author1", "author2");
+        _repository.CreateFollow("author2", "author1");
 
+        //Act
+        bool result = await _repository.CheckFollowExistsAsync("author1", "author3");
 
+        //Assert
+        Assert.False(result);
     }
 }
