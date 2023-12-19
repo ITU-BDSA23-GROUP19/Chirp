@@ -33,6 +33,28 @@
                             <strong>
                                 <a href="/@following">@following</a>
                             </strong>
+                             @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != following &&
+               User.Identity.IsAuthenticated)
+                {
+                    @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, following))
+                    {
+                        <span style="float: right;">
+                            <form asp-page-handler="Unfollow" method="post">
+                                <input type="hidden" name="author" value="@(following)" />
+                                <button id="unfollowButton" type="submit">Unfollow</button>
+                            </form>
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="float: right;">
+                            <form asp-page-handler="Follow" method="post">
+                                <input type="hidden" name="author" value="@(following)" />
+                                <button id="followButton" type="submit">Follow</button>
+                            </form>
+                        </span>
+                    }
+                }
                         </p>
                     </li>
                 }
