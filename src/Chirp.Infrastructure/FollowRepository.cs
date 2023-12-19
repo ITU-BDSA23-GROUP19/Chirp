@@ -64,7 +64,7 @@ public class FollowRepository : IFollowRepository
 
     public async Task<bool> CheckFollowExistsAsync(string follower, string following)
     {
-        return await _context.Follows.AnyAsync(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author));
+        return await _context.Follows.AnyAsync(f => f.FollowerAuthor.Name.Equals(follower) && f.FollowingAuthor.Name.Equals(following));
     }
 
     public async Task<int> GetFollowersCountAsync(string author)
