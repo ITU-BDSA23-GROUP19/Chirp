@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -26,12 +28,18 @@ public class ProfileModel : PageModel
 
     }
 
-    public IActionResult OnPostDeleteAccount(string author)
+    public void OnPostDeleteAccount(string author)
     {
         CheepRepository.DeleteCheepsFromAuthor(author);
         FollowRepository.DeleteFollows(author);
         AuthorRepository.DeleteAuthor(author);
-        return RedirectToPage();
+        SignOut();
+    }
+
+    public void SignOut()
+    {
+        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        Response.Redirect("/");
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
