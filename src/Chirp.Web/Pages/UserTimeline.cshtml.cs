@@ -23,27 +23,27 @@ public class UserTimelineModel : PageModel
         Text = "";
     }
 
-    public async Task<ActionResult> OnPostFollow(Author author)
+    public ActionResult OnPostFollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
+            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPostUnfollow(Author author)
+    public ActionResult OnPostUnfollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO("Follower"), new FollowDTO("Following"));
+            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
-        return RedirectToPage();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPost(string text)
+    public ActionResult OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {

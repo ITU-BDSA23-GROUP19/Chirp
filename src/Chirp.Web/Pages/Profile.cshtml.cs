@@ -10,8 +10,10 @@ public class ProfileModel : PageModel
     public IAuthorRepository AuthorRepository { get; private set; }
     public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
-    public IEnumerable<FollowDTO> Follows { get; set; }
-
+    public IEnumerable<FollowDTO> Followers { get; set; }
+    public IEnumerable<FollowDTO> Followings { get; set; }
+    public int FollowersCount { get; set; }
+    public int FollowingsCount { get; set; }
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
@@ -23,8 +25,8 @@ public class ProfileModel : PageModel
 
 
         Cheeps = new List<CheepDTO>();
-        Follows = new HashSet<FollowDTO>();
-
+        Followers = new List<FollowDTO>();
+        Followings = new List<FollowDTO>();
     }
 
     public async Task<ActionResult> OnGetAsync([FromQuery] int page)
@@ -50,7 +52,10 @@ public class ProfileModel : PageModel
             }
 
             Cheeps = await CheepRepository.GetCheepsFromAuthorAsync(User.Identity.Name, page, pageSize);
-
+            Followers = await FollowRepository.GetFollowersAsync(User.Identity.Name);
+            Followings = await FollowRepository.GetFollowingsAsync(User.Identity.Name);
+            FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);
+            FollowingsCount = await FollowRepository.GetFollowingsCountAsync(User.Identity.Name);
             return Page();
         }
 

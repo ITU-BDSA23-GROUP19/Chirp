@@ -34,6 +34,9 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
+                        @{
+                            Console.WriteLine("rudolf: ", cheep.Author);
+                        }
                         @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
                        User.Identity.IsAuthenticated)
                         {
@@ -41,17 +44,18 @@
                            FollowDTO(cheep.Author)))
                             {
                             <form asp-page-handler="Unfollow" method="post">
+                                <input type="hidden" name="author" value="@(cheep.Author)" />
                                 <button id="unfollowButton" type="submit">Unfollow</button>
                             </form>
                             }
                             else
                             {
                             <form asp-page-handler="Follow" method="post">
+                                <input type="hidden" name="author" value="@(cheep.Author)" />
                                 <button id="followButton" type="submit">Follow</button>
                             </form>
                             }
                         }
-                    <br>
                         @cheep.Text
                     <small>&mdash; @cheep.TimeStamp</small>
                     </p>

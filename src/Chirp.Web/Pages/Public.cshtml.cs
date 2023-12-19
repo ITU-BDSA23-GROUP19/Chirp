@@ -9,6 +9,7 @@ public class PublicModel : PageModel
     public IAuthorRepository AuthorRepository { get; private set; }
     public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
+    public string Name { get; set; }
     public string Text { get; set; }
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
@@ -20,30 +21,31 @@ public class PublicModel : PageModel
         FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
+        Name = "";
         Text = "";
     }
 
-    public async Task<ActionResult> OnPostFollow(string author)
+    public ActionResult OnPostFollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
+            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
-        return Page();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPostUnfollow(Author author)
+    public IActionResult OnPostUnfollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO("Jacqualine Gilcoine"));
+            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
         }
 
-        return Page();
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPost(string text)
+    public ActionResult OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
