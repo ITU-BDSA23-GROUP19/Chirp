@@ -34,9 +34,6 @@
                         <strong>
                             <a href="/@cheep.Author">@cheep.Author</a>
                         </strong>
-                        @{
-                            Console.WriteLine("rudolf: ", cheep.Author);
-                        }
                         @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
                        User.Identity.IsAuthenticated)
                         {
