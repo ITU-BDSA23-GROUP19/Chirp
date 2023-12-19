@@ -27,7 +27,7 @@ public class UserTimelineModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.CreateFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
+            FollowRepository.CreateFollow(User.Identity.Name, author);
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
@@ -37,7 +37,7 @@ public class UserTimelineModel : PageModel
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            FollowRepository.DeleteFollow(new FollowDTO(User.Identity.Name), new FollowDTO(author));
+            FollowRepository.DeleteFollow(User.Identity.Name, author);
         }
 
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
@@ -60,7 +60,8 @@ public class UserTimelineModel : PageModel
 
         if (CheepRepository != null)
         {
-            int cheepCount = await CheepRepository.GetCheepCountFromAuthorAsync(author);
+            IEnumerable<string> followings = await FollowRepository.GetFollowingsAsync(author);
+            int cheepCount = await CheepRepository.GetUserTimelineCheepCountAsync(author, followings);
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -76,7 +77,7 @@ public class UserTimelineModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await CheepRepository.GetCheepsFromAuthorAsync(author, page, pageSize);
+            Cheeps = await CheepRepository.GetUserTimelineCheepsAsync(author, followings, page, pageSize);
 
             return Page();
         }

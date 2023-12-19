@@ -11,8 +11,8 @@ public class ProfileModel : PageModel
     public IAuthorRepository AuthorRepository { get; private set; }
     public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
-    public IEnumerable<FollowDTO> Followers { get; set; }
-    public IEnumerable<FollowDTO> Followings { get; set; }
+    public IEnumerable<string> Followers { get; set; }
+    public IEnumerable<string> Followings { get; set; }
     public int FollowersCount { get; set; }
     public int FollowingsCount { get; set; }
     public int CurrentPage { get; set; }
@@ -25,8 +25,8 @@ public class ProfileModel : PageModel
         FollowRepository = followRepository;
 
         Cheeps = new List<CheepDTO>();
-        Followers = new HashSet<FollowDTO>();
-        Followings = new HashSet<FollowDTO>();
+        Followers = new HashSet<string>();
+        Followings = new HashSet<string>();
     }
 
     public void OnPostDeleteAccount(string author)

@@ -40,8 +40,7 @@
                         @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
                        User.Identity.IsAuthenticated)
                         {
-                            @if (await Model.FollowRepository.CheckFollowExistsAsync(new FollowDTO(User.Identity.Name), new
-                           FollowDTO(cheep.Author)))
+                            @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
                             {
                             <form asp-page-handler="Unfollow" method="post">
                                 <input type="hidden" name="author" value="@(cheep.Author)" />

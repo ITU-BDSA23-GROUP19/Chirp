@@ -110,13 +110,13 @@ public class CheepRepository : ICheepRepository
                                     .ToListAsync();
     }
 
-    public async Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<FollowDTO> followings)
+    public async Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<string> followings)
     {
         return await _context.Cheeps.Where(c => c.Author.Name.Equals(author) || followings.Contains(c.Author.Name))
                                     .CountAsync();
     }
 
-    public async Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<FollowDTO> followings, int pageNumber = 1, int pageSize = 32)
+    public async Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<string> followings, int pageNumber = 1, int pageSize = 32)
     {
         if (pageNumber < 1)
         {

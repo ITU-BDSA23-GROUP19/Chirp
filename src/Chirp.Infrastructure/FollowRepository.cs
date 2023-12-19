@@ -9,49 +9,26 @@ public class FollowRepository : IFollowRepository
         _context = context;
     }
 
-    public void CreateFollow(FollowDTO follower, FollowDTO following)
+    public void CreateFollow(string follower, string following)
     {
-        FollowValidator validator = new FollowValidator();
-        ValidationResult result = validator.Validate(follower);
-        if (!result.IsValid)
+        if (_context.Follows.Any(f => f.FollowerAuthor.Name.Equals(follower) && f.FollowingAuthor.Name.Equals(following)))
         {
-            foreach (ValidationFailure error in result.Errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-            throw new ArgumentException("FollowDTO failed validation");
+            throw new ArgumentException($"A follow already exists between Follower: '{follower}' and Following: '{following}'.");
         }
 
-        result = validator.Validate(following);
-        if (!result.IsValid)
-        {
-            foreach (ValidationFailure error in result.Errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-            throw new ArgumentException("FollowDTO failed validation");
-        }
-
-        if (_context.Follows.Any(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author)))
-        {
-            throw new ArgumentException($"A follow already exists between Follower: '{follower.Author}' and Following: '{following.Author}'.");
-        }
-
-        Author followerAuthor = _context.Authors.Where(a => a.Name.Equals(follower.Author))
+        Author followerAuthor = _context.Authors.Where(a => a.Name.Equals(follower))
                                         .FirstOrDefault() ?? new Author()
                                         {
-                                            Name = follower.Author,
+                                            Name = follower,
                                             Cheeps = new List<Cheep>(),
                                             Following = new HashSet<Follow>(),
                                             Follower = new HashSet<Follow>()
                                         };
 
-        Author followingAuthor = _context.Authors.Where(a => a.Name.Equals(following.Author))
+        Author followingAuthor = _context.Authors.Where(a => a.Name.Equals(following))
                                         .FirstOrDefault() ?? new Author()
                                         {
-                                            Name = following.Author,
+                                            Name = following,
                                             Cheeps = new List<Cheep>(),
                                             Following = new HashSet<Follow>(),
                                             Follower = new HashSet<Follow>()
@@ -66,32 +43,9 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
-    public void DeleteFollow(FollowDTO follower, FollowDTO following)
+    public void DeleteFollow(string follower, string following)
     {
-        FollowValidator validator = new FollowValidator();
-        ValidationResult result = validator.Validate(follower);
-        if (!result.IsValid)
-        {
-            foreach (ValidationFailure error in result.Errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-            throw new ArgumentException("FollowDTO failed validation");
-        }
-
-        result = validator.Validate(following);
-        if (!result.IsValid)
-        {
-            foreach (ValidationFailure error in result.Errors)
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-
-            throw new ArgumentException("FollowDTO failed validation");
-        }
-
-        _context.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author)));
+        _context.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower) && f.FollowingAuthor.Name.Equals(following)));
 
         _context.SaveChanges();
     }
@@ -108,7 +62,7 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
-    public async Task<bool> CheckFollowExistsAsync(FollowDTO follower, FollowDTO following)
+    public async Task<bool> CheckFollowExistsAsync(string follower, string following)
     {
         return await _context.Follows.AnyAsync(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author));
     }
@@ -125,17 +79,17 @@ public class FollowRepository : IFollowRepository
                                      .CountAsync();
     }
 
-    public async Task<IEnumerable<FollowDTO>> GetFollowersAsync(string author)
+    public async Task<IEnumerable<string>> GetFollowersAsync(string author)
     {
         return await _context.Follows.Where(f => f.FollowingAuthor.Name.Equals(author))
-                                     .Select(f => new FollowDTO(f.FollowerAuthor.Name))
+                                     .Select(f => new string(f.FollowerAuthor.Name))
                                      .ToListAsync();
     }
 
-    public async Task<IEnumerable<FollowDTO>> GetFollowingsAsync(string author)
+    public async Task<IEnumerable<string>> GetFollowingsAsync(string author)
     {
         return await _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(author))
-                                     .Select(f => new FollowDTO(f.FollowingAuthor.Name))
+                                     .Select(f => new string(f.FollowingAuthor.Name))
                                      .ToListAsync();
     }
 }

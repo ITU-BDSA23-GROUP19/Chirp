@@ -6,8 +6,8 @@ public interface ICheepRepository
     public void DeleteCheepsFromAuthor(string author);
     public Task<int> GetCheepCountAsync();
     public Task<int> GetCheepCountFromAuthorAsync(string author);
-    public Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<FollowDTO> followings);
+    public Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<string> followings);
     public Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber = 1, int pageSize = 32);
     public Task<IEnumerable<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber = 1, int pageSize = 32);
-    public Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<FollowDTO> followings, int pageNumber = 1, int pageSize = 32);
+    public Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<string> followings, int pageNumber = 1, int pageSize = 32);
 }

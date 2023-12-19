@@ -26,12 +26,12 @@
         <div>
             <h2> Following: @(Model.FollowingsCount) </h2>
             <ul id="messagelist" class="cheeps">
-                @foreach (FollowDTO following in Model.Followings)
+                @foreach (string following in Model.Followings)
                 {
                     <li>
                         <p>
                             <strong>
-                                <a href="/@following.Author">@following.Author</a>
+                                <a href="/@following">@following</a>
                             </strong>
                         </p>
                     </li>
@@ -44,12 +44,12 @@
         <div>
             <h2> Followers: @(Model.FollowersCount) </h2>
             <ul id="messagelist" class="cheeps">
-                @foreach (FollowDTO followers in Model.Followers)
+                @foreach (string followers in Model.Followers)
                 {
                     <li>
                         <p>
                             <strong>
-                                <a href="/@followers.Author">@followers.Author</a>
+                                <a href="/@followers">@followers</a>
                             </strong>
                         </p>
                     </li>
