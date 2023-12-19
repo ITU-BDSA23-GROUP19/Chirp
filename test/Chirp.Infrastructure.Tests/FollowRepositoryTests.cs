@@ -90,4 +90,24 @@ public class FollowRepositoryTests
         //Assert
         Assert.False(result);
     }
+
+    [Fact]
+    public async void CanGetFollowerCount()
+    {
+        //Arrange
+        AuthorDTO author1 = new AuthorDTO("author1", "");
+        AuthorDTO author2 = new AuthorDTO("author2", "");
+        AuthorDTO author3 = new AuthorDTO("author3", "");
+        _repository.CreateFollow("author1", "author2");
+        _repository.CreateFollow("author2", "author1");
+        _repository.CreateFollow("author3", "author2");
+
+        //Act
+        int author1Followers = await _repository.GetFollowersCountAsync("author1");
+        int author2Followers = await _repository.GetFollowersCountAsync("author2");
+
+        //Assert
+        Assert.Equal(1, author1Followers);
+        Assert.Equal(2, author2Followers);
+    }
 }
