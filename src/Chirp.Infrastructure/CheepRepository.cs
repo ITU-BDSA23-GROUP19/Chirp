@@ -109,4 +109,15 @@ public class CheepRepository : ICheepRepository
                                     .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")))
                                     .ToListAsync();
     }
+
+    public async Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<FollowDTO> followings)
+    {
+        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author) || followings.Contains(c.Author.Name))
+                                    .CountAsync();
+    }
+
+    public async Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<FollowDTO> followings, int pageNumber = 1, int pageSize = 32)
+    {
+        throw new NotImplementedException();
+    }
 }
