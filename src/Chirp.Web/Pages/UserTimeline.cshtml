@@ -4,11 +4,11 @@
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
-    var author = HttpContext.GetRouteValue("author");
+    string author = HttpContext.GetRouteValue("author")!.ToString()!;
 }
 
 <div>
-    @if (Model.AuthorRepository.CheckAuthorExists(author.ToString()))
+    @if (author != null && Model.AuthorRepository.CheckAuthorExists(author))
     {
         <div class="cheepbox">
             @if (User.Identity != null && User.Identity.IsAuthenticated)
@@ -27,10 +27,10 @@
 
         <div>
             <h2> <span style="display: inline-block;">@author's Timeline</span>
-                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != author.ToString() &&
+                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != author &&
                User.Identity.IsAuthenticated)
                 {
-                    @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, author.ToString()))
+                    @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, author))
                     {
                         <span style="float: right;">
                             <form asp-page-handler="Unfollow" method="post">
@@ -75,7 +75,7 @@
                                     @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
                                     {
 
-                                        <form asp-page-handler=" Unfollow" method="post">
+                                        <form asp-page-handler="Unfollow" method="post">
                                             <input type="hidden" name="author" value="@(cheep.Author)" />
                                             <button id="unfollowButton" type="submit">Unfollow</button>
                                         </form>

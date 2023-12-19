@@ -80,8 +80,8 @@ public class UserTimelineModel : PageModel
             }
 
             Cheeps = await CheepRepository.GetUserTimelineCheepsAsync(author, followings, page, pageSize);
-            FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);
-            FollowingsCount = await FollowRepository.GetFollowingsCountAsync(User.Identity.Name);
+            FollowersCount = await FollowRepository.GetFollowersCountAsync(author);
+            FollowingsCount = await FollowRepository.GetFollowingsCountAsync(author);
 
             return Page();
         }
