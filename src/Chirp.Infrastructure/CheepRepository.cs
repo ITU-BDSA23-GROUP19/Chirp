@@ -118,6 +118,25 @@ public class CheepRepository : ICheepRepository
 
     public async Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<FollowDTO> followings, int pageNumber = 1, int pageSize = 32)
     {
-        throw new NotImplementedException();
+        if (pageNumber < 1)
+        {
+            throw new ArgumentException("Page number below 1 is not allowed.");
+        }
+
+        if (pageSize < 1)
+        {
+            throw new ArgumentException("Page size below 1 is not allowed.");
+        }
+        else if (pageSize > 32)
+        {
+            throw new ArgumentException("Page size above 32 is not allowed.");
+        }
+
+        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author) || followings.Contains(c.Author.Name))
+                                    .OrderByDescending(c => c.TimeStamp)
+                                    .Skip(pageSize * (pageNumber - 1))
+                                    .Take(pageSize)
+                                    .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")))
+                                    .ToListAsync();
     }
 }
