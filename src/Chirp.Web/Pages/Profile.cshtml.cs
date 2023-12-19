@@ -10,6 +10,7 @@ public class ProfileModel : PageModel
     public ICheepRepository CheepRepository { get; private set; }
     public IAuthorRepository AuthorRepository { get; private set; }
     public IFollowRepository FollowRepository { get; private set; }
+    public IDictionary<string, string> Claims { get; set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
     public IEnumerable<string> Followers { get; set; }
     public IEnumerable<string> Followings { get; set; }
@@ -24,6 +25,7 @@ public class ProfileModel : PageModel
         AuthorRepository = authorRepository;
         FollowRepository = followRepository;
 
+        Claims = new Dictionary<string, string>();
         Cheeps = new List<CheepDTO>();
         Followers = new HashSet<string>();
         Followings = new HashSet<string>();
@@ -66,9 +68,36 @@ public class ProfileModel : PageModel
             FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);
             FollowingsCount = await FollowRepository.GetFollowingsCountAsync(User.Identity.Name);
 
+            GetClaims();
+
             return Page();
         }
 
         return RedirectToPage();
+    }
+
+    private void GetClaims()
+    {
+        foreach (var claim in User.Claims)
+        {
+            string type = claim.Type;
+
+            if (type.Contains("givenname"))
+            {
+                Claims["realname"] = claim.Value;
+            }
+            else if (type.Equals("name"))
+            {
+                Claims["username"] = claim.Value;
+            }
+            else if (type.Equals("emails"))
+            {
+                Claims["email"] = claim.Value;
+            }
+            else if (type.Contains("identityprovider"))
+            {
+                Claims["identityprovider"] = claim.Value;
+            }
+        }
     }
 }
