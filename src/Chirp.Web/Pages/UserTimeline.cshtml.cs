@@ -10,6 +10,8 @@ public class UserTimelineModel : PageModel
     public IFollowRepository FollowRepository { get; private set; }
     public IEnumerable<CheepDTO> Cheeps { get; set; }
     public string Text { get; set; }
+    public int FollowersCount { get; set; }
+    public int FollowingsCount { get; set; }
     public int CurrentPage { get; set; }
     public int PageCount { get; set; }
 
@@ -78,6 +80,8 @@ public class UserTimelineModel : PageModel
             }
 
             Cheeps = await CheepRepository.GetUserTimelineCheepsAsync(author, followings, page, pageSize);
+            FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);
+            FollowingsCount = await FollowRepository.GetFollowingsCountAsync(User.Identity.Name);
 
             return Page();
         }

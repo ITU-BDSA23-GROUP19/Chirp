@@ -57,4 +57,18 @@ public class AuthorRepository : IAuthorRepository
         }
 
     }
+
+    public bool CheckAuthorExists(string author)
+    {
+        try
+        {
+            _context.Authors.Single(a => a.Name.Equals(author));
+            return true;
+
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
