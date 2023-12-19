@@ -133,11 +133,5 @@ namespace Chirp.Web.Tests
 
             Assert.Equal(32, occurences);
         }
-
-        [Fact]
-        public async void CanDeleteAccountFromAllRepositories()
-        {
-
-        }
     }
 }
