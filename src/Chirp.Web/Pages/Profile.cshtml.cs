@@ -31,6 +31,26 @@ public class ProfileModel : PageModel
         Followings = new HashSet<string>();
     }
 
+    public ActionResult OnPostFollow(string author)
+    {
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            FollowRepository.CreateFollow(User.Identity.Name, author);
+        }
+
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
+    }
+
+    public IActionResult OnPostUnfollow(string author)
+    {
+        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        {
+            FollowRepository.DeleteFollow(User.Identity.Name, author);
+        }
+
+        return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
+    }
+
     public void OnPostDeleteAccount(string author)
     {
         CheepRepository.DeleteCheepsFromAuthor(author);

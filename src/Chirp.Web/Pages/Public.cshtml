@@ -43,7 +43,7 @@
                             @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
                             {
 
-                                <form asp-page-handler=" Unfollow" method="post">
+                                <form asp-page-handler="Unfollow" method="post">
                                     <input type="hidden" name="author" value="@(cheep.Author)" />
                                     <button id="unfollowButton" type="submit">Unfollow</button>
                                 </form>
