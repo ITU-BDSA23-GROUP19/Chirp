@@ -57,39 +57,37 @@
                     @foreach (CheepDTO cheep in Model.Cheeps)
                     {
                         <li>
-                            <p style="display: flex; justify-content: space-between;">
+                            <span style="display: inline-block;">
+                                <strong>
+                                    <a href="/@cheep.Author">@cheep.Author</a>
+                                </strong>
+                            </span>
+
+                            @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
+                           User.Identity.IsAuthenticated)
+                            {
                                 <span style="display: inline-block;">
-                                    <strong>
-
-                                        <a href="/@cheep.Author">@cheep.Author</a>
-
-                                    </strong>
-                                </span>
-                                @if (User.Identity != null && User.Identity.Name != null && User.Identity.Name != cheep.Author &&
-                               User.Identity.IsAuthenticated)
-                                {
                                     @if (await Model.FollowRepository.CheckFollowExistsAsync(User.Identity.Name, cheep.Author))
                                     {
-                                        <span style="display: inline-block;">
-                                            <form asp-page-handler=" Unfollow" method="post">
-                                                <input type="hidden" name="author" value="@(cheep.Author)" />
-                                                <button id="unfollowButton" type="submit">Unfollow</button>
-                                            </form>
-                                        </span>
+
+                                        <form asp-page-handler=" Unfollow" method="post">
+                                            <input type="hidden" name="author" value="@(cheep.Author)" />
+                                            <button id="unfollowButton" type="submit">Unfollow</button>
+                                        </form>
                                     }
                                     else
                                     {
-                                        <span style="display: inline-block;">
-                                            <form asp-page-handler="Follow" method="post">
-                                                <input type="hidden" name="author" value="@(cheep.Author)" />
-                                                <button id="followButton" type="submit">Follow</button>
-                                            </form>
-                                        </span>
+                                        <form asp-page-handler="Follow" method="post">
+                                            <input type="hidden" name="author" value="@(cheep.Author)" />
+                                            <button id="followButton" type="submit">Follow</button>
+                                        </form>
                                     }
-                                }
+                                </span>
+                            }
+                            <div>
                                 @cheep.Text
                                 <small>&mdash; @cheep.TimeStamp</small>
-                            </p>
+                            </div>
                         </li>
                     }
                 </ul>
