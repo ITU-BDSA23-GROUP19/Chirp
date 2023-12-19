@@ -58,8 +58,15 @@
                         </span>
                     }
                     <div>
-                        @cheep.Text
-                        <small>&mdash; @cheep.TimeStamp</small>
+                        <div style="display: flex; justify-content: space-between;">
+                            <div>
+                                @cheep.Text
+                            </div>
+                            <div style="white-space: nowrap; align-self: flex-end;">
+                                <small>&mdash; @cheep.TimeStamp</small>
+                            </div>
+
+                        </div>
                     </div>
                 </li>
             }
