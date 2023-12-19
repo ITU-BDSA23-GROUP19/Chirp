@@ -42,6 +42,16 @@ public class CheepRepository : ICheepRepository
         _context.SaveChanges();
     }
 
+    public void DeleteCheepsFromAuthor(string author)
+    {
+        var cheepsToDelete = _context.Cheeps.Where(c => c.Author.Name.Equals(author));
+        foreach (var cheep in cheepsToDelete)
+        {
+            _context.Cheeps.Remove(cheep);
+        }
+        _context.SaveChanges();
+    }
+
     public async Task<int> GetCheepCountAsync()
     {
         return await _context.Cheeps.CountAsync();
@@ -98,15 +108,5 @@ public class CheepRepository : ICheepRepository
                                     .Take(pageSize)
                                     .Select(c => new CheepDTO(c.Author.Name, c.Text, c.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")))
                                     .ToListAsync();
-    }
-
-    public void DeleteCheepsFromAuthor(string author)
-    {
-        var cheepsToDelete = _context.Cheeps.Where(c => c.Author.Name.Equals(author));
-        foreach (var cheep in cheepsToDelete)
-        {
-            _context.Cheeps.Remove(cheep);
-        }
-        _context.SaveChanges();
     }
 }

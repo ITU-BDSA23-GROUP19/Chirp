@@ -49,7 +49,6 @@ public class AuthorRepository : IAuthorRepository
 
     public void DeleteAuthor(string author)
     {
-        //_context.Remove(_context.Authors.Any(a => a.Name.Equals(author)));
         var authorToDelete = _context.Authors.SingleOrDefault(a => a.Name.Equals(author));
         if (authorToDelete != null)
         {
