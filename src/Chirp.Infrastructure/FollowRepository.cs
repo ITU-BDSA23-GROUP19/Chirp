@@ -66,6 +66,16 @@ public class FollowRepository : IFollowRepository
         _context.SaveChanges();
     }
 
+    public void DeleteFollows(FollowDTO followDTO)
+    {
+        List<Follow> follows = _context.Follows.Where(f => f.FollowerAuthor.Name.Equals(followDTO.Author) || f.FollowingAuthor.Name.Equals(followDTO.Author)).ToList();
+
+        foreach (Follow follow in follows)
+        {
+            _context.Remove(follow);
+        }
+        _context.SaveChanges();
+    }
     public void DeleteFollow(FollowDTO follower, FollowDTO following)
     {
         FollowValidator validator = new FollowValidator();
@@ -91,9 +101,21 @@ public class FollowRepository : IFollowRepository
             throw new ArgumentException("FollowDTO failed validation");
         }
 
-        _context.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author)));
+        var followToDelete = _context.Follows.SingleOrDefault(f =>
+                                                                f.FollowerAuthor != null &&
+                                                                f.FollowerAuthor.Name.Equals(follower.Author) &&
+                                                                f.FollowingAuthor != null &&
+                                                                f.FollowingAuthor.Name.Equals(following.Author)
+        );
 
-        _context.SaveChanges();
+        if (followToDelete != null)
+        {
+            _context.Remove(followToDelete);
+            _context.SaveChanges();
+        }
+        //_context.Remove(_context.Follows.SingleOrDefault(f => f.FollowerAuthor.Name.Equals(follower.Author) && f.FollowingAuthor.Name.Equals(following.Author)));
+
+        //_context.SaveChanges();
     }
 
     public async Task<bool> CheckFollowExistsAsync(FollowDTO follower, FollowDTO following)
