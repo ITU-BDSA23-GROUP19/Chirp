@@ -11,9 +11,13 @@
     {
         <div>
             <h2> My Information </h2>
-            <b> Username: @(User.Identity.Name) </b>
+            <b> Real name: @(Model.Claims["realname"]) </b>
             <br>
-            <b> Email: Unknown </b>
+            <b> Username: @(Model.Claims["username"]) </b>
+            <br>
+            <b> Email: @(Model.Claims["email"]) </b>
+            <br>
+            <b> Authentication Type: @(Model.Claims["identityprovider"]) </b>
             <br>
             <form asp-page-handler="DeleteAccount" method="post">
                 <input type="hidden" name="Author" value="@(User.Identity.Name)" />
