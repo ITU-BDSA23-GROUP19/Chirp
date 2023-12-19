@@ -23,7 +23,7 @@ public class UserTimelineModel : PageModel
         Text = "";
     }
 
-    public async Task<ActionResult> OnPostFollow(Author author)
+    public ActionResult OnPostFollow(Author author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
@@ -33,7 +33,7 @@ public class UserTimelineModel : PageModel
         return RedirectToPage();
     }
 
-    public async Task<ActionResult> OnPostUnfollow(Author author)
+    public ActionResult OnPostUnfollow(Author author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
@@ -43,7 +43,7 @@ public class UserTimelineModel : PageModel
         return RedirectToPage();
     }
 
-    public async Task<ActionResult> OnPost(string text)
+    public ActionResult OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {

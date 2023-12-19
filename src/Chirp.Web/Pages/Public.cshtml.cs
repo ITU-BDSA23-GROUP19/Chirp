@@ -25,7 +25,7 @@ public class PublicModel : PageModel
         Text = "";
     }
 
-    public async Task<ActionResult> OnPostFollow(string author)
+    public ActionResult OnPostFollow(string author)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
@@ -35,7 +35,7 @@ public class PublicModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<IActionResult> OnPostUnfollow(string cheepAuthor)
+    public IActionResult OnPostUnfollow(string cheepAuthor)
     {
         //string cheepAuthor = Request.Form["cheepAuthor"];
         if (cheepAuthor == null)
@@ -55,7 +55,7 @@ public class PublicModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public async Task<ActionResult> OnPost(string text)
+    public ActionResult OnPost(string text)
     {
         if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
