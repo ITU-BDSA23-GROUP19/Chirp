@@ -94,7 +94,7 @@ Our typical flow when it comes to adding new features, was to first write an iss
 
 Then it came to the implementation itself. We would usually be two or three people working together, and after we learned about pair programming, we began doing it that way. How long it took to make varied greatly. When we had problems, we would frequently look up guides or consult a TA. When the feature was finished, we would always make sure that it worked locally before pushing it to main.
 
-Our commit graph is not equal but there can be several different reasons for this, such as a member spending a lot of time working on Azure or being sick. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less, so that also has an influence.
+Our commit graph is not equal but there can be several different reasons for this, such as a member being sick or spending a lot of time working on Azure, especially because we ran out of credits and had to do it again. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less, so that also has an influence.
 
 ## How to make _Chirp!_ work locally
 
