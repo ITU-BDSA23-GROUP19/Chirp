@@ -40,35 +40,22 @@ public class AuthorRepository : IAuthorRepository
         _context.SaveChanges();
     }
 
+    public void DeleteAuthor(string author)
+    {
+        _context.Authors.Remove(_context.Authors.Single(a => a.Name.Equals(author)));
+
+        _context.SaveChanges();
+    }
+
+    public async Task<bool> CheckAuthorExistsAsync(string author)
+    {
+        return await _context.Authors.AnyAsync(a => a.Name.Equals(author));
+    }
+
     public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
     {
         return await _context.Authors.Where(a => a.Name.Equals(name))
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
                                      .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{name}'");
-    }
-
-    public void DeleteAuthor(string author)
-    {
-        var authorToDelete = _context.Authors.SingleOrDefault(a => a.Name.Equals(author));
-        if (authorToDelete != null)
-        {
-            _context.Authors.Remove(authorToDelete);
-            _context.SaveChanges();
-        }
-
-    }
-
-    public bool CheckAuthorExists(string author)
-    {
-        try
-        {
-            _context.Authors.Single(a => a.Name.Equals(author));
-            return true;
-
-        }
-        catch
-        {
-            return false;
-        }
     }
 }

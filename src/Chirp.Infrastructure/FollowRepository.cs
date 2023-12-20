@@ -45,7 +45,7 @@ public class FollowRepository : IFollowRepository
 
     public void DeleteFollow(string follower, string following)
     {
-        _context.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower) && f.FollowingAuthor.Name.Equals(following)));
+        _context.Follows.Remove(_context.Follows.Single(f => f.FollowerAuthor.Name.Equals(follower) && f.FollowingAuthor.Name.Equals(following)));
 
         _context.SaveChanges();
     }
@@ -56,7 +56,7 @@ public class FollowRepository : IFollowRepository
 
         foreach (Follow follow in follows)
         {
-            _context.Remove(follow);
+            _context.Follows.Remove(follow);
         }
 
         _context.SaveChanges();

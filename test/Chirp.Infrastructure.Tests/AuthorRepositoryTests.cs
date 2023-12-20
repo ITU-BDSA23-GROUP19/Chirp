@@ -1,5 +1,3 @@
-using SQLitePCL;
-
 namespace Chirp.Infrastructure.Tests;
 
 public class AuthorRepositoryTests

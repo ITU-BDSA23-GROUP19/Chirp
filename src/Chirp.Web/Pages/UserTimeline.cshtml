@@ -8,7 +8,7 @@
 }
 
 <div>
-    @if (author != null && Model.AuthorRepository.CheckAuthorExists(author))
+    @if (author != null && await Model.AuthorRepository.CheckAuthorExistsAsync(author))
     {
         <div class="cheepbox">
             @if (User.Identity != null && User.Identity.IsAuthenticated)
