@@ -1,5 +1,10 @@
 namespace Chirp.Infrastructure;
 
+/// <summary>
+/// <para>A cheep is an entity, which is used to represent a message.</para>
+/// A cheep contains information about the content of the cheep (<c>Text</c>),
+/// when the cheep was created (<c>TimeStamp</c>) and who created the cheep (<c>Author</c>).
+/// </summary>
 public class Cheep
 {
     public Guid CheepId { get; set; }
