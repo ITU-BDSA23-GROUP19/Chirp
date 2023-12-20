@@ -70,7 +70,7 @@ public class ProfileModel : PageModel
 
         if (CheepRepository != null && FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
-            int cheepCount = await CheepRepository.GetCheepCountFromAuthorAsync(User.Identity.Name);
+            int cheepCount = await CheepRepository.GetMyCheepCountAsync(User.Identity.Name);
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -86,7 +86,7 @@ public class ProfileModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await CheepRepository.GetCheepsFromAuthorAsync(User.Identity.Name, page, pageSize);
+            Cheeps = await CheepRepository.GetMyCheepsAsync(User.Identity.Name, page, pageSize);
             Followers = await FollowRepository.GetFollowersAsync(User.Identity.Name);
             Followings = await FollowRepository.GetFollowingsAsync(User.Identity.Name);
             FollowersCount = await FollowRepository.GetFollowersCountAsync(User.Identity.Name);

@@ -54,18 +54,24 @@ public class CheepRepository : ICheepRepository
         _context.SaveChanges();
     }
 
-    public async Task<int> GetCheepCountAsync()
+    public async Task<int> GetAllCheepCountAsync()
     {
         return await _context.Cheeps.CountAsync();
     }
 
-    public async Task<int> GetCheepCountFromAuthorAsync(string author)
+    public async Task<int> GetMyCheepCountAsync(string author)
     {
         return await _context.Cheeps.Where(c => c.Author.Name.Equals(author))
                                     .CountAsync();
     }
 
-    public async Task<IEnumerable<CheepDTO>> GetCheepsAsync(int pageNumber, int pageSize)
+    public async Task<int> GetUserCheepCountAsync(string author, IEnumerable<string> followings)
+    {
+        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author) || followings.Contains(c.Author.Name))
+                                    .CountAsync();
+    }
+
+    public async Task<IEnumerable<CheepDTO>> GetAllCheepsAsync(int pageNumber, int pageSize)
     {
         if (pageNumber < 1)
         {
@@ -88,7 +94,7 @@ public class CheepRepository : ICheepRepository
                                     .ToListAsync();
     }
 
-    public async Task<IEnumerable<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber, int pageSize)
+    public async Task<IEnumerable<CheepDTO>> GetMyCheepsAsync(string author, int pageNumber, int pageSize)
     {
         if (pageNumber < 1)
         {
@@ -112,13 +118,7 @@ public class CheepRepository : ICheepRepository
                                     .ToListAsync();
     }
 
-    public async Task<int> GetUserTimelineCheepCountAsync(string author, IEnumerable<string> followings)
-    {
-        return await _context.Cheeps.Where(c => c.Author.Name.Equals(author) || followings.Contains(c.Author.Name))
-                                    .CountAsync();
-    }
-
-    public async Task<IEnumerable<CheepDTO>> GetUserTimelineCheepsAsync(string author, IEnumerable<string> followings, int pageNumber = 1, int pageSize = 32)
+    public async Task<IEnumerable<CheepDTO>> GetUserCheepsAsync(string author, IEnumerable<string> followings, int pageNumber = 1, int pageSize = 32)
     {
         if (pageNumber < 1)
         {

@@ -52,10 +52,10 @@ public class AuthorRepository : IAuthorRepository
         return await _context.Authors.AnyAsync(a => a.Name.Equals(author));
     }
 
-    public async Task<AuthorDTO> GetAuthorFromNameAsync(string name)
+    public async Task<AuthorDTO> GetAuthorAsync(string author)
     {
-        return await _context.Authors.Where(a => a.Name.Equals(name))
+        return await _context.Authors.Where(a => a.Name.Equals(author))
                                      .Select(a => new AuthorDTO(a.Name, a.Email))
-                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{name}'");
+                                     .FirstOrDefaultAsync() ?? throw new ArgumentException($"No author with name: '{author}'");
     }
 }

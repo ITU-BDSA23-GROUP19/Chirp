@@ -48,7 +48,7 @@ public class AuthorRepositoryTests
 
         // Act
         _repository.CreateAuthor(authorDTO);
-        AuthorDTO author = await _repository.GetAuthorFromNameAsync(name);
+        AuthorDTO author = await _repository.GetAuthorAsync(name);
 
         // Assert
         Assert.Equal(name, author.Name);
@@ -101,7 +101,7 @@ public class AuthorRepositoryTests
     public async void CanGetAuthorFromName(string name, string email)
     {
         // Act
-        AuthorDTO author = await _repository.GetAuthorFromNameAsync(name);
+        AuthorDTO author = await _repository.GetAuthorAsync(name);
 
         // Assert
         Assert.Equal(name, author.Name);
@@ -117,7 +117,7 @@ public class AuthorRepositoryTests
         // Act and Assert
         try
         {
-            Assert.Null(await _repository.GetAuthorFromNameAsync(name));
+            Assert.Null(await _repository.GetAuthorAsync(name));
             Assert.Fail();
         }
         catch (ArgumentException e)

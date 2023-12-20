@@ -63,7 +63,7 @@ public class UserTimelineModel : PageModel
         if (CheepRepository != null && FollowRepository != null)
         {
             IEnumerable<string> followings = await FollowRepository.GetFollowingsAsync(author);
-            int cheepCount = await CheepRepository.GetUserTimelineCheepCountAsync(author, followings);
+            int cheepCount = await CheepRepository.GetUserCheepCountAsync(author, followings);
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -79,7 +79,7 @@ public class UserTimelineModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await CheepRepository.GetUserTimelineCheepsAsync(author, followings, page, pageSize);
+            Cheeps = await CheepRepository.GetUserCheepsAsync(author, followings, page, pageSize);
             FollowersCount = await FollowRepository.GetFollowersCountAsync(author);
             FollowingsCount = await FollowRepository.GetFollowingsCountAsync(author);
 

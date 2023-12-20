@@ -56,7 +56,7 @@ public class CheepRepositoryTests
 
         // Act
         _repository.CreateCheep(cheepDTO);
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync(author);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync(author);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
@@ -86,26 +86,26 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public async void CanGetCheepCount()
+    public async void CanGetAllCheepCount()
     {
-        int cheepCount = await _repository.GetCheepCountAsync();
+        int cheepCount = await _repository.GetAllCheepCountAsync();
 
         Assert.Equal(5, cheepCount);
     }
 
     [Fact]
-    public async void CanGetCheepCountFromAuthor()
+    public async void CanGetMyCheepCount()
     {
-        int cheepCount = await _repository.GetCheepCountFromAuthorAsync("GetCheepsFromAuthor");
+        int cheepCount = await _repository.GetMyCheepCountAsync("GetCheepsFromAuthor");
 
         Assert.Equal(5, cheepCount);
     }
 
     [Fact]
-    public async void CanGetCheeps()
+    public async void CanGetAllCheeps()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(1, 1);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
@@ -119,10 +119,10 @@ public class CheepRepositoryTests
     [InlineData(1)]
     [InlineData(3)]
     [InlineData(5)]
-    public async void CanGetCheepsPageSize(int pageSize)
+    public async void CanGetAllCheepsPageSize(int pageSize)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(1, pageSize);
 
         // Assert
         Assert.Equal(pageSize, cheeps.Count());
@@ -132,10 +132,10 @@ public class CheepRepositoryTests
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]
-    public async void CanGetCheepsPageSizeTooLarge(int pageSize)
+    public async void CanGetAllCheepsPageSizeTooLarge(int pageSize)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(1, pageSize);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -145,12 +145,12 @@ public class CheepRepositoryTests
     [InlineData(0)]
     [InlineData(-5)]
     [InlineData(-10)]
-    public async void CanGetCheepsPageSizeTooSmall(int pageSize)
+    public async void CanGetAllCheepsPageSizeTooSmall(int pageSize)
     {
         // Act and Assert
         try
         {
-            IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, pageSize);
+            IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(1, pageSize);
             Assert.Fail();
         }
         catch (ArgumentException e)
@@ -160,10 +160,10 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public async void CanGetCheepsPageNumber()
+    public async void CanGetAllCheepsPageNumber()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(1, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(1, 5);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -173,10 +173,10 @@ public class CheepRepositoryTests
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]
-    public async void CanGetCheepsPageNumberTooLarge(int pageNumber)
+    public async void CanGetAllCheepsPageNumberTooLarge(int pageNumber)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(pageNumber, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(pageNumber, 5);
 
         // Assert
         Assert.Empty(cheeps);
@@ -186,12 +186,12 @@ public class CheepRepositoryTests
     [InlineData(0)]
     [InlineData(-5)]
     [InlineData(-10)]
-    public async void CanGetCheepsPageNumberTooSmall(int pageNumber)
+    public async void CanGetAllCheepsPageNumberTooSmall(int pageNumber)
     {
         // Act and Assert
         try
         {
-            IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsAsync(pageNumber, 5);
+            IEnumerable<CheepDTO> cheeps = await _repository.GetAllCheepsAsync(pageNumber, 5);
             Assert.Fail();
         }
         catch (ArgumentException e)
@@ -201,10 +201,10 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public async void CanGetCheepsFromAuthor()
+    public async void CanGetMyCheeps()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", 1, 1);
         CheepDTO cheep = cheeps.Single();
 
         // Assert
@@ -215,20 +215,20 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public async void CanGetCheepsFromAuthorWithNoCheeps()
+    public async void CanGetMyCheepsWithNoCheeps()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("ThisAuthorHasNoCheeps", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("ThisAuthorHasNoCheeps", 1, 1);
 
         // Assert
         Assert.Empty(cheeps);
     }
 
     [Fact]
-    public async void CanGetCheepsFromAuthorWhichDoesNotExists()
+    public async void CanGetMyCheepsWhichDoesNotExists()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("ThisAuthorDoesNotExists", 1, 1);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("ThisAuthorDoesNotExists", 1, 1);
 
         // Assert
         Assert.Empty(cheeps);
@@ -238,10 +238,10 @@ public class CheepRepositoryTests
     [InlineData(1)]
     [InlineData(3)]
     [InlineData(5)]
-    public async void CanGetCheepsFromAuthorPageSize(int pageSize)
+    public async void CanGetMyCheepsPageSize(int pageSize)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", 1, pageSize);
 
         // Assert
         Assert.Equal(pageSize, cheeps.Count());
@@ -251,10 +251,10 @@ public class CheepRepositoryTests
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]
-    public async void CanGetCheepsFromAuthorPageSizeTooLarge(int pageSize)
+    public async void CanGetMyCheepsPageSizeTooLarge(int pageSize)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, pageSize);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", 1, pageSize);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -264,12 +264,12 @@ public class CheepRepositoryTests
     [InlineData(0)]
     [InlineData(-5)]
     [InlineData(-10)]
-    public async void CanGetCheepsFromAuthorPageSizeTooSmall(int pageSize)
+    public async void CanGetMyCheepsPageSizeTooSmall(int pageSize)
     {
         // Act and Assert
         try
         {
-            IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, pageSize);
+            IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", 1, pageSize);
             Assert.Fail();
         }
         catch (ArgumentException e)
@@ -279,10 +279,10 @@ public class CheepRepositoryTests
     }
 
     [Fact]
-    public async void CanGetCheepsFromAuthorPageNumber()
+    public async void CanGetMyCheepsPageNumber()
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", 1, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", 1, 5);
 
         // Assert
         Assert.Equal(5, cheeps.Count());
@@ -292,10 +292,10 @@ public class CheepRepositoryTests
     [InlineData(10)]
     [InlineData(20)]
     [InlineData(30)]
-    public async void CanGetCheepsFromAuthorPageNumberTooLarge(int pageNumber)
+    public async void CanGetMyCheepsPageNumberTooLarge(int pageNumber)
     {
         // Act
-        IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", pageNumber, 5);
+        IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", pageNumber, 5);
 
         // Assert
         Assert.Empty(cheeps);
@@ -305,12 +305,12 @@ public class CheepRepositoryTests
     [InlineData(0)]
     [InlineData(-5)]
     [InlineData(-10)]
-    public async void CanGetCheepsFromAuthorPageNumberTooSmall(int pageNumber)
+    public async void CanGetMyCheepsPageNumberTooSmall(int pageNumber)
     {
         // Act and Assert
         try
         {
-            IEnumerable<CheepDTO> cheeps = await _repository.GetCheepsFromAuthorAsync("GetCheepsFromAuthor", pageNumber, 5);
+            IEnumerable<CheepDTO> cheeps = await _repository.GetMyCheepsAsync("GetCheepsFromAuthor", pageNumber, 5);
             Assert.Fail();
         }
         catch (ArgumentException e)

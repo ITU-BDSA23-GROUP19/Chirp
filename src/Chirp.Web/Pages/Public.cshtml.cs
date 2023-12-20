@@ -62,7 +62,7 @@ public class PublicModel : PageModel
 
         if (CheepRepository != null)
         {
-            int cheepCount = await CheepRepository.GetCheepCountAsync();
+            int cheepCount = await CheepRepository.GetAllCheepCountAsync();
             int pageSize = 32;
 
             PageCount = cheepCount / pageSize;
@@ -78,7 +78,7 @@ public class PublicModel : PageModel
                 CurrentPage = 1;
             }
 
-            Cheeps = await CheepRepository.GetCheepsAsync(page, pageSize);
+            Cheeps = await CheepRepository.GetAllCheepsAsync(page, pageSize);
 
             return Page();
         }
