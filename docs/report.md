@@ -93,8 +93,25 @@ Our commit graph is not equal but there can be several different reasons for thi
 
 ## How to make _Chirp!_ work locally
 
-There has to be some documentation on how to come from cloning your project to a running system. That is, Rasmus or Helge have to know precisely what to do in which order. Likely, it is best to describe how we clone your project, which commands we have to execute, and what we are supposed to see then.
-En mindre README.md inden i den her fil
+These are the following prerequisites:
+
+- .NET 7
+- Docker Container
+
+Follow these steps to open Chirp locally:
+
+1. Use these respective properties for instantiating the Docker Container:
+   1a. Password: Y0waddup
+2. Open Docker and Instantiate the local database container by running this command: 'docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 --name sqlpreview --hostname sqlpreview -d mcr.microsoft.com/mssql/server:2022-latest', and type in the password from step 1 where <yourStrong(!)Password> is.
+3. Open Docker and run the container.
+4. Clone the 'https://github.com/ITU-BDSA23-GROUP19/Chirp' repository onto your workspace. This could be your desktop, a folder you find appropriate, or a third place.
+5. Wherever you have cloned the repository to, you should now see the given repository as a folder called Chirp.
+6. Open either a terminal in the respective folder through a general terminal like PowerShell or a code editor of choice, and then a terminal within.
+7. In either terminal, run the "dotnet run" command.
+8. You should now see a 'Building...' syntax, and the respective queries being executed.
+9. In your terminal, you should now be able to find a syntax like this: "info: Microsoft.Hosting.Lifetime[14]
+   Now listening on: https://localhost:7102".
+10. Go to https://localhost:7102 in your browser, and see the Chirp app.
 
 ## How to run test suite locally
 
