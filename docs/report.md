@@ -13,8 +13,11 @@ numbersections: true
 # Design and Architecture of _Chirp!_
 
 ## Domain model
-
+Below is a domain model of our Chirp application. All classes are shown and an overview of how they interact with each other.
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
+
+In the general domain model, we do not go into the specifics of how the razor pages are set up and reference each other. That is however shown in detail in the model below. Methods and fields are added as well.
+![Illustration of the razor pages in the _Chirp!_ data model as a modifie]
 
 ## Architecture — In the small
 
