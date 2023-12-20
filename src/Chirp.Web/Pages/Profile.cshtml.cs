@@ -33,7 +33,7 @@ public class ProfileModel : PageModel
 
     public ActionResult OnPostFollow(string author)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.CreateFollow(User.Identity.Name, author);
         }
@@ -43,7 +43,7 @@ public class ProfileModel : PageModel
 
     public IActionResult OnPostUnfollow(string author)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.DeleteFollow(User.Identity.Name, author);
         }
@@ -53,10 +53,14 @@ public class ProfileModel : PageModel
 
     public void OnPostDeleteAccount(string author)
     {
-        CheepRepository.DeleteCheepsFromAuthor(author);
-        FollowRepository.DeleteFollowsFromAuthor(author);
-        AuthorRepository.DeleteAuthor(author);
-        HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        if (CheepRepository != null && FollowRepository != null && AuthorRepository != null)
+        {
+            CheepRepository.DeleteCheepsFromAuthor(author);
+            FollowRepository.DeleteFollowsFromAuthor(author);
+            AuthorRepository.DeleteAuthor(author);
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
         Response.Redirect("/");
     }
 
@@ -64,7 +68,7 @@ public class ProfileModel : PageModel
     {
         CurrentPage = page;
 
-        if (CheepRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (CheepRepository != null && FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             int cheepCount = await CheepRepository.GetCheepCountFromAuthorAsync(User.Identity.Name);
             int pageSize = 32;
