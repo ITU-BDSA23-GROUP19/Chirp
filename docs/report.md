@@ -20,8 +20,9 @@ Provide an illustration of your domain model. Make sure that it is correct and c
 
 ## Architecture — In the small
 
-Illustrate the organization of your code base. That is, illustrate which layers exist in your (onion) architecture. Make sure to illustrate which part of your code is residing in which layer.
-Find inspiration fra/tag udgangspunkt i Rasmus' slides da han gennemgik onion
+![Illustration of the _Chirp!_ architechture through onion architechture.](docs/diagrams/onionArchitechture.png)
+
+Above is the general architechture of the Chirp application shown as layers in an onion structure. Here is four layers shown although our code only illustrates three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectvily works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architechture is upheld. 
 
 ## Architecture of deployed application
 
