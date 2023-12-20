@@ -76,9 +76,9 @@ Here are three diagrams representing each of our workflows: Build and Test, Rele
 
 ![Illustration of the build and test workflow.](docs/diagrams/BuildTestActivityDiagram.png)
 
-![Illustration of the release workflow.](docs/diagrams/ChirpUMLSequence.png)
+![Illustration of the release workflow.](docs/diagrams/ReleaseActivityDiagram.png)
 
-![Illustration of the deploy workflow.](docs/diagrams/ChirpUMLSequence.png)
+![Illustration of the deploy workflow.](docs/diagrams/DeployActivityDiagram.png)
 
 Illustrate with a UML activity diagram how your Chirp! applications are build, tested, released, and deployed. That is, illustrate the flow of activities in your respective GitHub Actions workflows.
 
