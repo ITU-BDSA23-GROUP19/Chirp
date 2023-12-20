@@ -35,7 +35,7 @@ public class PublicModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public IActionResult OnPostUnfollow(string author)
+    public ActionResult OnPostUnfollow(string author)
     {
         if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
