@@ -109,18 +109,53 @@ Follow these steps to open Chirp locally:
 4. Clone the 'https://github.com/ITU-BDSA23-GROUP19/Chirp' repository onto your workspace. This could be your desktop, a folder you find appropriate, or a third place.
 5. Wherever you have cloned the repository to, you should now see the given repository as a folder called Chirp.
 6. Open either a terminal in the respective folder through a general terminal like PowerShell or a code editor of choice, and then a terminal within.
-7. In either terminal, run the "dotnet run" command.
-8. You should now see a 'Building...' syntax, and the respective queries being executed.
-9. In your terminal, you should now be able to find a syntax like this: "info: Microsoft.Hosting.Lifetime[14]
-   Now listening on: https://localhost:7102".
-10. Go to https://localhost:7102 in your browser, and see the Chirp app.
+7. In either terminal, navigate to the ~/Chirp/src/Chirp.Web/ folder.
+8. In either terminal, run the "dotnet run" command.
+9. You should now see a 'Building...' syntax, and the respective queries being executed.
+10. In your terminal, you should now be able to find a syntax like this: "info: Microsoft.Hosting.Lifetime[14]
+    Now listening on: https://localhost:7102".
+11. Go to https://localhost:7102 in your browser, and see the Chirp app.
 
 ## How to run test suite locally
 
-List all necessary steps that Rasmus or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
-"run the command dotnet test from the root directory and hope for a bunch of checkmarks" lol
+These are the following prerequisites:
 
-Briefly describe what kinds of tests you have in your test suites and what they are testing.
+- .NET 7
+- Docker Container
+
+Follow these steps to test Chirp locally:
+
+1. Use these respective properties for instantiating the Docker Container:
+   1a. Password: Y0waddup
+2. Open Docker and Instantiate the local database container by running this command: 'docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 --name sqlpreview --hostname sqlpreview -d mcr.microsoft.com/mssql/server:2022-latest', and type in the password from step 1 where <yourStrong(!)Password> is.
+3. Open Docker and run the container.
+4. Wherever you have cloned the repository to, you should now see the given repository as a folder called Chirp.
+5. Open either a terminal in the respective folder through a general terminal like PowerShell or a code editor of choice, and then a terminal within.
+6. In either terminal, navigate to the ~/Chirp/ folder.
+7. Run the 'dotnet build' command.
+8. You should now see the respective projects being restored and built.
+9. Run the 'dotnet test' command.
+10. You should now see the respective tests being run on each respective project and the results of them.
+
+### Test Suite Tests
+
+This is a brief overview of what kinds of test we have in our test suites and what they are testing.
+
+####Failed Tests
+
+When running the test suite locally, it should be highlighted that some test will fail. They all are regarding the timestamp of cheeps. The reason they fail is that the strings differ in terms of timestamps, i.e. the expected string is "... 13:15:25", but the actual value is "...13.15.25". We have made the decision to keep these, since changing them will cause the tests to fail on GitHub instead. We have prioritized the tests on GitHub, rather than the local testing.
+
+####Chirp.Core.Tests
+
+The Chirp.Core tests consists unit tests. The unit tests are for creation of the AuthorDTO and CheepDTO objects. The AuthorDTO tests checks whether or not it is possible to create an AuthorDTO object, and the CheepDTO tests checks similarly if it is possible to create a CheepDTO.
+
+####Chirp.Infrastructure.Tests
+
+The Chirp.Infrastructure tests consist unit tests matching AuthorRepository, CheepRepository and FollowRepository tests. Each repository respectively gets tested for whether the repositories function as intended. For example, for the AuthorRepository, it tests whether or not it is possible to create the repository itself, to find an existing Author in the repository, can't have an Author of the same name, to create or delete an Author in the repository, and to find a non-existing Author in repository.
+
+####Chirp.Web.Tests
+
+The Chirp.Web tests consist of integration tests. They each tests the way our app functions, i.e. whether or not it is possible to see the timelines themselves (both private and public), and to see the first page on either timeline correctly.
 
 # Ethics
 
