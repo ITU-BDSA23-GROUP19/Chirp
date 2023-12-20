@@ -1,6 +1,6 @@
 ---
 title: _Chirp!_ Project Report
-subtitle: ITU BDSA 2023 Group 19, Course code: BSANDSA1KU
+subtitle: ITU BDSA 2023 Group 19, Course code: BSANDSA1KU,
 author:
   - "Annabell Philip Nørdam <apno@itu.dk>"
   - "Eva Afzelius <evaf@itu.dk>"
