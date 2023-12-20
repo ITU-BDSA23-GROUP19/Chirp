@@ -94,11 +94,7 @@ Currently when a Cheep is posted, it only checks whether or not the cheep is wit
 
 Here are three diagrams representing each of our workflows: Build and Test, Release, and Deploy.
 
-![Illustration of the build and test workflow.](diagrams/BuildTestActivityDiagram.png)
-
-![Illustration of the release workflow.](diagrams/ReleaseActivityDiagram.png)
-
-![Illustration of the deploy workflow.](diagrams/DeployActivityDiagram.png)
+![All three activity diagrams](diagrams/AllWorkflowsActivityDiagram.png)
 
 Illustrate with a UML activity diagram how your Chirp! applications are build, tested, released, and deployed. That is, illustrate the flow of activities in your respective GitHub Actions workflows.
 
