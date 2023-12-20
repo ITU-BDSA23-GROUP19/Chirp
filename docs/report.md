@@ -19,12 +19,15 @@ This is a report gives an overview of the work behind our Chirp application made
 ## Domain model
 
 Below is a domain model of our Chirp application. All classes are shown and an overview of how they interact with each other.
+
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
 In the general domain model, we do not go into the specifics of how the razor pages are set up and reference each other. That is however shown in detail in the model below. Methods and fields are added as well.
+
 ![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](diagrams/RazorPages.png)
 
 To zoom in on one of the important parts of our program we have created an ER-diagram of how the Author, Cheep and Follow class are related. This is shown below.
+
 ![ER-diagram of the relations between Author, Cheep and Follow classes](diagrams/ERDiagram.png)
 
 ## Architecture — In the small
@@ -36,21 +39,23 @@ Above is the general architecture of the Chirp application shown as layers in an
 ## Architecture of deployed application
 
 ![Illustration of the architechture of the deployed Chirp application.](diagrams/DeployedDiagram.png)
+
 The Client communicates to the azure server and requests and sends datato its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
 
 ## User activities
 
 When the program starts, the user will be in the public timeline as a guest. Here the user have two different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
 
-![Activity Diagram over the User journey for the non-authorized Webpage.](docs/diagrams/Non-Authorized.png)
+![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
 When authorized the user starts in the public timeline, from here they can interact with the navigation tab and main page below. In the navigation tab the user can move to their own timeline, see their profile and logout. From their Profile they can see various information related to them being stored on the side and with the choice to delete all data about them and then log out. In the main page below, the user can see messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user follows the pressed user and if the user is following they can unfollow instead.
 
-![Activity Diagram over the User journey for the authorized Webpage.](docs/diagrams/Authorized.png)
+![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
 
 ## Sequence of functionality/calls trough _Chirp!_
 
 Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to our application. The methods that are called are named, and tthe responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
+
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
@@ -159,7 +164,7 @@ Follow these steps to test Chirp locally:
 
 This is a brief overview of what kinds of test we have in our test suites and what they are testing.
 
-####Failed Tests
+#### Failed Tests
 
 When running the test suite locally, it should be highlighted that some test will fail. They all are regarding the timestamp of cheeps. The reason they fail is that the strings differ in terms of timestamps, i.e. the expected string is "... 13:15:25", but the actual value is "...13.15.25". We have made the decision to keep these, since changing them will cause the tests to fail on GitHub instead. We have prioritized the tests on GitHub, rather than the local testing.
 
@@ -167,11 +172,11 @@ When running the test suite locally, it should be highlighted that some test wil
 
 The Chirp.Core tests consists of unit tests. The unit tests are for the creation of the AuthorDTO and CheepDTO objects. The AuthorDTO tests checks whether or not it is possible to create an AuthorDTO object, and the CheepDTO tests checks similarly if it is possible to create a CheepDTO.
 
-####Chirp.Infrastructure.Tests
+#### Chirp.Infrastructure.Tests
 
 The Chirp.Infrastructure tests consist unit tests matching AuthorRepository, CheepRepository and FollowRepository tests. Each repository gets tested for whether the repositories function as intended. For example, for the AuthorRepository, it tests whether or not it is possible to create the repository itself, to find an existing Author in the repository, that you can't have Authors of the same name, to create or delete an Author in the repository, and to find a non-existing Author in repository.
 
-####Chirp.Web.Tests
+#### Chirp.Web.Tests
 
 The Chirp.Web tests consist of integration tests. They each test the way our app functions, i.e. whether or not it is possible to see the timelines themselves (both private and public), and to see the first page on either timeline correctly.
 
@@ -182,8 +187,6 @@ The Chirp.Web tests consist of integration tests. They each test the way our app
 We have chosen to use the MIT Lisence, since we wanted a license which allowed commercial use and the modification and distibution of the software. Therefore we chose a permissive license that allowed those properties and therefore we ended up with the MIT Lisence.
 
 We have also check all of the external libraries which we have used, if our license comes in conflict with their licenses. As far as we can see all of the libraries uses MIT Lisence which does not conflict our license. But the library FluentValidation uses Apache License Version 2.0 which might come in conflict with our license.
-
-## LLMs, ChatGPT, CoPilot, and others
 
 ## LLMs, ChatGPT, CoPilot, and others
 
