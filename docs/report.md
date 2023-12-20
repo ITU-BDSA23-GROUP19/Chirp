@@ -1,6 +1,6 @@
 ---
 title: _Chirp!_ Project Report
-subtitle: ITU BDSA 2023 Group 19, Course code: BSANDSA1KU,
+subtitle: ITU BDSA 2023 Group 19,
 author:
   - "Annabell Philip Nørdam <apno@itu.dk>"
   - "Eva Afzelius <evaf@itu.dk>"
@@ -12,7 +12,7 @@ numbersections: true
 
 # Introduction
 
-This is a report gives an overview of the work behind our Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023. This overview is given through the chapters Design and Architecture, Process, and Ethics.
+This is a report gives an overview of the work behind our Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters Design and Architecture, Process, and Ethics.
 
 # Design and Architecture of _Chirp!_
 
