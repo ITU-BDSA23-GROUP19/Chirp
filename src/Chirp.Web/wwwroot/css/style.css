@@ -1,23 +1,24 @@
 body {
-  background: #eccaca;
-  font-family: 'Trebuchet MS', sans-serif;
+  background: #d68ea0;
+  font-family: 'Georgia', sans-serif;
   font-size: 14px;
 }
 
 a {
-  color: #000000;
+  color: #af1e56;
+  text-shadow: 0 0 5px #ff7bae;
 }
 
 a:hover {
-  color: #333;
+  color: #fd6a96;
 }
 
 input[type="text"],
 input[type="password"] {
   background: white;
-  border: 1px solid #e6c0bf;
+  border: 1px solid #e294b2;
   padding: 2px;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'Georgia', sans-serif;
   font-size: 14px;
   border-radius: 2px;
   -moz-border-radius: 2px;
@@ -26,10 +27,10 @@ input[type="password"] {
 }
 
 input[type="submit"] {
-  background: #571010;
+  background: #571731;
   border: 1px solid #3b0707;
   padding: 1px 3px;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'Georgia', sans-serif;
   font-size: 14px;
   font-weight: bold;
   border-radius: 2px;
@@ -39,21 +40,22 @@ input[type="submit"] {
 }
 
 div.page {
-  background: white;
-  border: 1px solid #cc6e6e;
+  background: rgb(243, 204, 214);
   width: 700px;
   margin: 30px auto;
+  border-radius: 20px;
 }
 
 div.page h1 {
-  background: #cc6e6e;
+  background: #24020f;
   margin: 0;
   padding: 10px 14px;
-  color: white;
+  color: rgb(255, 255, 255);
   letter-spacing: 1px;
-  text-shadow: 0 0 3px #772424;
+  text-shadow: 0 0 15px #b81252;
   font-weight: normal;
   font-size: 80px;
+  border-radius: 20px 20px 0px 0px;
 }
 
 div.page h1 img {
@@ -71,14 +73,16 @@ div.page div.navigation {
 }
 
 div.page div.navigation a {
-  color: #444;
+  color: #42262e;
   font-weight: bold;
+  font-style: italic;
+  text-shadow: 0 0 5px #b81252;
 }
 
 div.page h2 {
   margin: 0 0 15px 0;
-  color: #571010;
-  text-shadow: 0 1px 2px #ccc;
+  color: #861440;
+  text-shadow: 0 1px 2px #5e2f42;
 }
 
 div.page div.body {
@@ -86,10 +90,11 @@ div.page div.body {
 }
 
 div.page div.footer {
-  background: #eee;
-  color: #888;
-  padding: 5px 10px;
+  background: rgb(243, 204, 214);
+  color: #5c1235;
+  padding: 10px 20px;
   font-size: 12px;
+  border-radius: 0px 0px 20px 20px;
 }
 
 div.page div.followstatus {
@@ -111,8 +116,8 @@ div.page ul.cheeps {
 div.page ul.cheeps li {
   margin: 10px 0;
   padding: 5px;
-  background: #F0FAF9;
-  border: 1px solid #DBF3F1;
+  background: #faf0f4;
+  border: 1px solid #f3dbe7;
   border-radius: 2px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -136,8 +141,8 @@ div.page ul.cheeps li small {
 div.page div.cheepbox {
   margin: 10px 0;
   padding: 5px;
-  background: #F0FAF9;
-  border: 1px solid #e29494;
+  background: #ccc;
+  border: 1px solid #e294b2;
   border-radius: 2px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -146,7 +151,9 @@ div.page div.cheepbox {
 div.page div.cheepbox h3 {
   margin: 0;
   font-size: 1em;
-  color: #7e2c2c;
+  color: #530423;
+  text-shadow: 0 0 5px #b81252;
+  font-style: italic;
 }
 
 div.page div.cheepbox p {
@@ -155,6 +162,7 @@ div.page div.cheepbox p {
 
 div.page div.cheepbox input[type="text"] {
   width: 585px;
+  
 }
 
 div.page div.cheepbox input[type="submit"] {
@@ -165,7 +173,6 @@ div.page div.cheepbox input[type="submit"] {
 div.message {
   list-style: none;
   margin: 10px 10px 0 10px;
-
   background: #f3b9b9;
   border: 1px solid #ce8181;
   border-radius: 2px;
