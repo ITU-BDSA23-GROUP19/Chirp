@@ -20,7 +20,7 @@ Provide an illustration of your domain model. Make sure that it is correct and c
 
 ## Architecture — In the small
 
-![Illustration of the _Chirp!_ architechture through onion architechture.](docs/diagrams/onionArchitechture.png)
+![Illustration of the _Chirp!_ architechture through onion architechture.](../diagrams/onionArchitechture.png)
 
 Above is the general architechture of the Chirp application shown as layers in an onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectvily works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architechture is upheld. 
 
