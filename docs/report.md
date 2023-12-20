@@ -16,7 +16,7 @@ numbersections: true
 
 Provide an illustration of your domain model. Make sure that it is correct and complete. In case you are using ASP.NET Identity, make sure to illustrate that accordingly.
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs/images/domain_model.png)
+![Illustration of the _Chirp!_ data model as UML class diagram.](docs/diagrams/domainModel.png)
 
 ## Architecture — In the small
 
@@ -40,6 +40,8 @@ Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer
 With a UML sequence diagram, illustrate the flow of messages and data through your Chirp! application. Start with an HTTP request that is send by an unauthorized user to the root endpoint of your application and end with the completely rendered web-page that is returned to the user.
 
 Make sure that your illustration is complete. That is, likely for many of you there will be different kinds of "calls" and responses. Some HTTP calls and responses, some calls and responses in C# and likely some more. (Note the previous sentence is vague on purpose. I want that you create a complete illustration.)
+
+![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](docs/diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
 
