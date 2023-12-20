@@ -36,7 +36,7 @@ Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](docs/diagrams/ChirpUMLSequence.png)
+![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
 
@@ -74,11 +74,11 @@ Currently when a Cheep is posted, it only checks whether or not the cheep is wit
 
 Here are three diagrams representing each of our workflows: Build and Test, Release, and Deploy.
 
-![Illustration of the build and test workflow.](docs/diagrams/BuildTestActivityDiagram.png)
+![Illustration of the build and test workflow.](diagrams/BuildTestActivityDiagram.png)
 
-![Illustration of the release workflow.](docs/diagrams/ReleaseActivityDiagram.png)
+![Illustration of the release workflow.](diagrams/ReleaseActivityDiagram.png)
 
-![Illustration of the deploy workflow.](docs/diagrams/DeployActivityDiagram.png)
+![Illustration of the deploy workflow.](diagrams/DeployActivityDiagram.png)
 
 Illustrate with a UML activity diagram how your Chirp! applications are build, tested, released, and deployed. That is, illustrate the flow of activities in your respective GitHub Actions workflows.
 
