@@ -41,7 +41,7 @@ public class ProfileModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
-    public IActionResult OnPostUnfollow(string author)
+    public ActionResult OnPostUnfollow(string author)
     {
         if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
@@ -51,6 +51,11 @@ public class ProfileModel : PageModel
         return Redirect($"{Request.PathBase}{Request.Path}?page={CurrentPage}");
     }
 
+    /// <summary>
+    /// The method deletes a users account and all cheep and follow entities by that user.
+    /// Afterwards the user is singed out of chirp and redirected to the public timeline.
+    /// </summary>
+    /// <param name="author"></param>
     public void OnPostDeleteAccount(string author)
     {
         if (CheepRepository != null && FollowRepository != null && AuthorRepository != null)
