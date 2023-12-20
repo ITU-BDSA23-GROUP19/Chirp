@@ -70,7 +70,8 @@ Briefly describe what kinds of tests you have in your test suites and what they 
 
 ## License
 State which software license you chose for your application.
-MIT License? er det det den hedder? Hvem var det der kiggede på det dengang?
+
+We use an MIT License for our code.
 
 ## LLMs, ChatGPT, CoPilot, and others
 During the development of this project, we have at times used ChatGPT to figure out why the code was not working as we thought it would or how to fix functionality that did not work as intended. ChatGPT has been good at detecting where the faults have been and what we might need to change but actually doing the change and creating a solution was a bigger challenge for the LLM. Mainly we have used the information about the mistakes to further research for more in depth explanations of the APIs or method calls we have used. This way we created the solution ourselves but ChatGPT helped us understand where the fault were.
