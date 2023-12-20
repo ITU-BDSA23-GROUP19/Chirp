@@ -1,6 +1,6 @@
 ---
 title: _Chirp!_ Project Report
-subtitle: ITU BDSA 2023 Group 19
+subtitle: ITU BDSA 2023 Group 19, Course code: BSANDSA1KU
 author:
   - "Annabell Philip Nørdam <apno@itu.dk>"
   - "Eva Afzelius <evaf@itu.dk>"
@@ -10,14 +10,22 @@ author:
 numbersections: true
 ---
 
+# Introduction
+
+This is a report gives an overview of the work behind our Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023. This overview is given through the chapters Design and Architecture, Process, and Ethics.
+
 # Design and Architecture of _Chirp!_
 
 ## Domain model
+
 Below is a domain model of our Chirp application. All classes are shown and an overview of how they interact with each other.
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
 In the general domain model, we do not go into the specifics of how the razor pages are set up and reference each other. That is however shown in detail in the model below. Methods and fields are added as well.
-![Illustration of the razor pages in the _Chirp!_ data model as a modifie]
+![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](diagrams/RazorPages.png)
+
+To zoom in on one of the important parts of our program we have created an ER-diagram of how the Author, Cheep and Follow class are related. This is shown below.
+![ER-diagram of the relations between Author, Cheep and Follow classes](diagrams/ERDiagram.png)
 
 ## Architecture — In the small
 
@@ -27,16 +35,10 @@ Above is the general architecture of the Chirp application shown as layers in an
 
 ## Architecture of deployed application
 
-Illustrate the architecture of your deployed application. Remember, you developed a client-server application. Illustrate the server component and to where it is deployed, illustrate a client component, and show how these communicate with each other.
-En snak om azure og hvordan det er sat op. Her ville vi også snakke om det hvis vi var gået tilbage til en SQLite server, men istedet skal vi måske bare nævne i en sidebemærkning, at vi løb tør for credits så vi gjorde det hele igen?
+![Illustration of the architechture of the deployed Chirp application.](diagrams/DeployedDiagram.png)
+The Client communicates to the azure server and requests and sends datato its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
 
 ## User activities
-
-Illustrate typical scenarios of a user journey through your Chirp! application. That is, start illustrating the first page that is presented to a non-authorized user, illustrate what a non-authorized user can do with your Chirp! application, and finally illustrate what a user can do after authentication.
-
-Make sure that the illustrations are in line with the actual behavior of your application.
-Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer?
-User activity:
 
 When the program starts, the user will be in the public timeline as a guest. Here the user have two different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
 
@@ -48,6 +50,7 @@ When authorized the user starts in the public timeline, from here they can inter
 
 ## Sequence of functionality/calls trough _Chirp!_
 
+Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to our application. The methods that are called are named, and tthe responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
@@ -176,7 +179,11 @@ The Chirp.Web tests consist of integration tests. They each test the way our app
 
 ## License
 
-We use an MIT License for our code.
+We have chosen to use the MIT Lisence, since we wanted a license which allowed commercial use and the modification and distibution of the software. Therefore we chose a permissive license that allowed those properties and therefore we ended up with the MIT Lisence.
+
+We have also check all of the external libraries which we have used, if our license comes in conflict with their licenses. As far as we can see all of the libraries uses MIT Lisence which does not conflict our license. But the library FluentValidation uses Apache License Version 2.0 which might come in conflict with our license.
+
+## LLMs, ChatGPT, CoPilot, and others
 
 ## LLMs, ChatGPT, CoPilot, and others
 
