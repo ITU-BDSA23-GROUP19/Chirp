@@ -33,10 +33,15 @@ Illustrate typical scenarios of a user journey through your Chirp! application. 
 
 Make sure that the illustrations are in line with the actual behavior of your application.
 Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer?
+User activity:
 
-When the program starts, the user will be in the public timeline as a guest. Here the user has two  different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
+When the program starts, the user will be in the public timeline as a guest. Here the user have two  different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](docs/images/Non-Authorized.png)
+
+When authorized the user starts in the public timeline, from here they can interact with the navigation tab and main page below. In the navigation tab the user can move to their own timeline, see their profile and logout. From their Profile they can see various information related to them being stored on the side and with the choice to delete all data about them and then log out. In the main page below, the user can see messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user follows the pressed user and if the user is following they can unfollow instead.
+
+![Activity Diagram over the User journey for the authorized Webpage.](docs/images/Authorized.png)
 
 
 ## Sequence of functionality/calls trough _Chirp!_
