@@ -34,6 +34,11 @@ Illustrate typical scenarios of a user journey through your Chirp! application. 
 Make sure that the illustrations are in line with the actual behavior of your application.
 Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer?
 
+When the program starts, the user will be in the public timeline as a guest. Here the user has two  different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
+
+![Activity Diagram over the User journey for the non-authorized Webpage.](docs/images/Non-Authorized.png)
+
+
 ## Sequence of functionality/calls trough _Chirp!_
 
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
