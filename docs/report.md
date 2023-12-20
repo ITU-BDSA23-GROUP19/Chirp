@@ -14,14 +14,13 @@ numbersections: true
 
 ## Domain model
 
-Provide an illustration of your domain model. Make sure that it is correct and complete. In case you are using ASP.NET Identity, make sure to illustrate that accordingly.
-
-![Illustration of the _Chirp!_ data model as UML class diagram.](docs/diagrams/domainModel.png)
+![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
 ## Architecture — In the small
 
-Illustrate the organization of your code base. That is, illustrate which layers exist in your (onion) architecture. Make sure to illustrate which part of your code is residing in which layer.
-Find inspiration fra/tag udgangspunkt i Rasmus' slides da han gennemgik onion
+![Illustration of the _Chirp!_ architecture through onion architecture.](diagrams/onionArchitechture.png)
+
+Above is the general architecture of the Chirp application shown as layers in an onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
 
 ## Architecture of deployed application
 
@@ -37,10 +36,6 @@ Skriv evt teksten først, og sæt først screenshots ind lige inden vi afleverer
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-With a UML sequence diagram, illustrate the flow of messages and data through your Chirp! application. Start with an HTTP request that is send by an unauthorized user to the root endpoint of your application and end with the completely rendered web-page that is returned to the user.
-
-Make sure that your illustration is complete. That is, likely for many of you there will be different kinds of "calls" and responses. Some HTTP calls and responses, some calls and responses in C# and likely some more. (Note the previous sentence is vague on purpose. I want that you create a complete illustration.)
-
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](docs/diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
@@ -49,25 +44,25 @@ While we have been able to incorporate most of Chirps intended features, we find
 
 ### Viewable Profiles
 
-It remains that the Profile a given user has is only viewable by the user itself. If wanting to view another user's profile, the user will simply be redirected to the timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a seperate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
+It remains that the Profile a given user has is only viewable by the user themself. If the user wants to view another user's profile, the user will simply be redirected to the timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
 
 ### Ability to See Information Kept By Chirp
 
-As of now, the user information is displayed under Profile -> My Information section of the user that is logged in. However, it is not explicitly stated that this is the data kept by Chirp itself. This omitted transparency does not give the user a clear indication, that this information is saved and used. In hindsight, this would be changed to be explicitly stated within the My Information box, and thus conform to GDPR regulations.
+As of now, the user information is displayed under Profile -> My Information section for a user that is logged in. However, it is not explicitly stated that this is the data kept by Chirp itself. This omitted transparency does not give the user a clear indication that this information is saved and used. In hindsight, this would be changed to be explicitly stated within the My Information box, and thus conform to GDPR regulations.
 
 ### Forget Me Feature
 
-When wanting to delete an account, the user merely gets removed from all three seperate repositories: AuthorRepository, CheepRepository, and FollowRepository. The caveat, however, is that the personal information related to the user is still kept in our Azure B2C Tenant. This information includes the claims from the B2C Sign Up and Sign In user flow: Display Name, Email Addresses, Given Name, and Identity Provider Access Token. Hence, the user information is not completely removed, and should this application go into commercial use, it'd be essential to implement deletion fully in terms of GDPR laws and ethics.
+When deleting an account, the user merely gets removed from all three separate repositories: AuthorRepository, CheepRepository, and FollowRepository. The caveat, however, is that the personal information related to the user is still kept in our Azure B2C Tenant. This information includes the claims from the B2C Sign Up and Sign In user flow: Display Name, Email Addresses, Given Name, and Identity Provider Access Token. Hence, the user information is not completely removed, and should this application go into commercial use, it'd be essential to implement deletion fully in terms of GDPR laws and ethics.
 
 ### Bugs
 
-#### Proper Redirects
+#### Improper Redirects
 
-In terms of user experience, when wanting to follow and unfollow a given user, the original user will always be redirected back to the first page of cheeps. This is a minor detail, but for regular user usage with enough repetitions, it might cause more annoyance. Should the user try to follow multiple people based on their cheeps from a given webpage, they would have to go back, and find the original cheep of user again.
+In terms of user experience, when choosing to follow and unfollow a given user, the original user will always be redirected back to the first page of cheeps. This is a minor detail, but for regular user usage with enough repetitions, it might cause more annoyance. Should the user try to follow multiple people based on their cheeps from a given webpage, they would have to go back, and find the original cheep of user again.
 
 #### Time and Place for User Authentication
 
-This is more of a situational bug, and as such, only something noticable when a specific chain of events happen. Should the user delete their account, not only will logging in again happen without having to re-register(given the problem with account deletion highlighted in the Forget Me Feature chapter), but the user will not be registered in our database, until they choose to either cheep or follow someone. This could be fixed by letting a user be registered in the database upon sign up, rather than when an interaction is done with the website.
+This is more of a situational bug, and as such, only something noticeable when a specific chain of events happen. Should the user delete their account, not only will logging in again happen without having to re-register (given the problem with account deletion highlighted in the Forget Me Feature chapter), but the user will not be registered in our database, until they choose to either cheep or follow someone. This could be fixed by letting a user be registered in the database upon sign up, rather than when an interaction is done with the website.
 
 #### Errors of Cheeping
 
@@ -88,8 +83,8 @@ Show a screenshot of your project board right before hand-in. Briefly describe w
 Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository.
 
 Our typical flow when it comes to adding new features, was to first write an issue. If the feature was from our weekly project work, we would base the description and acceptance criteria on that. We then added the issue to the project board and when someone started working on the issue, they assigned themselves to it and moved it to "In Progress".
-Then it came to the implementation itself. We would usually be two or three people working together, and after we learned about pair programming, we began doing it that way. How long it took to make varied greatly. When we had problems, we would frequently look up guides or consult a TA.
-When the feature was finished, we would always make sure that it worked locally before pushing it to main.
+
+Then it came to the implementation itself. We would usually be two or three people working together, and after we learned about pair programming, we began doing it that way. How long it took to make varied greatly. When we had problems, we would frequently look up guides or consult a TA. When the feature was finished, we would always make sure that it worked locally before pushing it to main.
 
 Our commit graph is not equal but there can be several different reasons for this, such as a member spending a lot of time working on Azure or being sick. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less, so that also has an influence.
 
@@ -109,27 +104,60 @@ Follow these steps to open Chirp locally:
 4. Clone the 'https://github.com/ITU-BDSA23-GROUP19/Chirp' repository onto your workspace. This could be your desktop, a folder you find appropriate, or a third place.
 5. Wherever you have cloned the repository to, you should now see the given repository as a folder called Chirp.
 6. Open either a terminal in the respective folder through a general terminal like PowerShell or a code editor of choice, and then a terminal within.
-7. In either terminal, run the "dotnet run" command.
-8. You should now see a 'Building...' syntax, and the respective queries being executed.
-9. In your terminal, you should now be able to find a syntax like this: "info: Microsoft.Hosting.Lifetime[14]
-   Now listening on: https://localhost:7102".
-10. Go to https://localhost:7102 in your browser, and see the Chirp app.
+7. In either terminal, navigate to the ~/Chirp/src/Chirp.Web/ folder.
+8. In either terminal, run the "dotnet run" command.
+9. You should now see a 'Building...' syntax, and the respective queries being executed.
+10. In your terminal, you should now be able to find a syntax like this: "info: Microsoft.Hosting.Lifetime[14]
+    Now listening on: https://localhost:7102".
+11. Go to https://localhost:7102 in your browser, and see the Chirp app.
 
 ## How to run test suite locally
 
-List all necessary steps that Rasmus or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
-"run the command dotnet test from the root directory and hope for a bunch of checkmarks" lol
+These are the following prerequisites:
 
-Briefly describe what kinds of tests you have in your test suites and what they are testing.
+- .NET 7
+- Docker Container
+
+Follow these steps to test Chirp locally:
+
+1. Use these respective properties for instantiating the Docker Container:
+   1a. Password: Y0waddup
+2. Open Docker and Instantiate the local database container by running this command: 'docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 --name sqlpreview --hostname sqlpreview -d mcr.microsoft.com/mssql/server:2022-latest', and type in the password from step 1 where <yourStrong(!)Password> is.
+3. Open Docker and run the container.
+4. Wherever you have cloned the repository to, you should now see the given repository as a folder called Chirp.
+5. Open either a terminal in the respective folder through a general terminal like PowerShell or a code editor of choice, and then a terminal within.
+6. In either terminal, navigate to the ~/Chirp/ folder.
+7. Run the 'dotnet build' command.
+8. You should now see the respective projects being restored and built.
+9. Run the 'dotnet test' command.
+10. You should now see the respective tests being run on each project and the results of them.
+
+### Test Suite Tests
+
+This is a brief overview of what kinds of test we have in our test suites and what they are testing.
+
+####Failed Tests
+
+When running the test suite locally, it should be highlighted that some test will fail. They all are regarding the timestamp of cheeps. The reason they fail is that the strings differ in terms of timestamps, i.e. the expected string is "... 13:15:25", but the actual value is "...13.15.25". We have made the decision to keep these, since changing them will cause the tests to fail on GitHub instead. We have prioritized the tests on GitHub, rather than the local testing.
+
+####Chirp.Core.Tests
+
+The Chirp.Core tests consists of unit tests. The unit tests are for the creation of the AuthorDTO and CheepDTO objects. The AuthorDTO tests checks whether or not it is possible to create an AuthorDTO object, and the CheepDTO tests checks similarly if it is possible to create a CheepDTO.
+
+####Chirp.Infrastructure.Tests
+
+The Chirp.Infrastructure tests consist unit tests matching AuthorRepository, CheepRepository and FollowRepository tests. Each repository gets tested for whether the repositories function as intended. For example, for the AuthorRepository, it tests whether or not it is possible to create the repository itself, to find an existing Author in the repository, that you can't have Authors of the same name, to create or delete an Author in the repository, and to find a non-existing Author in repository.
+
+####Chirp.Web.Tests
+
+The Chirp.Web tests consist of integration tests. They each test the way our app functions, i.e. whether or not it is possible to see the timelines themselves (both private and public), and to see the first page on either timeline correctly.
 
 # Ethics
 
 ## License
 
-State which software license you chose for your application.
-
 We use an MIT License for our code.
 
 ## LLMs, ChatGPT, CoPilot, and others
 
-During the development of this project, we have at times used ChatGPT to figure out why the code was not working as we thought it would or how to fix functionality that did not work as intended. ChatGPT has been good at detecting where the faults have been and what we might need to change but actually doing the change and creating a solution was a bigger challenge for the LLM. Mainly we have used the information about the mistakes to further research for more in depth explanations of the APIs or method calls we have used. This way we created the solution ourselves but ChatGPT helped us understand where the fault were.
+During the development of this project, we have at times used ChatGPT to figure out why the code was not working as we thought it would or how to fix functionality that did not work as intended. ChatGPT has been good at detecting where the faults have been and what we might need to change but actually doing the change and creating a solution was a bigger challenge for the LLM. Mainly we have used the information about the mistakes to further research for more in depth explanations of the APIs or method calls we have used. This way we created the solution ourselves but ChatGPT helped us understand where the problem was.
