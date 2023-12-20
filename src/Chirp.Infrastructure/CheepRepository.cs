@@ -44,11 +44,13 @@ public class CheepRepository : ICheepRepository
 
     public void DeleteCheepsFromAuthor(string author)
     {
-        var cheepsToDelete = _context.Cheeps.Where(c => c.Author.Name.Equals(author));
-        foreach (var cheep in cheepsToDelete)
+        List<Cheep> cheeps = _context.Cheeps.Where(c => c.Author.Name.Equals(author)).ToList();
+
+        foreach (Cheep cheep in cheeps)
         {
             _context.Cheeps.Remove(cheep);
         }
+
         _context.SaveChanges();
     }
 

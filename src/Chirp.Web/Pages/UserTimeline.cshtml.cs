@@ -27,7 +27,7 @@ public class UserTimelineModel : PageModel
 
     public ActionResult OnPostFollow(string author)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.CreateFollow(User.Identity.Name, author);
         }
@@ -37,7 +37,7 @@ public class UserTimelineModel : PageModel
 
     public ActionResult OnPostUnfollow(string author)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (FollowRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             FollowRepository.DeleteFollow(User.Identity.Name, author);
         }
@@ -47,7 +47,7 @@ public class UserTimelineModel : PageModel
 
     public ActionResult OnPost(string text)
     {
-        if (User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
+        if (CheepRepository != null && User.Identity != null && User.Identity.Name != null && User.Identity.IsAuthenticated)
         {
             Text = text;
             CheepRepository.CreateCheep(new CheepDTO(User.Identity.Name, Text, Utility.GetTimeStamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds())));
@@ -60,7 +60,7 @@ public class UserTimelineModel : PageModel
     {
         CurrentPage = page;
 
-        if (CheepRepository != null)
+        if (CheepRepository != null && FollowRepository != null)
         {
             IEnumerable<string> followings = await FollowRepository.GetFollowingsAsync(author);
             int cheepCount = await CheepRepository.GetUserTimelineCheepCountAsync(author, followings);
