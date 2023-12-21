@@ -40,7 +40,7 @@ Above is the general architecture of the Chirp application shown as layers in an
 
 ![Illustration of the architechture of the deployed Chirp application.](diagrams/DeployedDiagram.png)
 
-The Client communicates to the azure server and requests and sends datato its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
+The Client communicates to the azure server by requesting and sending data to its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
 
 ## User activities
 
