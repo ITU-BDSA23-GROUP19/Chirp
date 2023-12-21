@@ -11,7 +11,7 @@ numbersections: true
 ---
 
 #
-  
+
 ![Chirp logo](images/chirpLogo.png)
 
 <div style="font-size: 35px; font-weight: bold; margin-left: 3cm; margin-bottom: 1cm;"> <span class='title'>Chirp! Project Report</span></div>
@@ -32,8 +32,6 @@ numbersections: true
 </div>
 
 <div style="page-break-after: always;"></div>
-
-
 
 # Introduction
 
@@ -131,7 +129,7 @@ The deploy workflow packages the application and uploads the artifacts, which ge
 
 ## Team work
 
-![Illustration of the project board.](images/ProjectBoardDiagram.png) 
+![Illustration of the project board.](images/ProjectBoard.png)
 
 The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The Playwright issue was made before the decision to, due to the time until deadline, simply use integration tests instead.
 
