@@ -12,7 +12,7 @@ numbersections: true
 
 # Introduction
 
-This report gives an overview of the work behind the Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters: Design and Architecture, Process, and Ethics.
+This report gives an overview of the work behind the Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is shown mostly through various diagrams in the following sections.
 
 # Design and Architecture of _Chirp!_
 
