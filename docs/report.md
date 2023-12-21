@@ -12,7 +12,7 @@ numbersections: true
 
 # Introduction
 
-This report gives an overview of the work behind the Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters Design and Architecture, Process, and Ethics.
+This report gives an overview of the work behind the Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters: Design and Architecture, Process, and Ethics.
 
 # Design and Architecture of _Chirp!_
 
@@ -26,7 +26,7 @@ In the general domain model, we do not go into the specifics of how the razor pa
 
 ![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](diagrams/RazorPages.png)
 
-To zoom in on one of the important parts of our program we have created an ER-diagram of how the Author, Cheep and Follow classes are related. This is shown below.
+To zoom in on one of the important parts of our program, we have created an ER-diagram of how the Author, Cheep and Follow classes are related. This is shown below.
 
 ![ER-diagram of the relations between Author, Cheep and Follow classes](diagrams/ERDiagram.png)
 
@@ -44,7 +44,7 @@ The Client communicates with the Azure server by requesting and sending data to 
 
 ## User activities
 
-When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user stays at Public Timelines.
+When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user can click on a cheep's author and go to their private timeline or they can click on the public timeline in the navigation.
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
