@@ -40,21 +40,21 @@ Above is the general architecture of the Chirp application shown as layers in an
 
 ![Illustration of the architechture of the deployed Chirp application.](diagrams/DeployedDiagram.png)
 
-The Client communicates to the azure server by requesting and sending data to its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
+The Client communicates with the Azure server by requesting and sending data to its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
 
 ## User activities
 
-When the program starts, the user will be in the public timeline as a guest. Here the user have two different choices of what they can do: Login/Register or change page. Login/Register takes the user to the same page, here the user can sign in via Github or just with their Email. When changing page the user stays at Public Timelines.
+When the program starts, the user will be in the public timeline as a guest. Here the user has two  choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user stays at Public Timelines.
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
-When authorized the user starts in the public timeline, from here they can interact with the navigation tab and main page below. In the navigation tab the user can move to their own timeline, see their profile and logout. From their Profile they can see various information related to them being stored on the side and with the choice to delete all data about them and then log out. In the main page below, the user can see messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user follows the pressed user and if the user is following they can unfollow instead.
+When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. From their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user follows the pressed user and if the user is following they can unfollow instead.
 
 ![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to our application. The methods that are called are named, and tthe responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
+Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
 
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
@@ -96,9 +96,7 @@ Here are three diagrams representing each of our workflows: Build and Test, Rele
 
 ![All three activity diagrams](diagrams/AllWorkflowsActivityDiagram.png)
 
-Illustrate with a UML activity diagram how your Chirp! applications are build, tested, released, and deployed. That is, illustrate the flow of activities in your respective GitHub Actions workflows.
-
-Describe the illustration briefly, i.e., how your application is built, tested, released, and deployed.
+Automatic build, test, release and deployment have been created using GitHub Action Workflows
 
 ## Team work
 
