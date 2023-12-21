@@ -48,13 +48,13 @@ When the program starts, the user will be in the public timeline as a guest. Her
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
-When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. From their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user follows the pressed user and if the user is following they can unfollow instead.
+When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. From their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see the messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the pressed user and if the user is following, they can unfollow instead.
 
 ![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
+Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
 
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
@@ -78,7 +78,7 @@ When deleting an account, the user merely gets removed from all three separate r
 
 #### Improper Redirects
 
-In terms of user experience, when choosing to follow and unfollow a given user, the original user will always be redirected back to the first page of cheeps. This is a minor detail, but for regular user usage with enough repetitions, it might cause more annoyance. Should the user try to follow multiple people based on their cheeps from a given webpage, they would have to go back, and find the original cheep of user again.
+In terms of user experience, when choosing to follow and unfollow a given user, the original user will always be redirected back to the first page of cheeps. This is a minor detail, but for regular usage with enough repetitions, it might cause frustration. Should the user try to follow multiple people based on their cheeps from a given webpage, they would have to go back, and find the original page of the original cheep of the specific user again.
 
 #### Time and Place for User Authentication
 
@@ -100,7 +100,11 @@ Automatic build, test, release and deployment have been created using GitHub Act
 
 ## Team work
 
-![Illustration of the project board.](diagrams/ProjectBoardDiagram.png) The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The Playwright issue was made before the decision to, due to the time until deadline, simply use integration tests instead.
+## Team work
+
+![Illustration of the project board.](diagrams/ProjectBoardDiagram.png) 
+
+The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The Playwright issue was made before the decision to, due to the time until deadline, simply use integration tests instead.
 
 ![Illustration of the issue workflow.](diagrams/IssueWorkflow.png)
 
@@ -162,13 +166,13 @@ This is a brief overview of what kinds of test we have in our test suites and wh
 
 When running the test suite locally, it should be highlighted that some test will fail. They all are regarding the timestamp of cheeps. The reason they fail is that the strings differ in terms of timestamps, i.e. the expected string is "... 13:15:25", but the actual value is "...13.15.25". We have made the decision to keep these, since changing them will cause the tests to fail on GitHub instead. We have prioritized the tests on GitHub, rather than the local testing.
 
-####Chirp.Core.Tests
+#### Chirp.Core.Tests
 
 The Chirp.Core tests consists of unit tests. The unit tests are for the creation of the AuthorDTO and CheepDTO objects. The AuthorDTO tests checks whether or not it is possible to create an AuthorDTO object, and the CheepDTO tests checks similarly if it is possible to create a CheepDTO.
 
 #### Chirp.Infrastructure.Tests
 
-The Chirp.Infrastructure tests consist unit tests matching AuthorRepository, CheepRepository and FollowRepository tests. Each repository gets tested for whether the repositories function as intended. For example, for the AuthorRepository, it tests whether or not it is possible to create the repository itself, to find an existing Author in the repository, that you can't have Authors of the same name, to create or delete an Author in the repository, and to find a non-existing Author in repository.
+The Chirp.Infrastructure tests consist of unit tests matching AuthorRepository, CheepRepository and FollowRepository tests. Each repository gets tested for whether the repositories function as intended. For example, for the AuthorRepository, it tests whether or not it is possible to create the repository itself, to find an existing Author in the repository, that you can't have Authors of the same name, to create or delete an Author in the repository, and to find a non-existing Author in repository.
 
 #### Chirp.Web.Tests
 
