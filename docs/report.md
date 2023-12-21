@@ -94,7 +94,7 @@ Currently when a Cheep is posted, it only checks whether or not the cheep is wit
 
 Here are three diagrams representing each of our workflows: Build and Test, Release, and Deploy.
 
-![All three activity diagrams](diagrams/AllWorkflowsActivityDiagram.png)
+![All three activity diagrams](diagrams/ReleaseActivityDiagram.png)
 
 Automatic builds, tests, releases and deploys have been created using GitHub Action Workflows. The build and test workflow ensures that the code runs properly according to the tests we have setup, whenever a push or merge to the main branch occurs. To make the deployment and release of the application more resilient to errors, testing should also have been added to those workflows such that they would not run in case a test failed, thus indicating something is wrong with the code.
 
