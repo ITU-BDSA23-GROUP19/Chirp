@@ -12,13 +12,13 @@ numbersections: true
 
 # Introduction
 
-This is a report gives an overview of the work behind our Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters Design and Architecture, Process, and Ethics.
+This report gives an overview of the work behind the Chirp application made by Group 19 in terms of the final project. This is related to the course Analysis, Design, and Software Architecture during Autumn 2023, with the course code BSANDSA1KU. This overview is given through the chapters Design and Architecture, Process, and Ethics.
 
 # Design and Architecture of _Chirp!_
 
 ## Domain model
 
-Below is a domain model of our Chirp application. All classes are shown and an overview of how they interact with each other.
+Below is a domain model of our Chirp application. All classes are shown and there is an overview of how they interact with each other.
 
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
