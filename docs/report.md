@@ -20,6 +20,8 @@ This report gives an overview of the work behind the Chirp application made by G
 
 Below is a domain model of our Chirp application. All classes are shown and there is an overview of how they interact with each other.
 
+Cheep/Cheeping is what posting on this website is called.
+
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
 In the general domain model, we do not go into the specifics of how the razor pages are set up and reference each other. That is however shown in detail in the model below. Methods and fields are added as well.
@@ -48,7 +50,7 @@ When the program starts, the user will be in the public timeline as a guest. Her
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
-When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. From their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see the messages of themselves and others, Cheep (Post) new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the pressed user and if the user is following, they can unfollow instead.
+When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. In their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see the messages of themselves and others, cheep new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the pressed user and if the user is following a user, they can unfollow instead.
 
 ![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
 
