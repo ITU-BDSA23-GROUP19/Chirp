@@ -26,7 +26,7 @@ In the general domain model, we do not go into the specifics of how the razor pa
 
 ![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](diagrams/RazorPages.png)
 
-To zoom in on one of the important parts of our program we have created an ER-diagram of how the Author, Cheep and Follow class are related. This is shown below.
+To zoom in on one of the important parts of our program we have created an ER-diagram of how the Author, Cheep and Follow classes are related. This is shown below.
 
 ![ER-diagram of the relations between Author, Cheep and Follow classes](diagrams/ERDiagram.png)
 
