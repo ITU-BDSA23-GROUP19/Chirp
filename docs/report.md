@@ -52,7 +52,7 @@ When authorized, the user starts in the public timeline. From here they can inte
 
 ![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
 
-## Sequence of functionality/calls trough _Chirp!_
+## Sequence of functionality/calls through _Chirp!_
 
 Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
 
