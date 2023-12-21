@@ -12,7 +12,7 @@ numbersections: true
 
 #
   
-![Chirp logo](diagrams/chirpLogo.png)
+![Chirp logo](images/chirpLogo.png)
 
 <div style="font-size: 35px; font-weight: bold; margin-left: 3cm; margin-bottom: 1cm;"> <span class='title'>Chirp! Project Report</span></div>
 
@@ -47,25 +47,25 @@ Below is a domain model of our Chirp application. All classes are shown and ther
 
 A cheep is what a post in our program is called, and posting is called cheeping.
 
-![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
+![Illustration of the _Chirp!_ data model as UML class diagram.](images/domainModel.png)
 
 In the general domain model, we do not go into the specifics of how the razor pages are set up and reference each other. That is however shown in detail in the model below. Methods and fields are added as well.
 
-![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](diagrams/RazorPages.png)
+![Illustration of the razor pages in the _Chirp!_ data model as a modified class diagram](images/RazorPages.png)
 
 To zoom in on one of the important parts of our program, we have created an ER-diagram of how the Author, Cheep and Follow classes are related. This is shown below.
 
-![ER-diagram of the relations between Author, Cheep and Follow classes](diagrams/ERDiagram.png)
+![ER-diagram of the relations between Author, Cheep and Follow classes](images/ERDiagram.png)
 
 ## Architecture — In the small
 
-![Illustration of the _Chirp!_ architecture through onion architecture.](diagrams/onionArchitechture.png)
+![Illustration of the _Chirp!_ architecture through onion architecture.](images/onionArchitechture.png)
 
 Above is the general architecture of the Chirp application shown as layers in the onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
 
 ## Architecture of deployed application
 
-![Illustration of the architechture of the deployed Chirp application.](diagrams/DeployedDiagram.png)
+![Illustration of the architechture of the deployed Chirp application.](images/DeployedDiagram.png)
 
 The Client communicates with the Azure server by requesting and sending data to its database. When Logging in or registering a user, the server will use a third party software via its Tenant.
 
@@ -73,17 +73,17 @@ The Client communicates with the Azure server by requesting and sending data to 
 
 When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user can click on a cheep's author and go to their private timeline or they can click on the public timeline in the navigation.
 
-![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
+![Activity Diagram over the User journey for the non-authorized Webpage.](images/Non-Authorized.png)
 
 When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. In their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see the messages of themselves and others, cheep new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the pressed user and if the user is following a user, they can unfollow instead.
 
-![Activity Diagram over the User journey for the authorized Webpage.](diagrams/Authorized.png)
+![Activity Diagram over the User journey for the authorized Webpage.](images/Authorized.png)
 
 ## Sequence of functionality/calls through _Chirp!_
 
 Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow, the fully rendered webpage is returned to the user and the Public Timeline-page is shown.
 
-![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
+![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](images/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
 
@@ -121,7 +121,7 @@ Currently when a Cheep is posted, it only checks whether or not the cheep is wit
 
 Here are three diagrams representing each of our workflows: Build and Test, Release, and Deploy.
 
-![All three activity diagrams](diagrams/ReleaseActivityDiagram.png)
+![All three activity diagrams](images/ReleaseActivityDiagram.png)
 
 Automatic builds, tests, releases and deploys have been created using GitHub Action Workflows. The build and test workflow ensures that the code runs properly according to the tests we have setup, whenever a push or merge to the main branch occurs. To make the deployment and release of the application more resilient to errors, testing should also have been added to those workflows such that they would not run in case a test failed, thus indicating something is wrong with the code.
 
@@ -131,11 +131,11 @@ The deploy workflow packages the application and uploads the artifacts, which ge
 
 ## Team work
 
-![Illustration of the project board.](diagrams/ProjectBoardDiagram.png) 
+![Illustration of the project board.](images/ProjectBoardDiagram.png) 
 
 The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The Playwright issue was made before the decision to, due to the time until deadline, simply use integration tests instead.
 
-![Illustration of the issue workflow.](diagrams/IssueWorkflow.png)
+![Illustration of the issue workflow.](images/IssueWorkflow.png)
 
 Our typical flow when it comes to adding new features, was to first write an issue. If the feature was from our weekly project work, we would base the description and acceptance criteria on that. We then added the issue to the project board and when someone started working on the issue, they assigned themselves to it and moved it to "In Progress".
 
