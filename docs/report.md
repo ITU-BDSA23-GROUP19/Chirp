@@ -86,7 +86,7 @@ This is more of a situational bug, and as such, only something noticeable when a
 
 #### Errors of Cheeping
 
-Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and there is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an if-else statement, that displays an error messages when either scenario takes place.
+Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and it is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an if-else statement, that displays an error messages when either scenario takes place.
 
 # Process
 
