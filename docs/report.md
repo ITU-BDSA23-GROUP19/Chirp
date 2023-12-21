@@ -44,7 +44,7 @@ The Client communicates with the Azure server by requesting and sending data to 
 
 ## User activities
 
-When the program starts, the user will be in the public timeline as a guest. Here the user has two  choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user stays at Public Timelines.
+When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user stays at Public Timelines.
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](diagrams/Non-Authorized.png)
 
