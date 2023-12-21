@@ -59,7 +59,7 @@ To zoom in on one of the important parts of our program, we have created an ER-d
 
 ![Illustration of the _Chirp!_ architecture through onion architecture.](images/onionArchitechture.png)
 
-Above is the general architecture of the Chirp application shown as layers in the onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
+Above is the general architecture of the Chirp application shown as layers in the onion structure. Here, four layers are shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
 
 ## Architecture of deployed application
 
@@ -69,17 +69,17 @@ The Client communicates with the Azure server by requesting and sending data to 
 
 ## User activities
 
-When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page, here the user can sign in or up via Github or just with their Email. When changing the page, the user can click on a cheep's author and go to their private timeline or they can click on the public timeline in the navigation.
+When the program starts, the user will be in the public timeline as a guest. Here the user has two choices: clicking on Login/Register or changing the page. Login/Register takes the user to the same page. Here, the user can sign in or up via Github or just with their Email. When changing the page, the user can click on a cheep's author and go to their private timeline, or they can click on the public timeline in the navigation.
 
 ![Activity Diagram over the User journey for the non-authorized Webpage.](images/Non-Authorized.png)
 
-When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. In their Profile, they can see what information related to them is being stored and they can choose to delete all data about them and then log out. In the main page below, the user can see the messages of themselves and others, cheep new messages and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the pressed user and if the user is following a user, they can unfollow instead.
+When authorized, the user starts in the public timeline. From here they can interact with the navigation tab and main page below. In the navigation tab, the user can move to their own timeline, see their profile and logout. In their Profile, they can see that the information related to them is being stored, and they can choose to delete all data about them, in turn logging them out. In the main page below, the user can see the messages of themselves and others, cheep new messages, and follow/unfollow other users. The cheep will only post if its amount of characters is between 1-160, otherwise it throws an error (\* currently the program doesn't catch this error, so it crashes instead). When pressing follow, the user will follow the user. If the user is already following a user, they can unfollow instead.
 
 ![Activity Diagram over the User journey for the authorized Webpage.](images/Authorized.png)
 
 ## Sequence of functionality/calls through _Chirp!_
 
-Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow, the fully rendered webpage is returned to the user and the Public Timeline-page is shown.
+Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request, to see our website, to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow, the fully rendered webpage is returned to the user and the Public Timeline-page is shown.
 
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](images/ChirpUMLSequence.png)
 
@@ -89,11 +89,11 @@ While we have been able to incorporate most of Chirps intended features, we find
 
 ### Viewable Profiles
 
-It remains that the user will only be able to see the profile of themself. When a user clicks on another user's name, the user will simply be redirected to the private timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
+It remains that the user will only be able to see their own profile. When a user clicks on another user's name, the user will simply be redirected to the private timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to a usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the preference of the individual.
 
 ### Ability to See Information Kept By Chirp
 
-As of now, the user information is displayed under Profile -> My Information section for a user that is logged in. However, it is not explicitly stated that this is the data kept by Chirp itself. This omitted transparency does not give the user a clear indication that this information is saved and used. In hindsight, this would be changed to be explicitly stated within the My Information box, and thus conform to GDPR regulations.
+As of now, the user information is displayed under the Profile -> My Information section for a user that is logged in. However, it is not explicitly stated that this is the data kept by Chirp itself. This omitted transparency does not give the user a clear indication that this information is saved and used. In hindsight, this would be changed to be explicitly stated within the My Information box, and thus conform to GDPR regulations.
 
 ### Forget Me Feature
 
@@ -111,7 +111,7 @@ This is more of a situational bug, and as such, only something noticeable when a
 
 #### Errors of Cheeping
 
-Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and it is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an if-else statement, that displays an error messages when either scenario takes place.
+Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and it is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an a try-catch, that displays an error messages when either scenario takes place.
 
 # Process
 
@@ -131,7 +131,7 @@ The deploy workflow packages the application and uploads the artifacts, which ge
 
 ![Illustration of the project board.](images/ProjectBoard.png)
 
-The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The Playwright issue was made before the decision to, due to the time until deadline, simply use integration tests instead.
+The tasks that are still unresolved is handling the proper redirection when following/unfollowing a user. This has been discussed in the Missing Features & Bugs chapter under the Improper Redirects section. The remaining issues are features also highlighted in the Missing Features & Bugs chapter.
 
 ![Illustration of the issue workflow.](images/IssueWorkflow.png)
 
@@ -139,7 +139,7 @@ Our typical flow when it comes to adding new features, was to first write an iss
 
 Then it came to the implementation itself. We would usually be two or three people working together after we learned about pair programming. How long this took varied greatly. When we had problems, we would frequently look up guides or consult a TA. When the feature was finished, we would always make sure that it worked locally before pushing it to main.
 
-Our commit graph is not equal but there can be several different reasons for this, such as a member being sick or spending a lot of time working on Azure, especially because we ran out of credits and had to do it again. The frequency at which each person commits also varies, as some people commit a lot while working on a feature, while others do it less, so that also has an influence.
+Our commit graph is not equal but there are several different reasons for this, such as a member being sick or spending a lot of time working on Azure, especially because we ran out of credits and had to do it again. The frequency at which each person commits also varies, as some people committed a lot while working on a feature, while others have done it sparingly. As a result, it is evident that we should have focused on trying to compromise on commit-styles, and working between different platforms (e.g. coding or Azure). Usually, we'd discuss the implementation and Azure in depth afterwards, such that everyone gained an understanding of the feature/implementation, which is not taken into account in the commit graphs.
 
 ## How to make _Chirp!_ work locally
 
