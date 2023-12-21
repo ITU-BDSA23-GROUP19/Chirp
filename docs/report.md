@@ -1,6 +1,6 @@
 ---
-title: _Chirp!_ Project Report
-subtitle: ITU BDSA 2023 Group 19,
+title: "_Chirp!_ Project Report"
+subtitle: "ITU BDSA 2023 Group 19"
 author:
   - "Annabell Philip Nørdam <apno@itu.dk>"
   - "Eva Afzelius <evaf@itu.dk>"
@@ -9,6 +9,31 @@ author:
   - "Simon Benjamin Sander Rasmussen <besr@itu.dk>"
 numbersections: true
 ---
+
+#
+  
+![Chirp logo](diagrams/chirpLogo.png)
+
+<div style="font-size: 35px; font-weight: bold; margin-left: 3cm; margin-bottom: 1cm;"> <span class='title'>Chirp! Project Report</span></div>
+
+<div style="font-size: 22px; margin-left: 4.3cm; margin-bottom: 4cm;"> <span class='subtitle'>ITU BDSA 2023 Group 19</span></div>
+
+<div style="font-size: 14px;">
+   <span class='subtitle'>
+   Authors:
+<ul>
+<li>Annabell Philip Nørdam: apno@itu.dk </li>
+<li>Eva Afzelius: evaf@itu.dk </li>
+<li>Patrick Handberg Jessen: patj@itu.dk </li>
+<li>Rebekka Mia Pahus Pedersen: rebp@itu.dk </li>
+<li>Simon Benjamin Sander Rasmussen: besr@itu.dk </li>
+      </ul>
+  </span>
+</div>
+
+<div style="page-break-after: always;"></div>
+
+
 
 # Introduction
 
