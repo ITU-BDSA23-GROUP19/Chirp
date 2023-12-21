@@ -34,7 +34,7 @@ To zoom in on one of the important parts of our program we have created an ER-di
 
 ![Illustration of the _Chirp!_ architecture through onion architecture.](diagrams/onionArchitechture.png)
 
-Above is the general architecture of the Chirp application shown as layers in an onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
+Above is the general architecture of the Chirp application shown as layers in the onion structure. Here is four layers shown although our code only reflects three. We have detached a part of the Infrastructure layer and shown it as the Model layer. This is because our code effectively works this way - there are no dependencies going from the Model layer to the Infrastructure layer, and thus the dependency rule of the onion architecture is upheld.
 
 ## Architecture of deployed application
 
