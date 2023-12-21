@@ -56,17 +56,17 @@ When authorized, the user starts in the public timeline. From here they can inte
 
 ## Sequence of functionality/calls through _Chirp!_
 
-Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow the fully rendered webpage is returned to the user and the Public Timeline is shown.
+Below is a UML sequence diagram that illustrates the flow of messages when a user sends an HTTP request to see our website to our application. The methods that are called are named, and the responses are shown as well. At the end of the flow, the fully rendered webpage is returned to the user and the Public Timeline-page is shown.
 
 ![Illustration of the _Chirp!_ the process of going onto the website as a UML sequence diagram.](diagrams/ChirpUMLSequence.png)
 
 ## Missing Features & Bugs
 
-While we have been able to incorporate most of Chirps intended features, we find it important to highlight its missing elements and the bugs that remain.
+While we have been able to incorporate most of Chirps intended features, we find it important to highlight its missing elements, the bugs that remain and when there is room for interpretation.
 
 ### Viewable Profiles
 
-It remains that the user will only be able to see the profile of themself. If the user wants to view another user's profile, the user will simply be redirected to the timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
+It remains that the user will only be able to see the profile of themself. When a user clicks on another user's name, the user will simply be redirected to the private timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
 
 ### Ability to See Information Kept By Chirp
 
