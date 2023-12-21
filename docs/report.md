@@ -20,7 +20,7 @@ This report gives an overview of the work behind the Chirp application made by G
 
 Below is a domain model of our Chirp application. All classes are shown and there is an overview of how they interact with each other.
 
-A cheep is what posting in our program is called.
+A cheep is what a post in our program is called, and posting is called cheeping.
 
 ![Illustration of the _Chirp!_ data model as UML class diagram.](diagrams/domainModel.png)
 
