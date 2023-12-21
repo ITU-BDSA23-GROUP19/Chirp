@@ -64,7 +64,7 @@ While we have been able to incorporate most of Chirps intended features, we find
 
 ### Viewable Profiles
 
-It remains that the Profile a given user has is only viewable by the user themself. If the user wants to view another user's profile, the user will simply be redirected to the timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
+It remains that the user will only be able to see the profile of themself. If the user wants to view another user's profile, the user will simply be redirected to the timeline of the given user. As such, when entering a users profile, it looks almost identical to the timeline page, with the exception of the Followers and Following information. This is a bit atypical to the usual profile page, which usually has more customization (e.g. profile pictures, a status, etc.). It remains that a separate user profile does exist, but whether or not it fits the criteria of a normal profile is up to the individual.
 
 ### Ability to See Information Kept By Chirp
 
@@ -86,7 +86,7 @@ This is more of a situational bug, and as such, only something noticeable when a
 
 #### Errors of Cheeping
 
-Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and there is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an if-else statement, that displays an error messages when either scenario takes place.
+Currently when a Cheep is posted, it only checks whether or not the cheep is within the correct parameters, i.e. there is text and it is below 160 characters. However, when posting an empty cheep, or a cheep that exceeds the character limit, the website crashes. To combat this issue, we'd implement an if-else statement, that displays an error messages when either scenario takes place.
 
 # Process
 
