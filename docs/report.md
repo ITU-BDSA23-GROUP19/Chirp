@@ -96,7 +96,7 @@ Here are three diagrams representing each of our workflows: Build and Test, Rele
 
 ![All three activity diagrams](diagrams/AllWorkflowsActivityDiagram.png)
 
-Automatic build, test, release and deploy have been created using GitHub Action Workflows. The build and test workflow ensures that the code runs properly according to the tests we have setup, whenever a push or merge to the main branch occur. To make the deployment and release of the application more resilient to errors, testing should also have been added to those workflows such that they would not run in case a test failed, thus indicating something is wrong with the code.
+Automatic builds, tests, releases and deploys have been created using GitHub Action Workflows. The build and test workflow ensures that the code runs properly according to the tests we have setup, whenever a push or merge to the main branch occurs. To make the deployment and release of the application more resilient to errors, testing should also have been added to those workflows such that they would not run in case a test failed, thus indicating something is wrong with the code.
 
 The release workflow packages the application into zip files for MacOS, MacOS Arm, Windows and Linux and releases them on GitHub whenever a publish is started.
 
